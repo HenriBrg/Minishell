@@ -6,12 +6,11 @@
 /*   By: henri <henri@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 19:19:11 by henri             #+#    #+#             */
-/*   Updated: 2019/12/19 21:25:05 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/18 21:51:52 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft.h"
-#include <stdio.h>
 
 double	ft_atod(const char *str)
 {

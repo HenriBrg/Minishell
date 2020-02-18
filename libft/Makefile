@@ -19,8 +19,11 @@ SRCS =  src/str/ft_strcmp.c  src/str/ft_strncmp.c src/str/ft_strcat.c		   \
 																			   \
 		src/conversion/ft_atoi.c src/conversion/ft_itoa.c					   \
 		src/conversion/ft_itoa_base.c src/conversion/ft_intmaxt_toa_base.c	   \
-		src/conversion/ft_uintmaxt_toa_base.c src/conversion/ft_atod.c
-
+		src/conversion/ft_uintmaxt_toa_base.c src/conversion/ft_atod.c		   \
+																			   \
+		src/btree/btree_apply_infix.c  src/btree/btree_apply_suffix.c		   \
+		src/btree/btree_insert_data.c src/btree/btree_apply_prefix.c		   \
+		src/btree/btree_create_node.c  src/btree/btree_search_item.c
 
 OBJS = ${SRCS:.c=.o}
 

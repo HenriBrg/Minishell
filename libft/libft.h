@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 17:17:16 by hberger           #+#    #+#             */
-/*   Updated: 2019/12/17 16:16:27 by henri            ###   ########.fr       */
+/*   Updated: 2020/02/18 21:58:47 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,26 @@ typedef struct	s_list
 	void				*content;
 	struct s_list		*next;
 }				t_list;
+
+typedef struct	s_btree
+{
+	struct s_btree		*left;
+	struct s_btree		*right;
+	void				*item;
+}				t_btree;
+
+/*
+** Fonctions de btree
+*/
+
+t_btree			*btree_create_node(void *item);
+void			*btree_search_item(t_btree *root, void *data_ref,
+	int (*cmpf)(void *, void *));
+void			btree_insert_data(t_btree **root, void *item,
+	int (*cmpf)(void *, void *));
+void			btree_apply_suffix(t_btree *root, void (*applyf)(void *));
+void			btree_apply_prefix(t_btree *root, void (*applyf)(void *));
+void			btree_apply_infix(t_btree *root, void (*applyf)(void *));
 
 /*
 ** Fonctions de conversion

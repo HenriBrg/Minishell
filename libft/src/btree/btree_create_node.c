@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strslen.c                                       :+:      :+:    :+:   */
+/*   btree_create_node.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: henri <henri@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/17 16:13:27 by henri             #+#    #+#             */
-/*   Updated: 2020/02/18 21:50:32 by hberger          ###   ########.fr       */
+/*   Created: 2019/06/27 00:40:17 by hberger           #+#    #+#             */
+/*   Updated: 2020/02/18 21:51:58 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft.h"
 
-int		ft_strslen(char **strs)
+t_btree		*btree_create_node(void *item)
 {
-	int	i;
+	t_btree *node;
 
-	i = 0;
-	while (strs[i] != 0)
-		i++;
-	return (i);
+	if ((node = malloc((sizeof(t_btree)))) == NULL)
+		return (NULL);
+	node->left = NULL;
+	node->right = NULL;
+	node->item = item;
+	return (node);
 }
