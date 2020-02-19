@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:16:51 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/19 17:21:06 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/19 18:10:39 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 ** - s'il n'est pas vide
 ** - si la longueur est supérieure à 0
 ** - s'il n'y a que des espaces / tab ...
+*/
+
+/*
+** UPDT : full espace re affiche le prompt
+** En gros ici il faut coder la gestion des comportement que l'on a pas a gerer
 */
 
 int		inputcontrol(char *input)
