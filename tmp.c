@@ -1,35 +1,40 @@
 # include <sys/types.h>
 # include <stdio.h>
+# include <unistd.h>
+# include <sys/wait.h>
 
-int    executables(char **cmds, char *path)
+/*
+** executables() intervient lorsqu'une commande shell autre qu'un des builtins
+** est demandée
+** 1 - On contrôle qu'on a accès aux path avec access (aka echo $PATH)
+** 2 - On ouvre un processus fils dans le quel sera exécuté avec execv()
+**     la commande demandée
+** 3 - Si le fork réussi, on wait la fin du processus fils (à approfondir)
+*/
+
+int    executables(char **av)
 {
   pid_t pid;
-  char *exec;
-  struct stat s;
 
-  exec = 0;
-  if ((exec = check(cmds, &s, path, exec)) == 0)
-    return (-1);
   pid = fork();
   if (pid == 0)
-    execv(exec, cmds);
+  {
+	  printf("executing...\n");
+	  printf("%s\n", av[0]);
+	  execv("/bin/ls", av);
+  }
   else if (pid < 0)
   {
-    ft_putstr("Fork Failed\n");
+    printf("Fork Failed\n");
     return (-1);
   }
   wait(&pid);
   return (0);
 }
 
-int main()
+
+int main(int ac, char **av)
 {
-	pid_t pid;
-    char *exec;
-    struct stat s;
-
-	pid = fork();
-	if (pid == 0)
-	  execv();
-
+	executables(av);
+	return 0;
 }
