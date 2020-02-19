@@ -12,7 +12,7 @@
 ** 3 - Si le fork réussi, on wait la fin du processus fils (à approfondir)
 */
 
-int    executables(char **av)
+int    executables(char *str, char **av)
 {
   pid_t pid;
 
@@ -20,8 +20,8 @@ int    executables(char **av)
   if (pid == 0)
   {
 	  printf("executing...\n");
-	  printf("%s\n", av[0]);
-	  execv("/bin/ls", av);
+	  //printf("%s\n", av[0]);
+	  execv(str, av);
   }
   else if (pid < 0)
   {
@@ -35,6 +35,8 @@ int    executables(char **av)
 
 int main(int ac, char **av)
 {
-	executables(av);
+	executables("/usr/bin/cd", av);
+	executables("/bin/ls", av);
+
 	return 0;
 }
