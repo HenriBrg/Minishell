@@ -1,0 +1,8 @@
+- Review chaque fonction
+- Re integrer les builtins
+- Poser sur papier comment on fera avec l'AST
+
+Faut-il gerer :
+- les alias ?
+- les / et \
+- MAKELEVEL=1 injection

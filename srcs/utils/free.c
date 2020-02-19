@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/18 19:06:53 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/19 17:19:18 by hberger          ###   ########.fr       */
+/*   Created: 2020/02/19 17:01:02 by hberger           #+#    #+#             */
+/*   Updated: 2020/02/19 17:08:58 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../../inc/minishell.h"
 
-# include "../libft/libft.h"
+void		lstclear(t_list *lst)
+{
+	t_list	*current;
+	t_list	*next;
 
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <signal.h>
-# include <stdio.h>
-
-
-/*
-** utils/
-*/
-
-char		*getvar(t_list *envar, char *name);
-t_list		*lstenv(char **env);
-void		lstclear(t_list *lst);
-int			inputcontrol(char *input);
-
-#endif
+	if (lst == 0)
+		return ;
+	current = lst;
+	while (current != NULL)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
+	lst = NULL;
+}

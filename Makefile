@@ -6,7 +6,7 @@
 #    By: hberger <hberger@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/18 19:03:18 by hberger           #+#    #+#              #
-#    Updated: 2020/02/18 20:22:42 by hberger          ###   ########.fr        #
+#    Updated: 2020/02/19 17:19:30 by hberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,15 +14,15 @@ NAME = minishell
 
 FLAGS = -Wall -Wextra -Werror
 
-SRCS = srcs/main.c
+SRCS = srcs/main.c srcs/utils/env.c srcs/utils/free.c srcs/utils/input.c
 
 OBJS = ${SRCS:.c=.o}
 
 HEADER = -I ./inc/
 
-ifndef VERBOSE
-.SILENT:
-endif
+# ifndef VERBOSE
+# .SILENT:
+# endif
 
 all: $(NAME)
 
@@ -31,8 +31,10 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C libft
-
 	gcc $(FLAGS) $(SRCS) -o $(NAME) -L. libft/libft.a
+
+run: $(NAME)
+	./minishell
 
 clean:
 	make clean -C libft
