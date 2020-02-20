@@ -25,8 +25,8 @@ typedef struct			s_strlist
 
 typedef struct			s_command
 {
-	char				*command;
-	int					stdout_type;
+	char				**args;
+	int					out_type;
 	char				*out;
 	char				*in;
 }						t_command;
