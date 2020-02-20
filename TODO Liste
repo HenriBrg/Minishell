@@ -14,3 +14,12 @@ Faut-il gerer :
 [%*] %d > 'e'"c"""'''h'""'o' coucou Henri
 coucou Henri
 [%*] %d >
+
+---
+TODO perso vendredi
+
+integrer pipe et executable
+gerer sigaux
+gerer le $?
+full testing
+comprendre bien chaque fonction et pipe chevrons

@@ -67,5 +67,10 @@ t_strlist				*ft_supersplit(char *string, char **separators,
 
 void		pushbackenvar(char *name, char *value, t_envar *envar);
 void		namevaluefilter(char *cmd, char **name, char **value);
+void		builtinpwd(t_envar *envar);
+void		cd(char **cmds, t_envar *envar);
+void		builtinecho(char **cmds, t_envar *envar);
+void		builtinpwd(t_envar *envar);
+void		builtinexit(char **cmds);
 
 #endif

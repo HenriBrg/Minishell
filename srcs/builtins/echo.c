@@ -6,18 +6,11 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 18:11:47 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/20 21:52:17 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/20 23:51:28 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-/* TODO
-** ~ v9 > echo ls > tmp
-** ~ v9 > sh < tmp
-** Makefile	libft		srcs
-** includes	minishell	tmp
-*/
 
 /*
 ** echo() print chaque argument séparé d'un espace
