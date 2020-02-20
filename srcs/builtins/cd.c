@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 20:58:19 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/19 23:16:19 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/20 15:45:59 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 ** switchdir() verifie la destination puis change de dossier
 */
 
-int		switchdir(char **cmds, char *dest)
+int			switchdir(char **cmds, char *dest)
 {
-	int i;
+	int		i;
 
 	i = chdir(dest);
 	if (i == 0) // SET EXIT FAILURE VALUE (global variable)
@@ -52,23 +52,23 @@ int		switchdir(char **cmds, char *dest)
 **
 */
 
-void	move(char **cmds, char *dest)
+void		move(char **cmds, char *dest)
 {
-	char	*tmp;
+	char	*currentworkdir;
 	char	buf[PATH_MAX - 1];
 	char	*exportation;
 	char	**exportcmds;
 
-	tmp = getcwd(buf, PATH_MAX - 1);
+	currentworkdir = getcwd(buf, PATH_MAX - 1);
 	if (dest == 0 || switchdir(cmds, dest) == -1)
 		return ;
-	exportation = ft_strjoin("export OLDPWD=", tmp);
+	exportation = ft_strjoin("export OLDPWD=", currentworkdir);
 	exportcmds = ft_strsplit(exportation, " ");
 	// CALL EXPORT BUILTIN
 	free(exportation);
 	ft_strsfree(exportcmds);
-	tmp = getcwd(buf, PATH_MAX - 1);
-	exportation = ft_strjoin("export PWD=", tmp);
+	currentworkdir = getcwd(buf, PATH_MAX - 1);
+	exportation = ft_strjoin("export PWD=", currentworkdir);
 	exportcmds = ft_split(exportation, ' ');
 	// CALL EXPORT BUILTIN
 	free(exportation);
@@ -89,23 +89,23 @@ void	move(char **cmds, char *dest)
 char	*getdest(char **cmds, t_list *envar)
 {
 	if (cmds[1] == 0)
-		return (getvar("HOME"));
+		return (getvar(envar, "HOME"));
 	if (cmds[1][0] == '-' && cmds[1][1] == 0)
 	{
-		ft_putendl_fd(getvar("OLDPWD"), 1);
-		return (getvar("OLDPWD"));
+		ft_putendl_fd(getvar(envar, "OLDPWD"), 1);
+		return (getvar(envar, "OLDPWD"));
 	}
 	if (cmds[1][0] == '-' && cmds[1][1] == '/')
 	{
-		ft_putendl_fd(getvar("OLDPWD"), 1);
-		return (ft_strjoin(getvar("OLDPWD"), cmds[1] + 1));
+		ft_putendl_fd(getvar(envar, "OLDPWD"), 1);
+		return (ft_strjoin(getvar(envar, "OLDPWD"), cmds[1] + 1));
 	}
 	if (cmds[1][0] == '~' && cmds[1][1] == 0)
-		return (getvar("HOME"));
+		return (getvar(envar, "HOME"));
 	if (cmds[1][0] == '~' && cmds[1][1] == '/')
-		return (ft_strjoin(getvar("HOME"), cmds[1] + 1));
+		return (ft_strjoin(getvar(envar, "HOME"), cmds[1] + 1));
 	if (ft_strncmp(cmds[1], "$HOME") == 0)
-		return (getvar("HOME"));
+		return (getvar(envar, "HOME"));
 	return (cmds[1]);
 }
 

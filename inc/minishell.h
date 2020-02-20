@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 19:06:53 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/19 23:05:53 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/20 16:22:40 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,14 @@
 # include <stdio.h>
 
 # define PATH_MAX 4096
+
+typedef struct		s_envar
+{
+	char			*name;
+	char			*value;
+	struct s_env	*next;
+}					t_envar;
+
 
 /*
 ** utils/
