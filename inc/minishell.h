@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 19:06:53 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/20 18:38:21 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/20 21:38:30 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,6 @@
 
 # define PATH_MAX 4096
 
-typedef struct		s_lstcmds
-{
-	int				position;
-	char			*from;
-	char			*out;
-	char			**tabs;
-
-	struct s_env	*next;
-}					t_lstcmds;
-
-
 typedef struct		s_envar
 {
 	char			*name;
@@ -40,15 +29,13 @@ typedef struct		s_envar
 	struct s_env	*next;
 }					t_envar;
 
-// extern int exitvalue = 0;
-
 /*
 ** utils/
 */
 
-char		*getvar(t_list *envar, char *name);
-t_list		*lstenv(char **env);
-void		lstclear(t_list *lst);
+char		*getvar(t_envar *envar, char *name);
+t_envar		*lstenv(char **env);
+void		lstclear(t_envar *lst);
 int			inputcontrol(char *input);
 int			strcmpcasei(char *s1, char *s2);
 

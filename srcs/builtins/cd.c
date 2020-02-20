@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 20:58:19 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/20 15:45:59 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/20 20:48:07 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ int			switchdir(char **cmds, char *dest)
 ** En cas de réussite buf est renvoyé.
 ** NULL en cas d'échec, avec errno contenant le code d'erreur.
 ** Le contenu de la chaîne pointée par buf est indéfini en cas d'erreur.
-**
 ** TODO : errno
-** 4096 = MAX PATH
-**
 */
 
 void		move(char **cmds, char *dest)
@@ -65,12 +62,14 @@ void		move(char **cmds, char *dest)
 	exportation = ft_strjoin("export OLDPWD=", currentworkdir);
 	exportcmds = ft_strsplit(exportation, " ");
 	// CALL EXPORT BUILTIN
+	// Leaks to handle
 	free(exportation);
 	ft_strsfree(exportcmds);
 	currentworkdir = getcwd(buf, PATH_MAX - 1);
 	exportation = ft_strjoin("export PWD=", currentworkdir);
 	exportcmds = ft_split(exportation, ' ');
 	// CALL EXPORT BUILTIN
+	// Leaks to handle
 	free(exportation);
 	ft_strsfree(exportcmds);
 }
@@ -86,7 +85,7 @@ void		move(char **cmds, char *dest)
 ** TODO : Gérer le cd $VAR d'environnement ?
 */
 
-char	*getdest(char **cmds, t_list *envar)
+char	*getdest(char **cmds, t_envar *envar)
 {
 	if (cmds[1] == 0)
 		return (getvar(envar, "HOME"));
@@ -99,11 +98,13 @@ char	*getdest(char **cmds, t_list *envar)
 	{
 		ft_putendl_fd(getvar(envar, "OLDPWD"), 1);
 		return (ft_strjoin(getvar(envar, "OLDPWD"), cmds[1] + 1));
+		// Leaks to handle
 	}
 	if (cmds[1][0] == '~' && cmds[1][1] == 0)
 		return (getvar(envar, "HOME"));
 	if (cmds[1][0] == '~' && cmds[1][1] == '/')
 		return (ft_strjoin(getvar(envar, "HOME"), cmds[1] + 1));
+		// Leaks to handle
 	if (ft_strncmp(cmds[1], "$HOME") == 0)
 		return (getvar(envar, "HOME"));
 	return (cmds[1]);
@@ -114,7 +115,7 @@ char	*getdest(char **cmds, t_list *envar)
 ** 2) On bouge
 */
 
-void	cd(char **cmds, t_list *envar)
+void	cd(char **cmds, t_envar *envar)
 {
 	char	*dest;
 

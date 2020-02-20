@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 18:11:47 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/20 19:12:11 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/20 20:18:20 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,65 +32,39 @@ int		is_n_option(int i, char **cmd_tab)
 	return (1);
 }
 
-/*
-** no_option_n()
-**
-** NB :
-** echo a b c -n l'option doit se situer avant les arguments donc
-** else if (i > 1)
-**    return (0);
-*/
-
-int		nflag(char **cmds)
-{
-	int i;
-
-	i = 0;
-	while (cmds[++i])
-	{
-		if (is_n_option(i, cmds))
-			return (0);
-		else if (i > 1)
-			return (1);
-	}
-	return (1);
-}
-
 /* TODO
-
-~ v9 > echo ls > tmp
-~ v9 > sh < tmp
-Makefile	libft		srcs
-includes	minishell	tmp
-
+** ~ v9 > echo ls > tmp
+** ~ v9 > sh < tmp
+** Makefile	libft		srcs
+** includes	minishell	tmp
 */
 
 /*
 ** echo() print chaque argument séparé d'un espace
 ** puis un \n sauf si flag -n
 ** echo -n -n n'affiche rien
-** i = 0 car on saute le "echo"
-**
-** TODO : gerer $value
 */
 
 void	builtinecho(char **cmds, t_envar *envar)
 {
 	int		i;
-	char	**args;
+	int		nflag;
+	char	*tmp;
 
-	i = 0;
 	if (cmds[1] == 0)
 		return (ft_putstr("\n"));
-	while (args[++i])
+	i = 0;
+	nflag = 1;
+	while (ft_strcmp(cmds[++i], "-n") == 0)
+		nflag = 0;
+	while (cmds[++i])
 	{
-		if (ft_strlen(args[i]) == 0 || is_n_option(i, args))
-			continue ;
-		else if (i > 1 && !is_n_option(i - 1, args))
-			write(1, " ", 1);
-		write(1, args[i], ft_strlen(args[i]));
+		tmp = cmds[i];
+		if (cmds[i][0] == '$')
+			tmp = getvar(envar, cmds[i]);
+		write(1, tmp, ft_strlen(tmp));
+		write(1, " ", 1);
 	}
-	write(1, "\n", nflag(args));
-	ft_free_str_tab(args);
+	write(1, "\n", nflag);
 	// REMEMBER $?
 }

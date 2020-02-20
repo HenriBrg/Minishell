@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:48:11 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/20 18:01:29 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/20 21:38:14 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** puis on pushbackenvar()
 */
 
-void		pushenv(char **cmds, t_list *envar)
+void		pushenv(char **cmds, t_envar *envar)
 {
 	int		i;
 	char	*name;
@@ -51,7 +51,7 @@ void		pushenv(char **cmds, t_list *envar)
 ** Affiche chaque variable d'environnement
 */
 
-void		printenv(t_list *envar)
+void		printenv(t_envar *envar)
 {
 	t_envar	*current;
 
@@ -74,11 +74,11 @@ void		printenv(t_list *envar)
 ** Quasiment identique à un lst remove if ()
 */
 
-void		removevar(char *name, t_list *envar)
+void		removevar(char *name, t_envar *envar)
 {
-	t_list *next;
-	t_list *current;
-	t_list *previous;
+	t_envar *next;
+	t_envar *current;
+	t_envar *previous;
 
 	current = envar;
 	previous = envar;
@@ -103,7 +103,7 @@ void		removevar(char *name, t_list *envar)
 ** On start à cmds[1] pour jump le 1er argument
 */
 
-void		popenv(char **cmds, t_list *envar)
+void		popenv(char **cmds, t_envar *envar)
 {
 	int		i;
 
@@ -127,10 +127,10 @@ void		popenv(char **cmds, t_list *envar)
 ** Rajouter le case insensitive
 */
 
-void	builtinsenv(char **cmds, t_list *envar)
+void	builtinsenv(char **cmds, t_envar *envar)
 {
 	if (strcmpcasei(cmds[0], "env"))
-		printenv();
+		printenv(envar);
 	else if (strcmpcasei(cmds[0], "export"))
 		pushenv(cmds);
 	else if (strcmpcasei(cmds[0], "unset"))
