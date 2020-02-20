@@ -6,7 +6,7 @@
 #    By: hberger <hberger@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/18 19:03:18 by hberger           #+#    #+#              #
-#    Updated: 2020/02/20 03:21:33 by macasubo         ###   ########.fr        #
+#    Updated: 2020/02/20 05:17:05 by macasubo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ run: $(NAME)
 
 clean:
 	make clean -C libft
-	rm -f srcs/*.o
+	rm -f $(OBJS)
 
 fclean: clean
 	make fclean -C libft

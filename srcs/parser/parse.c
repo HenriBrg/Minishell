@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 18:10:59 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/20 01:52:01 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/02/20 05:06:18 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int				parse(char *input)
 
 	// avant : verifier le format de la ligne
 	pipe_list = ft_supersplit(input, separators1, 1, "");
+	// apres : pour chaque maillon faire un split et l'envoyer dans un tableau
+	// de structures, puis free la liste chainee
 
 	while (pipe_list)
 	{
