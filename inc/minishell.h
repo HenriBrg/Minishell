@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 19:06:53 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/20 03:17:59 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/02/20 20:08:04 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ typedef struct			s_strlist
 
 typedef struct			s_command
 {
-	char				*command;
-	int					stdout_type;
+	char				**args;
+	int					out_type;
 	char				*out;
 	char				*in;
 }						t_command;

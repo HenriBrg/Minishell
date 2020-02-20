@@ -126,7 +126,8 @@ static void		check_separator(t_envsplit *env)
 		len_sep = ft_strlen(env->separators[j]);
 		if (ft_strncmp(env->string + env->index, env->separators[j], len_sep) == 0)
 		{
-			addback(&(env->list), env->string, env->index);
+			if (env->index > 0)
+				addback(&(env->list), env->string, env->index);
 			if (env->inclusion)
 				addback(&(env->list), env->string + env->index, len_sep);
 			env->string += env->index + len_sep;
