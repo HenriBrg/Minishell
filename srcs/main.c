@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/19 18:55:49 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/19 20:35:25 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 void		prompt(t_list *envar)
 {
+	(void)envar;
 	ft_putstr("------> ");
 }
 
@@ -30,7 +31,7 @@ int			main(int ac, char **av, char **env)
 	(void)av;
 	if (ac != 1 || (envar = lstenv(env)) == 0)
 		return (-1);
-	listen()
+	//listen();
 	while (42)
 	{
 		prompt(envar);
