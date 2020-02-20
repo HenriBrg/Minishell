@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 19:06:53 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/20 16:22:40 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/20 16:55:30 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char		*getvar(t_list *envar, char *name);
 t_list		*lstenv(char **env);
 void		lstclear(t_list *lst);
 int			inputcontrol(char *input);
+int			strcmpcasei(char *s1, char *s2);
 
 /*
 ** parse/
