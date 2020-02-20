@@ -6,7 +6,7 @@
 #    By: hberger <hberger@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/18 19:03:18 by hberger           #+#    #+#              #
-#    Updated: 2020/02/19 18:17:08 by hberger          ###   ########.fr        #
+#    Updated: 2020/02/20 05:17:05 by macasubo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = minishell
 FLAGS = -Wall -Wextra -Werror
 
 SRCS = srcs/main.c srcs/utils/env.c srcs/utils/free.c srcs/utils/input.c	   \
-	   srcs/parse/parse.c
+	   srcs/parser/parse.c srcs/parser/ft_supersplit.c srcs/utils/errors.c
 
 OBJS = ${SRCS:.c=.o}
 
@@ -39,7 +39,7 @@ run: $(NAME)
 
 clean:
 	make clean -C libft
-	rm -f srcs/*.o
+	rm -f $(OBJS)
 
 fclean: clean
 	make fclean -C libft

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/18 19:06:53 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/20 21:38:30 by hberger          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -29,6 +17,31 @@ typedef struct		s_envar
 	struct s_env	*next;
 }					t_envar;
 
+typedef struct			s_strlist
+{
+	char				*str;
+	struct s_strlist	*next;
+}						t_strlist;
+
+typedef struct			s_command
+{
+	char				*command;
+	int					stdout_type;
+	char				*out;
+	char				*in;
+}						t_command;
+
+typedef struct			s_envsplit
+{
+	char				*string;
+	char				**separators;
+	int					inclusion;
+	char				*trim;
+	int					index;
+	char				quotes[3];
+	t_strlist			*list;
+}						t_envsplit;
+
 /*
 ** utils/
 */
@@ -43,6 +56,8 @@ int			strcmpcasei(char *s1, char *s2);
 ** parse/
 */
 
-int			parse(char *input);
+int						parse(char *input);
+t_strlist				*ft_supersplit(char *string, char **separators,
+										int inclusion, char *trim);
 
 #endif
