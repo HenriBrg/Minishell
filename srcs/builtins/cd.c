@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 20:58:19 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/20 21:42:08 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/20 21:51:49 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int			switchdir(char **cmds, char *dest)
 		else
 			ft_putstr("not a directory: ");
 		if (cmds[1])
-			ft_putendl_fd(cmds[1]);
+			ft_putendl_fd(cmds[1], 1);
 		else
-			ft_putendl_fd(dest);
+			ft_putendl_fd(dest, 1);
 		// SET EXIT FAILURE VALUE (global variable)
 		return (0);
 	}
@@ -67,7 +67,7 @@ void		move(char **cmds, char *dest)
 	ft_strsfree(exportcmds);
 	currentworkdir = getcwd(buf, PATH_MAX - 1);
 	exportation = ft_strjoin("export PWD=", currentworkdir);
-	exportcmds = ft_split(exportation, ' ');
+	exportcmds = ft_strsplit(exportation, " ");
 	// CALL EXPORT BUILTIN
 	// Leaks to handle
 	free(exportation);
@@ -105,7 +105,7 @@ char	*getdest(char **cmds, t_envar *envar)
 	if (cmds[1][0] == '~' && cmds[1][1] == '/')
 		return (ft_strjoin(getvar(envar, "HOME"), cmds[1] + 1));
 		// Leaks to handle
-	if (ft_strncmp(cmds[1], "$HOME") == 0)
+	if (ft_strncmp(cmds[1], "$HOME", 5) == 0)
 		return (getvar(envar, "HOME"));
 	return (cmds[1]);
 }
@@ -120,5 +120,5 @@ void	cd(char **cmds, t_envar *envar)
 	char	*dest;
 
 	dest = getdest(cmds, envar);
-	move(cmds, path);
+	move(cmds, dest);
 }

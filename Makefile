@@ -6,7 +6,7 @@
 #    By: hberger <hberger@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/18 19:03:18 by hberger           #+#    #+#              #
-#    Updated: 2020/02/20 05:17:05 by macasubo         ###   ########.fr        #
+#    Updated: 2020/02/20 21:48:45 by hberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,9 @@ NAME = minishell
 FLAGS = -Wall -Wextra -Werror
 
 SRCS = srcs/main.c srcs/utils/env.c srcs/utils/free.c srcs/utils/input.c	   \
-	   srcs/parser/parse.c srcs/parser/ft_supersplit.c srcs/utils/errors.c
+	   srcs/parser/parse.c srcs/parser/ft_supersplit.c srcs/utils/errors.c     \
+	   srcs/builtins/cd.c srcs/builtins/echo.c srcs/builtins/env1.c			   \
+	   srcs/builtins/env2.c
 
 OBJS = ${SRCS:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/19 20:35:25 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/02/20 21:44:43 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Ajouter le path ...
 */
 
-void		prompt(t_list *envar)
+void		prompt(t_envar *envar)
 {
 	(void)envar;
 	ft_putstr("------> ");
@@ -25,7 +25,7 @@ void		prompt(t_list *envar)
 int			main(int ac, char **av, char **env)
 {
 	char	*input;
-	t_list	*envar;
+	t_envar	*envar;
 
 	(void)ac;
 	(void)av;

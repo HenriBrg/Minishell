@@ -14,7 +14,7 @@ typedef struct		s_envar
 {
 	char			*name;
 	char			*value;
-	struct s_env	*next;
+	struct s_envar	*next;
 }					t_envar;
 
 typedef struct			s_strlist
@@ -51,6 +51,7 @@ t_envar		*lstenv(char **env);
 void		lstclear(t_envar *lst);
 int			inputcontrol(char *input);
 int			strcmpcasei(char *s1, char *s2);
+void		handle_error(char *message);
 
 /*
 ** parse/
@@ -59,5 +60,12 @@ int			strcmpcasei(char *s1, char *s2);
 int						parse(char *input);
 t_strlist				*ft_supersplit(char *string, char **separators,
 										int inclusion, char *trim);
+
+/*
+** bultins/
+*/
+
+void		pushbackenvar(char *name, char *value, t_envar *envar);
+void		namevaluefilter(char *cmd, char **name, char **value);
 
 #endif

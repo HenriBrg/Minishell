@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:48:11 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/20 21:42:06 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/20 21:55:32 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		pushenv(char **cmds, t_envar *envar)
 	{
 		if (cmds[i][0] == '=')
 		{
-			ft_putstr("minishell: export: `", cmds[i]);
+			ft_putstr("minishell: export: `");
 			ft_putstr(cmds[i]);
 			ft_putstr("': not a valid identifier\n");
 			// REMEMBER $?
@@ -85,7 +85,7 @@ void		removevar(char *name, t_envar *envar)
 	while (current)
 	{
 		next = current->next;
-		if (ft_strcmp(current->name, arg) ||
+		if (ft_strcmp(current->name, name) ||
 		(*name == '$' && ft_strcmp(current->name, name + 1)))
 		{
 			envar = (current == envar) ? next : envar;
@@ -112,7 +112,7 @@ void		popenv(char **cmds, t_envar *envar)
 	{
 		if (ft_strchr(cmds[i], '='))
 		{
-			ft_putstr("minishell: unset: `", cmds[i]);
+			ft_putstr("minishell: unset: `");
 			ft_putstr(cmds[i]);
 			ft_putstr("': not a valid identifier\n");
 			// REMEMBER $?
@@ -132,7 +132,7 @@ void	builtinsenv(char **cmds, t_envar *envar)
 	if (strcmpcasei(cmds[0], "env"))
 		printenv(envar);
 	else if (strcmpcasei(cmds[0], "export"))
-		pushenv(cmds);
+		pushenv(cmds, envar);
 	else if (strcmpcasei(cmds[0], "unset"))
-		popenv(cmds);
+		popenv(cmds, envar);
 }

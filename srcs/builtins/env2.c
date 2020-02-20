@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 17:57:36 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/20 17:57:46 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/20 21:58:15 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** Autrement, on malloc puis on la positionne en fin de liste
 */
 
-void		pushbackenvar(char *name, char *value, t_list *envar)
+void		pushbackenvar(char *name, char *value, t_envar *envar)
 {
 	t_envar	*new;
 	t_envar	*current;
@@ -57,9 +57,9 @@ void		namevaluefilter(char *cmd, char **name, char **value)
 
 	tmp = ft_strrchr(cmd, '=');
 	i = (tmp) ? cmd - tmp : ft_strlen(cmd);
-	name = ft_strndup(cmd, i);
+	*name = ft_strndup(cmd, i);
 	if (tmp)
-		*value = ft_strdup(cmd + ft_strlen(name) + 1);
+		*value = ft_strdup(cmd + ft_strlen(*name) + 1);
 	else
 		*value = 0;
 }

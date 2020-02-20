@@ -6,31 +6,11 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 18:11:47 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/20 21:42:03 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/20 21:52:17 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-int		is_n_option(int i, char **cmd_tab)
-{
-	int	j;
-	int	k;
-
-	j = 0;
-	while (++j <= i)
-	{
-		if (!ft_str_start_with(cmd_tab[j], "-n"))
-			return (0);
-		k = 1;
-		while (cmd_tab[j][++k])
-		{
-			if (cmd_tab[j][k] != 'n')
-				return (0);
-		}
-	}
-	return (1);
-}
 
 /* TODO
 ** ~ v9 > echo ls > tmp
