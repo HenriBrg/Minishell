@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/21 18:00:08 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/21 19:37:54 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int			main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
+	envar = NULL;
+	input = NULL;
 	if (ac != 1 || (envar = lstenv(env)) == 0)
 		return (-1);
 	//listen();
