@@ -6,15 +6,33 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 23:52:46 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/21 00:58:39 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/21 15:45:22 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 /*
+** Retourne 1 si le string n'est composé QUE de chiffre
+*/
+
+int		strisdigit(char *cmd)
+{
+	int	i;
+
+	i = -1;
+	while (cmd[++i])
+		if (ft_isdigit(cmd[i]) == 0)
+			return (0);
+	return (1);
+}
+
+/*
 ** exit() peut prendre un argument qui donnera la valeur d'exit
-** Faut-il gerer les leaks sur un exit ?
+** 2nd if() --> exit(255) comme dans bash si argument non numerique
+** Si ret > 255, la valeur d'exit = modulo 256
+** https://unix.stackexchange.com/questions/418784/what-is-the-min-and-
+** max-values-of-exit-codes-in-linux
 */
 
 void	builtinexit(char **cmds)
@@ -22,25 +40,21 @@ void	builtinexit(char **cmds)
 	int	ret;
 
 	ft_putstr("exit\n");
-	if (cmds == 0)
-		exit(EXIT_SUCCESS);
 	if (ft_strslen(cmds) == 1)
 		exit(EXIT_SUCCESS);
-	if (ft_strslen(cmds) == 2 && ft_isdigit(cmds[1][0]) == 0)
+	if (ft_strslen(cmds) >= 2 && (strisdigit(cmds[1]) == 0 && cmds[1][0] != '-'))
 	{
-		ft_putstr("exit: \n");
 		ft_putstr(cmds[1]);
 		ft_putstr(": numeric argument required\n");
-		exit(EXIT_FAILURE);
+		exit(255);
 	}
 	ret = ft_atoi(cmds[1]);
-	if (ft_strslen(cmds) > 2)
+	if (ft_strslen(cmds) >= 3)
 	{
-		ft_putstr("exit\n");
 		ft_putstr("exit: too many arguments\n");
 		exit(EXIT_FAILURE);
 	}
-	// exit(EXIT_FAILURE);
-	// Est-ce qu'on exit quand meme si trop d'argument ?
-	// Est ce qu'un exit peut fail ?
+	if (ret > 255)
+		ret = ret % 256;
+	exit(ret);
 }

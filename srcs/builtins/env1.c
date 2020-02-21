@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:48:11 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/20 21:55:32 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/21 17:23:07 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** puis on pushbackenvar()
 */
 
-void		pushenv(char **cmds, t_envar *envar)
+void		exportenvar(char **cmds, t_envar *envar)
 {
 	int		i;
 	char	*name;
@@ -33,7 +33,7 @@ void		pushenv(char **cmds, t_envar *envar)
 			ft_putstr("minishell: export: `");
 			ft_putstr(cmds[i]);
 			ft_putstr("': not a valid identifier\n");
-			// REMEMBER $?
+			// REMEMBER $? EXPORT FAILURE
 			return ;
 		}
 		else if (cmds[i][0])
@@ -41,10 +41,10 @@ void		pushenv(char **cmds, t_envar *envar)
 			namevaluefilter(cmds[i], &name, &value);
 			if (name)
 				pushbackenvar(name, value, envar);
+			sortenvar(envar);
 		}
 	}
-	// Erreur d'export ?
-	// REMEMBER $?
+	// REMEMBER $? EXPORT SUCCESS
 }
 
 /*
@@ -103,12 +103,12 @@ void		removevar(char *name, t_envar *envar)
 ** On start à cmds[1] pour jump le 1er argument
 */
 
-void		popenv(char **cmds, t_envar *envar)
+void		unsetenvar(char **cmds, t_envar *envar)
 {
 	int		i;
 
-	i = 0;
-	while (cmds[++i])
+	i = 1;
+	while (cmds[i])
 	{
 		if (ft_strchr(cmds[i], '='))
 		{
@@ -120,6 +120,7 @@ void		popenv(char **cmds, t_envar *envar)
 		else
 			removevar(cmds[i], envar);
 			// REMEMBER $?
+		i++;
 	}
 }
 
@@ -132,7 +133,7 @@ void	builtinsenv(char **cmds, t_envar *envar)
 	if (strcmpcasei(cmds[0], "env"))
 		printenv(envar);
 	else if (strcmpcasei(cmds[0], "export"))
-		pushenv(cmds, envar);
+		exportenvar(cmds, envar);
 	else if (strcmpcasei(cmds[0], "unset"))
-		popenv(cmds, envar);
+		unsetenvar(cmds, envar);
 }

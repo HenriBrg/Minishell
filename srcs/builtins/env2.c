@@ -6,11 +6,53 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 17:57:36 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/20 21:58:15 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/21 17:19:04 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+void	swapenvar(t_envar *current, t_envar *next)
+{
+	char *tmpname;
+	char *tmpvalue;
+
+	tmpname = ft_strdup(current->name);
+	free(current->name);
+	current->name = ft_strdup(next->name);
+	tmpvalue = ft_strdup(current->value);
+	free(current->value);
+	current->value = ft_strdup(next->value);
+	free(next->name);
+	current->next->name = ft_strdup(tmpname);
+	free(tmpname);
+	free(next->value);
+	current->next->value = ft_strdup(tmpvalue);
+	free(tmpvalue);
+}
+
+/*
+** Trie par valeur ASCII les variables d'ENV (exportées aussi)
+*/
+
+void	sortenvar(t_envar *envar)
+{
+	t_envar	*current1;
+	t_envar	*current2;
+
+	current1 = envar;
+	while (current1)
+	{
+		current2 = envar;
+		while (current2)
+		{
+			if (current2->next && ft_strcmp(current2->name, current2->next->name) > 0)
+				swapenvar(current2, current2->next);
+			current2 = current2->next;
+		}
+		current1 = current1->next;
+	}
+}
 
 /*
 ** On change la valeur si la variable existe deja
@@ -25,7 +67,7 @@ void		pushbackenvar(char *name, char *value, t_envar *envar)
 	current = envar;
 	while (current)
 	{
-		if (ft_strcmp(current->name, name))
+		if (ft_strcmp(current->name, name) == 0)
 		{
 			free(current->value);
 			current->value = ft_strdup(value);
@@ -55,8 +97,8 @@ void		namevaluefilter(char *cmd, char **name, char **value)
 	size_t		i;
 	char		*tmp;
 
-	tmp = ft_strrchr(cmd, '=');
-	i = (tmp) ? cmd - tmp : ft_strlen(cmd);
+	tmp = ft_strchr(cmd, '=');
+	i = (tmp) ?  tmp - cmd : ft_strlen(cmd);
 	*name = ft_strndup(cmd, i);
 	if (tmp)
 		*value = ft_strdup(cmd + ft_strlen(*name) + 1);

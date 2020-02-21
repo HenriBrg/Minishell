@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 20:58:19 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/20 21:51:49 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/21 15:20:44 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,11 @@ char	*getdest(char **cmds, t_envar *envar)
 ** 2) On bouge
 */
 
-void	cd(char **cmds, t_envar *envar)
+void	builtincd(char **cmds, t_envar *envar)
 {
 	char	*dest;
 
 	dest = getdest(cmds, envar);
 	move(cmds, dest);
+	printf("cd called\n");
 }

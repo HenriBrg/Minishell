@@ -10,12 +10,14 @@
 
 # define PATH_MAX 4096
 
-typedef struct		s_envar
+int						g_exitvalue;
+
+typedef struct			s_envar
 {
-	char			*name;
-	char			*value;
-	struct s_envar	*next;
-}					t_envar;
+	char				*name;
+	char				*value;
+	struct s_envar		*next;
+}						t_envar;
 
 typedef struct			s_strlist
 {
@@ -46,12 +48,12 @@ typedef struct			s_envsplit
 ** utils/
 */
 
-char		*getvar(t_envar *envar, char *name);
-t_envar		*lstenv(char **env);
-void		lstclear(t_envar *lst);
-int			inputcontrol(char *input);
-int			strcmpcasei(char *s1, char *s2);
-void		handle_error(char *message);
+char					*getvar(t_envar *envar, char *name);
+t_envar					*lstenv(char **env);
+void					lstclear(t_envar *lst);
+int						inputcontrol(char *input);
+int						strcmpcasei(char *s1, char *s2);
+void					handle_error(char *message);
 
 /*
 ** parse/
@@ -72,5 +74,9 @@ void		cd(char **cmds, t_envar *envar);
 void		builtinecho(char **cmds, t_envar *envar);
 void		builtinpwd(t_envar *envar);
 void		builtinexit(char **cmds);
+void		builtinsenv(char **cmds, t_envar *envar);
+void		builtinpwd(t_envar *envar);
+void		builtincd(char **cmds, t_envar *envar);
+void		sortenvar(t_envar *envar);
 
 #endif
