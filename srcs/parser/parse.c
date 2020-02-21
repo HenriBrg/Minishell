@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 18:10:59 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/20 22:00:42 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/02/21 04:25:29 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,92 @@
 
 #include <stdio.h>
 
-/*static void			parse_redirections(t_strlist *command, t_command *supertab,
+static void			parse_redirections(t_strlist *command, t_command *supertab,
 											int n)
 {
-	
-}*/
+	t_strlist		*tmp;
+	int				in;
+	int				out;
+	int				len;
+	int				index;
+	char			**new_args;
+
+	supertab[n].out = NULL;
+	supertab[n].in = NULL;
+	in = 0;
+	out = 0;
+	while (command)
+	{
+		if (ft_strcmp(command->str, "<") == 0)
+		{
+			if (in != 0 || out != 0)
+				handle_error("bash: syntax error near unexpected token \'<\'");
+			in = 1;
+		}
+		else if (ft_strcmp(command->str, ">") == 0)
+		{
+			if (in != 0 || out != 0)
+				handle_error("bash: syntax error near unexpected token \'>\'");
+			out = 1;
+		}
+		else if (ft_strcmp(command->str, ">>") == 0)
+		{
+			if (in != 0 || out != 0)
+				handle_error("bash: syntax error near unexpected token \'>>\'");
+			out = 2;
+		}
+		else
+		{
+			if (in == 1)
+			{
+				addback(&(supertab[n].in), command->str,
+							ft_strlen(command->str), 0);
+				in = 0;
+			}
+			else if (out == 1)
+			{
+				addback(&(supertab[n].out), command->str,
+							ft_strlen(command->str), 1);
+				out = 0;
+			}
+			else if (out == 2)
+			{
+				addback(&(supertab[n].out), command->str,
+							ft_strlen(command->str), 2);
+				out = 0;
+			}
+			else
+			{
+				len = 0;
+				index = 0;
+				while (supertab[n].args[len])
+					len++;
+				if (!(new_args = malloc(sizeof(char *) * (len + 2))))
+					handle_error(NULL);
+				new_args[len + 1] = NULL;
+				while (supertab[n].args[index])
+				{
+					new_args[index] = ft_strdup(supertab[n].args[index]);
+					free(supertab[n].args[index]);
+					index++;
+				}
+				new_args[index] = ft_strdup(command->str);
+				free(supertab[n].args);
+				supertab[n].args = new_args;
+			}
+		}
+		tmp = command;
+		command = command->next;
+		free(tmp->str);
+		free(tmp);
+	}
+}
 
 static void			parse_args(t_strlist *command, t_command *supertab, int n)
 {
 	t_strlist		*args;
 	t_strlist		*tmp;
-	char			*separators[] = {" ", "\t", NULL};
+	char			*separators[] = {" ", NULL};
 	int				len;
 	int				i;
 
@@ -36,6 +111,7 @@ static void			parse_args(t_strlist *command, t_command *supertab, int n)
 		tmp = args;
 		while (tmp)
 		{
+			printf("tmp : %s\n", tmp->str);
 			len++;
 			tmp = tmp->next;
 		}
@@ -64,10 +140,12 @@ static t_command	*parse_commands(t_strlist **pipe_list)
 	t_command		*supertab;
 	t_strlist		*current;
 	t_strlist		*command;
-	char			*separators[] = {"<", ">", ">>", NULL};
+	char			*separators1[] = {">>", "<", ">", NULL};
+	char			*separators2[] = {">>", "<", ">", " ", NULL};
 	int				len;
 	int				n;
 	t_strlist		*tmp;
+	char			*new_string;
 
 	len = 0;
 	current = *pipe_list;
@@ -84,10 +162,18 @@ static t_command	*parse_commands(t_strlist **pipe_list)
 	while (current)
 	{
 		//printf("debug 1\n");
-		command = ft_supersplit(current->str, separators, 1, ""); // 2nd split
+		command = ft_supersplit(current->str, separators1, 0, ""); // 2nd split
 		parse_args(command, supertab, n); // commande splitee par chevrons
-		command = command->next;
-		//parse_redirections(command, supertab, n);
+		//tmp = command;
+		//command = command->next;
+		//free(tmp->str);
+		//free(tmp);
+		new_string = ft_strsub(current->str, ft_strlen(command->str),
+								ft_strlen(current->str) - ft_strlen(command->str));
+		printf("new string : %s\n", new_string);
+		// free all the tab (command)
+		command = ft_supersplit(new_string, separators2, 1, "");
+		parse_redirections(command, supertab, n);
 		tmp = current;
 		current = current->next;
 		free(tmp->str);
@@ -97,7 +183,7 @@ static t_command	*parse_commands(t_strlist **pipe_list)
 	return (supertab);
 }
 
-int					parse(char *input)
+t_command			*parse(char *input)
 {
 	char			*separators[] = {"|", NULL};
 	t_strlist		*pipe_list;
@@ -115,10 +201,23 @@ int					parse(char *input)
 	j = 0;
 	while (supertab[i].args)
 	{
+		printf("----- ARGS -----\n");
 		while (supertab[i].args[j])
 		{
 			printf("%s\n", supertab[i].args[j]);
 			j++;
+		}
+		printf("----- INS -----\n");
+		while (supertab[i].in)
+		{
+			printf("%s\n", supertab[i].in->str);
+			supertab[i].in = supertab[i].in->next;
+		}
+		printf("----- OUTS -----\n");
+		while (supertab[i].out)
+		{
+			printf("%s\n", supertab[i].out->str);
+			supertab[i].out = supertab[i].out->next;
 		}
 		printf("---------\n");
 		j = 0;
@@ -136,5 +235,5 @@ int					parse(char *input)
 		printf("%s\n", pipes[i]);
 		i++;
 	}*/
-	return (0);
+	return (supertab);
 }

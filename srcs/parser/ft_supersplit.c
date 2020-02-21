@@ -1,68 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_supersplit.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: macasubo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/21 01:44:19 by macasubo          #+#    #+#             */
+/*   Updated: 2020/02/21 04:20:21 by macasubo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
-#include <stdio.h>
-/*
-static void		rm_chars(char **str)
-{
-	int			simple_quote;
-	int			double_quote;
-	char		*s;
-	int			len;
-	int			index;
-
-	simple_quote = 0;
-	double_quote = 0;
-	len = ft_strlen(*str);
-	index = 0;
-	while (index < len)
-	{
-		if ((*str)[index] == '\'')
-		{
-			if (double_quote == 0 && !(index > 0 && (*str)[index - 1] == 0))
-			{
-				(*str)[index] = 0;
-				simple_quote = !simple_quote;
-			}
-			
-		}
-		else if ((*str)[index] == '\"')
-		{
-			if (simple_quote == 0 && !(index > 0 && (*str)[index - 1] == 0))
-			{
-				(*str)[index] = 0;
-				double_quote = !double_quote;
-			}
-		}
-		else if ((*str)[index] == '\\')
-		{
-			if (!(index > 0 && (*str)[index - 1] == 0))
-				(*str)[index] = 0;
-		}
-		index++;
-	}
-	index = 0;
-	while (len--)
-		if ((*str)[len] != 0)
-			index++;
-	if (!(s = malloc(sizeof(char) * (index + 1))))
-		return ; // handle error
-	len = 0;
-	while (index)
-	{
-		if (**str != 0)
-		{
-			s[len] = **str;
-			index--;
-			len++;
-		}
-		(*str)++;
-	}
-	s[len] = 0;
-	free(*str);
-	*str = s;
-}
-*/
-static void		addback(t_strlist **list, char *str, int n)
+void			addback(t_strlist **list, char *str, int n, int out_type)
 {
 	t_strlist	*new;
 	t_strlist	*current;
@@ -72,7 +22,7 @@ static void		addback(t_strlist **list, char *str, int n)
 	if (str)
 	{
 		new->str = ft_strsub(str, 0, n);
-		//rm_chars(&str);
+		new->out_type = out_type;
 	}
 	else
 		new->str = NULL;
@@ -119,17 +69,18 @@ static void		check_separator(t_envsplit *env)
 {
 	int			j;
 	int			len_sep;
-	
+
 	j = 0;
 	while (env->separators[j])
 	{
 		len_sep = ft_strlen(env->separators[j]);
-		if (ft_strncmp(env->string + env->index, env->separators[j], len_sep) == 0)
+		if (ft_strncmp(env->string + env->index, env->separators[j], len_sep)
+				== 0)
 		{
 			if (env->index > 0)
-				addback(&(env->list), env->string, env->index);
-			if (env->inclusion)
-				addback(&(env->list), env->string + env->index, len_sep);
+				addback(&(env->list), env->string, env->index, 0);
+			if (env->inclusion && env->separators[j][0] != ' ')
+				addback(&(env->list), env->string + env->index, len_sep, 0);
 			env->string += env->index + len_sep;
 			env->index = -1;
 			return ;
@@ -142,7 +93,7 @@ t_strlist		*ft_supersplit(char *string, char **separators, int inclusion
 								, char *trim)
 {
 	t_envsplit	env;
-	
+
 	if (!string || !separators)
 		return (NULL);
 	env.quotes[0] = 0;
@@ -161,7 +112,10 @@ t_strlist		*ft_supersplit(char *string, char **separators, int inclusion
 			check_separator(&env);
 		(env.index)++;
 	}
-	if (env.index != 0)
-		addback(&(env.list), env.string, env.index);
+	//printf("char sortie : %d, index : %d\n", string[env.index], env.index);
+	if (env.index != 0 && env.string[0] != 0)
+	{
+		addback(&(env.list), env.string, env.index, 0);
+	}
 	return (env.list);
 }

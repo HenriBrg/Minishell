@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/20 21:44:43 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/21 01:24:42 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ int			main(int ac, char **av, char **env)
 	{
 		prompt(envar);
 		get_next_line(0, &input);
-		if ((parse(input)) == -1)
-			return (-1);
+		parse(input);
 		free(input);
 		// execute ();
 	}
