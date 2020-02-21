@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:15 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/21 15:22:13 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/21 18:20:42 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,8 @@ t_envar		*lstnewenvar(char *envstr)
 
 /*
 ** getvar() retourne la valeur de la variable d'environnement demandée
-** en renvoyant un pointeur sur la valeur de la variable, donc on saute
-** la taille de son nom et le '=', avec return (env[i] + ft_strlen(name) + 1);
-** Les variables ajoutées temporairement, avec ou sans export, auront le $ en
-** 1er char
+** en renvoyant un pointeur sur la valeur de la variable
+** -----------> TODO ? getvar(envar, "$variable")
 */
 
 char		*getvar(t_envar *envar, char *name)

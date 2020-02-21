@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/21 16:07:54 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/21 18:00:08 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,6 @@ int		isbuiltin(char **cmds)
 
 int		executebuiltins(char **cmds, t_envar *envar)
 {
-	// i = 0;
-	// while (cmds[i])
-	// {
-	// 	printf("%s\n", cmds[i]);
-	// 	i++;
-	// }
-
 	if (strcmpcasei(cmds[0], "echo"))
 		builtinecho(cmds, envar);
 	else if (strcmpcasei(cmds[0], "cd"))

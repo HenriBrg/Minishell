@@ -78,5 +78,6 @@ void		builtinsenv(char **cmds, t_envar *envar);
 void		builtinpwd(t_envar *envar);
 void		builtincd(char **cmds, t_envar *envar);
 void		sortenvar(t_envar *envar);
+void		exportenvar(char **cmds, t_envar *envar);
 
 #endif

@@ -5,9 +5,9 @@ bash-3.2$ export var=cho
 bash-3.2$ e$var dd
 dd
 --------------------------------------------------------------------------------
-bash-3.2$ export aa=bb
-bash-3.2$ echo $(aa)
-bash: aa: command not found
+bash-3.2$ echo $($b)
+ExceptionCases Makefile TODO Liste inc libft minishell piperedir.c srcs
+bash-3.2$
 --------------------------------------------------------------------------------
 Faut il gerer les executable locals ? Et la recursion d'appel ./minishell
 --------------------------------------------------------------------------------
@@ -15,6 +15,6 @@ bash-3.2$ echo|cat -e
 $
 bash-3.2$
 --------------------------------------------------------------------------------
-Avant de parser, remplacer tous les $var ? sauf si \$
+Apres avoir parser, remplacer tous les $var ? sauf si \$
 --------------------------------------------------------------------------------
 Doit on gerer les ``

@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 20:58:19 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/21 15:20:44 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/21 18:25:02 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int			switchdir(char **cmds, char *dest)
 
 	i = chdir(dest);
 	if (i == 0) // SET EXIT FAILURE VALUE (global variable)
-		return (-1);
+		return (0);
 	else
 	{
 		ft_putstr("cd: ");
@@ -37,7 +37,7 @@ int			switchdir(char **cmds, char *dest)
 		else
 			ft_putendl_fd(dest, 1);
 		// SET EXIT FAILURE VALUE (global variable)
-		return (0);
+		return (-1);
 	}
 }
 
@@ -49,7 +49,7 @@ int			switchdir(char **cmds, char *dest)
 ** TODO : errno
 */
 
-void		move(char **cmds, char *dest)
+void		move(char **cmds, char *dest, t_envar *envar)
 {
 	char	*currentworkdir;
 	char	buf[PATH_MAX - 1];
@@ -61,15 +61,13 @@ void		move(char **cmds, char *dest)
 		return ;
 	exportation = ft_strjoin("export OLDPWD=", currentworkdir);
 	exportcmds = ft_strsplit(exportation, " ");
-	// CALL EXPORT BUILTIN
-	// Leaks to handle
+	exportenvar(exportcmds, envar);
 	free(exportation);
 	ft_strsfree(exportcmds);
 	currentworkdir = getcwd(buf, PATH_MAX - 1);
 	exportation = ft_strjoin("export PWD=", currentworkdir);
 	exportcmds = ft_strsplit(exportation, " ");
-	// CALL EXPORT BUILTIN
-	// Leaks to handle
+	exportenvar(exportcmds, envar);
 	free(exportation);
 	ft_strsfree(exportcmds);
 }
@@ -82,7 +80,7 @@ void		move(char **cmds, char *dest)
 ** Cas possible : 'cd -/[...]'
 ** Cas possible : 'cd ~/[...]'
 ** Cas possible : 'cd $HOME[...]'
-** TODO : Gérer le cd $VAR d'environnement ?
+** TO DO : cd $var ? sauf si deja remplace avant
 */
 
 char	*getdest(char **cmds, t_envar *envar)
@@ -120,6 +118,5 @@ void	builtincd(char **cmds, t_envar *envar)
 	char	*dest;
 
 	dest = getdest(cmds, envar);
-	move(cmds, dest);
-	printf("cd called\n");
+	move(cmds, dest, envar);
 }

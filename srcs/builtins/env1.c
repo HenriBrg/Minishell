@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:48:11 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/21 17:23:07 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/21 17:43:58 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,7 @@ void		removevar(char *name, t_envar *envar)
 	while (current)
 	{
 		next = current->next;
-		if (ft_strcmp(current->name, name) ||
-		(*name == '$' && ft_strcmp(current->name, name + 1)))
+		if (ft_strcmp(current->name, name) == 0)
 		{
 			envar = (current == envar) ? next : envar;
 			previous->next = next;
