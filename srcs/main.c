@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/22 14:30:59 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/22 16:22:27 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void		prompt(t_envar *envar)
 	(void)envar;
 	ft_putstr(getvar(envar, "PWD"));
 	ft_putstr("/ ------> ");
+	g_shellisrunning = 0;
 }
 
 /*
@@ -71,7 +72,8 @@ int			main(int ac, char **av, char **env)
 	input = NULL;
 	if (ac != 1 || (envar = lstenv(env)) == 0)
 		return (-1);
-	//listen();
+	// g_shellisrunning = 0;
+	// siglisten();
 	while (42)
 	{
 		prompt(envar);
@@ -80,13 +82,13 @@ int			main(int ac, char **av, char **env)
 		//	return (-1);
 
 		// tmp for test
+		g_shellisrunning = 1;
 		cmds = ft_strsplit(input, " ");
 		if (isbuiltin(cmds))
 			executebuiltins(cmds, envar);
 		else
 			executables(cmds, envar);
 		ft_strsfree(cmds);
-		// execute ();
 		free(input);
 	}
 	lstclear(envar);

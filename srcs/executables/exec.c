@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 18:29:47 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/22 14:30:39 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/22 14:48:37 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char			*checkconcatenate(char **cmds, struct stat *s, char *envpath)
 
 void			executables(char **cmds, t_envar *envar)
 {
+	int			ret;
 	int			wpid;
 	pid_t		pid;
 	char		*execpath;
@@ -64,7 +65,11 @@ void			executables(char **cmds, t_envar *envar)
 		return ;
 	pid = fork();
 	if (pid == 0)
-		exit(execv(execpath, cmds));
+	{
+		ret = execv(execpath, cmds);
+		free(execpath);
+		exit(ret);
+	}
 	else if (pid == -1)
 		exit(EXIT_FAILURE);
 	else

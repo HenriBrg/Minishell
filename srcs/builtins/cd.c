@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 20:58:19 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/21 18:25:02 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/22 15:13:13 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void		move(char **cmds, char *dest, t_envar *envar)
 ** Cas possible : 'cd -/[...]'
 ** Cas possible : 'cd ~/[...]'
 ** Cas possible : 'cd $HOME[...]'
-** TO DO : cd $var ? sauf si deja remplace avant
 */
 
 char	*getdest(char **cmds, t_envar *envar)
@@ -88,21 +87,13 @@ char	*getdest(char **cmds, t_envar *envar)
 	if (cmds[1] == 0)
 		return (getvar(envar, "HOME"));
 	if (cmds[1][0] == '-' && cmds[1][1] == 0)
-	{
-		ft_putendl_fd(getvar(envar, "OLDPWD"), 1);
 		return (getvar(envar, "OLDPWD"));
-	}
 	if (cmds[1][0] == '-' && cmds[1][1] == '/')
-	{
-		ft_putendl_fd(getvar(envar, "OLDPWD"), 1);
-		return (ft_strjoin(getvar(envar, "OLDPWD"), cmds[1] + 1));
-		// Leaks to handle
-	}
+		return (ft_strjoin(getvar(envar, "OLDPWD"), cmds[1] + 1)); // Leaks to handle
 	if (cmds[1][0] == '~' && cmds[1][1] == 0)
 		return (getvar(envar, "HOME"));
 	if (cmds[1][0] == '~' && cmds[1][1] == '/')
-		return (ft_strjoin(getvar(envar, "HOME"), cmds[1] + 1));
-		// Leaks to handle
+		return (ft_strjoin(getvar(envar, "HOME"), cmds[1] + 1)); // Leaks to handle
 	if (ft_strncmp(cmds[1], "$HOME", 5) == 0)
 		return (getvar(envar, "HOME"));
 	return (cmds[1]);

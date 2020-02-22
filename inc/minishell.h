@@ -2,15 +2,16 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
+# include <stdio.h>
 
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <signal.h>
-# include <stdio.h>
 
 # define PATH_MAX 4096
 
 int						g_exitvalue;
+int						g_shellisrunning;
 
 typedef struct			s_envar
 {
@@ -45,6 +46,13 @@ typedef struct			s_envsplit
 }						t_envsplit;
 
 /*
+** main.c
+*/
+
+void					prompt(t_envar *envar);
+
+
+/*
 ** utils/
 */
 
@@ -54,6 +62,7 @@ void					lstclear(t_envar *lst);
 int						inputcontrol(char *input);
 int						strcmpcasei(char *s1, char *s2);
 void					handle_error(char *message);
+void					siglisten(void);
 
 /*
 ** parse/
