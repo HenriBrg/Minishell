@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/21 19:37:54 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/22 14:30:59 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		isbuiltin(char **cmds)
 **
 */
 
-int		executebuiltins(char **cmds, t_envar *envar)
+void	executebuiltins(char **cmds, t_envar *envar)
 {
 	if (strcmpcasei(cmds[0], "echo"))
 		builtinecho(cmds, envar);
@@ -53,7 +53,6 @@ int		executebuiltins(char **cmds, t_envar *envar)
 				builtinsenv(cmds, envar);
 	else if (strcmpcasei(cmds[0], "exit"))
 		builtinexit(cmds);
-	return (1);
 }
 
 
@@ -84,6 +83,8 @@ int			main(int ac, char **av, char **env)
 		cmds = ft_strsplit(input, " ");
 		if (isbuiltin(cmds))
 			executebuiltins(cmds, envar);
+		else
+			executables(cmds, envar);
 		ft_strsfree(cmds);
 		// execute ();
 		free(input);

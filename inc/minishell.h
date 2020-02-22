@@ -80,4 +80,10 @@ void		builtincd(char **cmds, t_envar *envar);
 void		sortenvar(t_envar *envar);
 void		exportenvar(char **cmds, t_envar *envar);
 
+/*
+** executables/
+*/
+
+void		executables(char **cmds, t_envar *envar);
+
 #endif
