@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/22 16:22:27 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/23 17:23:39 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void		prompt(t_envar *envar)
 	(void)envar;
 	ft_putstr(getvar(envar, "PWD"));
 	ft_putstr("/ ------> ");
-	g_shellisrunning = 0;
 }
 
 /*
@@ -72,23 +71,25 @@ int			main(int ac, char **av, char **env)
 	input = NULL;
 	if (ac != 1 || (envar = lstenv(env)) == 0)
 		return (-1);
-	// g_shellisrunning = 0;
-	// siglisten();
+	siglisten();
 	while (42)
 	{
 		prompt(envar);
+		g_shellisrunning = 0;
 		get_next_line(0, &input);
 		//if ((parse(input)) == -1)
 		//	return (-1);
 
-		// tmp for test
-		g_shellisrunning = 1;
-		cmds = ft_strsplit(input, " ");
-		if (isbuiltin(cmds))
-			executebuiltins(cmds, envar);
-		else
-			executables(cmds, envar);
-		ft_strsfree(cmds);
+		if (ft_strlen(input) != 0)
+		{
+			cmds = ft_strsplit(input, " ");
+			g_shellisrunning = 1;
+			if (isbuiltin(cmds))
+				executebuiltins(cmds, envar);
+			else
+				executables(cmds, envar);
+			ft_strsfree(cmds);
+		}
 		free(input);
 	}
 	lstclear(envar);

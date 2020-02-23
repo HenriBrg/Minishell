@@ -8,7 +8,26 @@
 # include <sys/stat.h>
 # include <signal.h>
 
+/*
+** Signal stuff
+**
+** Move cursor to beginning of line.
+** Move cursor left by # characters.
+** Move cursor to specific position. First # is row number, second # is column
+** Clear current line (but don"t move cursor).
+** Clear line to the left of current position.
+** Clear line to the right of current position.
+*/
+
+# define MVCURSOR_BEGL	"\033[1G"
+# define MVCURSOR_LEFT	"\033[1D"
+# define MVCURSOR_POS	"\033[#;#f"
+# define CLR_LINE		"\033[2K"
+# define CLR_LINE_LEFT	"\033[1K"
+# define CLR_LINE_RIGHT	"\033[0K"
+
 # define PATH_MAX 4096
+
 
 int						g_exitvalue;
 int						g_shellisrunning;
