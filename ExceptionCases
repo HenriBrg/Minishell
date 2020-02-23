@@ -1,5 +1,7 @@
-ls -la 2> errors.txt
+ls -la 2> errors.txt       ----------> NE PAS GERER car multi redirections
 'e'"c"""'''h'""'o' coucou Henri
+
+
 --------------------------------------------------------------------------------
 bash-3.2$ export var=cho
 bash-3.2$ e$var dd
