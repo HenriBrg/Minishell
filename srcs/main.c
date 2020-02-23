@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/23 17:26:35 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/23 18:12:58 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int			main(int ac, char **av, char **env)
 
 	char	**cmds;
 
-	(void)ac;
 	(void)av;
 	envar = NULL;
 	input = NULL;
@@ -76,7 +75,7 @@ int			main(int ac, char **av, char **env)
 		prompt(envar);
 		g_shellisrunning = 0;
 		get_next_line(0, &input);
-		
+
 		//if ((parse(input)) == -1)
 		//	return (-1);
 

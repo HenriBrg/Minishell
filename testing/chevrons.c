@@ -2,6 +2,12 @@
 #include <stdio.h>
 #include <fcntl.h>
 
+
+/*
+** dup2(int fd source, int fd destination);
+** Ce programme equivaut a : ls -la > ls.log
+*/
+
 int main(void)
 {
     char *argv[] = { "/bin/ls", "-la", 0 };
@@ -12,10 +18,10 @@ int main(void)
         "USER=brandon",
         0
     };
-    int fd = open("/home/brandon/ls.log", O_WRONLY | O_CREAT | O_TRUNC, 0666);
+    int fd = open("ls.log", O_WRONLY | O_CREAT | O_TRUNC, 0666);
     dup2(fd, 1); // stdout is file descriptor 1
     close(fd);
-    execve(argv[0], &argv[0], envp);
+    execv(argv[0], &argv[0]);
     fprintf(stderr, "Oops!\n");
     return -1;
 }
