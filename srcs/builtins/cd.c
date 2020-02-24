@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 20:58:19 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/22 15:13:13 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/24 17:30:18 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ int			switchdir(char **cmds, char *dest)
 	int		i;
 
 	i = chdir(dest);
-	if (i == 0) // SET EXIT FAILURE VALUE (global variable)
+	if (i == 0)
+	{
+		g_exitvalue = EXIT_SUCCESS;
 		return (0);
+	}
 	else
 	{
 		ft_putstr("cd: ");
@@ -36,7 +39,7 @@ int			switchdir(char **cmds, char *dest)
 			ft_putendl_fd(cmds[1], 1);
 		else
 			ft_putendl_fd(dest, 1);
-		// SET EXIT FAILURE VALUE (global variable)
+		g_exitvalue = EXIT_FAILURE;
 		return (-1);
 	}
 }

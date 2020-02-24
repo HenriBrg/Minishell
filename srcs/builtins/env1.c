@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:48:11 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/21 17:43:58 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/24 17:41:51 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		exportenvar(char **cmds, t_envar *envar)
 			ft_putstr("minishell: export: `");
 			ft_putstr(cmds[i]);
 			ft_putstr("': not a valid identifier\n");
-			// REMEMBER $? EXPORT FAILURE
+			g_exitvalue = EXIT_FAILURE;
 			return ;
 		}
 		else if (cmds[i][0])
@@ -44,7 +44,7 @@ void		exportenvar(char **cmds, t_envar *envar)
 			sortenvar(envar);
 		}
 	}
-	// REMEMBER $? EXPORT SUCCESS
+	g_exitvalue = EXIT_SUCCESS;
 }
 
 /*
@@ -67,7 +67,7 @@ void		printenv(t_envar *envar)
 		}
 		current = current->next;
 	}
-	// REMEMBER $?
+	g_exitvalue = EXIT_SUCCESS;
 }
 
 /*
@@ -114,11 +114,13 @@ void		unsetenvar(char **cmds, t_envar *envar)
 			ft_putstr("minishell: unset: `");
 			ft_putstr(cmds[i]);
 			ft_putstr("': not a valid identifier\n");
-			// REMEMBER $?
+			g_exitvalue = EXIT_FAILURE;
 		}
 		else
+		{
 			removevar(cmds[i], envar);
-			// REMEMBER $?
+			g_exitvalue = EXIT_SUCCESS;
+		}
 		i++;
 	}
 }

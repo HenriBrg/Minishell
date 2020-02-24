@@ -6,14 +6,22 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/23 18:12:58 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/24 17:47:47 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+char		*replacedollars(char **cmds, t_envar *envar)
+{
+	(void)cmds;
+	(void)envar;
+	// penser aussi a $? (globale)
+	return 0;
+}
+
 /*
-** Ajouter le path ...
+** Affiche le prompteur
 */
 
 void		prompt(t_envar *envar)
@@ -36,7 +44,7 @@ int		isbuiltin(char **cmds)
 }
 
 /*
-**
+** Test chaque builtin
 */
 
 void	executebuiltins(char **cmds, t_envar *envar)
