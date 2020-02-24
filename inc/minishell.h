@@ -27,8 +27,8 @@
 # define CLR_LINE_RIGHT	"\033[0K"
 
 # define PATH_MAX 4096
-# define READ	0
-# define WRITE	1
+
+enum PIPES {READ, WRITE};
 
 int						g_exitvalue;
 int						g_shellisrunning;
