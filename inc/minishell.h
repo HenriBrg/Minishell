@@ -27,7 +27,8 @@
 # define CLR_LINE_RIGHT	"\033[0K"
 
 # define PATH_MAX 4096
-
+# define READ	0
+# define WRITE	1
 
 int						g_exitvalue;
 int						g_shellisrunning;
@@ -49,9 +50,9 @@ typedef struct			s_command
 {
 	char				**args;
 	int					out_type;
-	char				*out;
-	char				*in;
-}						t_command;
+	char				*out; // for chevrons only
+	char				*in; // for chevrons only
+}						t_command; // No list but tab for link
 
 typedef struct			s_envsplit
 {
@@ -95,23 +96,23 @@ t_strlist				*ft_supersplit(char *string, char **separators,
 ** bultins/
 */
 
-void		pushbackenvar(char *name, char *value, t_envar *envar);
-void		namevaluefilter(char *cmd, char **name, char **value);
-void		builtinpwd(t_envar *envar);
-void		cd(char **cmds, t_envar *envar);
-void		builtinecho(char **cmds, t_envar *envar);
-void		builtinpwd(t_envar *envar);
-void		builtinexit(char **cmds);
-void		builtinsenv(char **cmds, t_envar *envar);
-void		builtinpwd(t_envar *envar);
-void		builtincd(char **cmds, t_envar *envar);
-void		sortenvar(t_envar *envar);
-void		exportenvar(char **cmds, t_envar *envar);
+void					pushbackenvar(char *name, char *value, t_envar *envar);
+void					namevaluefilter(char *cmd, char **name, char **value);
+void					builtinpwd(t_envar *envar);
+void					cd(char **cmds, t_envar *envar);
+void					builtinecho(char **cmds, t_envar *envar);
+void					builtinpwd(t_envar *envar);
+void					builtinexit(char **cmds);
+void					builtinsenv(char **cmds, t_envar *envar);
+void					builtinpwd(t_envar *envar);
+void					builtincd(char **cmds, t_envar *envar);
+void					sortenvar(t_envar *envar);
+void					exportenvar(char **cmds, t_envar *envar);
 
 /*
 ** executables/
 */
 
-void		executables(char **cmds, t_envar *envar);
+void					executables(char **cmds, t_envar *envar);
 
 #endif
