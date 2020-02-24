@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 20:58:19 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/24 17:30:18 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/24 18:32:47 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,17 @@ int			switchdir(char **cmds, char *dest)
 	else
 	{
 		ft_putstr("cd: ");
-		if (access(dest, F_OK) == -1)
-			ft_putstr("no such file or directory: ");
-		else if (access(dest, R_OK) == -1)
-			ft_putstr("permission denied: ");
-		else
-			ft_putstr("not a directory: ");
 		if (cmds[1])
-			ft_putendl_fd(cmds[1], 1);
+			ft_putstr(cmds[1]);
 		else
-			ft_putendl_fd(dest, 1);
+			ft_putstr(dest);
+		ft_putstr(": ");
+		if (access(dest, F_OK) == -1)
+			ft_putstr("No such file or directory\n");
+		else if (access(dest, R_OK) == -1)
+			ft_putstr("Permission denied\n");
+		else
+			ft_putstr("Not a directory\n");
 		g_exitvalue = EXIT_FAILURE;
 		return (-1);
 	}
