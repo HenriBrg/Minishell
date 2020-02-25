@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:56:01 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/24 21:40:20 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/25 17:54:19 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 ** }						t_command; // No list but tab for link
 **
 ** https://gist.github.com/iomonad/a66f6e9cfb935dc12c0244c1e48db5c8
+** Le child lit - Le parent ecrit : https://www.youtube.com/watch?v=yQLd2iJ9Oa0
 */
 
 void		pipeline(t_command **tab)

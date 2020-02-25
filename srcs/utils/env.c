@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:15 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/21 18:20:42 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/25 19:05:30 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,20 @@ t_envar		*lstnewenvar(char *envstr)
 /*
 ** getvar() retourne la valeur de la variable d'environnement demandée
 ** en renvoyant un pointeur sur la valeur de la variable
-** -----------> TODO ? getvar(envar, "$variable")
 */
 
 char		*getvar(t_envar *envar, char *name)
 {
-  t_envar	*current;
+	t_envar	*current;
 
-  current = envar;
-  while (current != 0)
-  {
-	  if (ft_strcmp(current->name, name) == 0)
-      	return (current->value);
-    current = current->next;
-  }
-  return (0);
+	current = envar;
+	while (current != 0)
+	{
+		if (ft_strcmp(current->name, name) == 0)
+			return (current->value);
+		current = current->next;
+	}
+	return (0);
 }
 
 /*
@@ -109,7 +108,6 @@ t_envar		*lstenv(char **env)
 		else
 			begin = current;
 		previous = current;
-		// printf("%s=%s\n", current->name, current->value);
 	}
 	return (begin);
 }

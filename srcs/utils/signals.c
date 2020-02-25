@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 15:15:08 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/23 18:07:41 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/25 19:16:50 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@
 ** https://stackoverflow.com/questions/2386923
 ** Gere les 3 signaux
 ** Signal ne prend pas de pointeur :
-** https://stackoverflow.com/questions/6970224/providing-passing-argument-to-signal-handler
-** ft_putstr("\b\b \n") ----> https://abs.traduc.org/abs-5.3-fr/abs-5.3.pdf (backspace non destructif)
+** https://stackoverflow.com/questions/6970224/providing-passing-
+** argument-to-signal-handler
+** ft_putstr("\b\b \n") ----> https://abs.traduc.org/abs-5.3-fr/abs-5.3.pdf
+** (backspace non destructif)
 */
 
-void	handlesignals(int signal)
+void	handlesigint(int signal)
 {
 	if (signal == SIGINT)
 	{
@@ -33,41 +35,52 @@ void	handlesignals(int signal)
 			g_shellisrunning = 0;
 		}
 	}
-	else if (signal == SIGQUIT)
+}
+
+/*
+** CTRL + \ == SIGQUIT : Interrompre et prompt
+*/
+
+void	handlesigquit(int signal)
+{
+	if (signal == SIGQUIT)
 	{
 		if (g_shellisrunning == 1)
 		{
 			ft_putstr(CLR_LINE);
 			ft_putstr(MVCURSOR_BEGL);
 			ft_putstr(CLR_LINE_LEFT);
-
 		}
 		else
 		{
-			// CTRL Z
 			ft_putstr(MVCURSOR_LEFT);
 			ft_putstr(MVCURSOR_LEFT);
 			ft_putstr(CLR_LINE_RIGHT);
 		}
 	}
-	else if (signal == SIGTSTP)
+}
+
+/*
+** CTRL + Z == SIGTSTP : Suspendre
+*/
+
+void	handlesigtstp(int signal)
+{
+	if (signal == SIGTSTP)
 	{
 		if (g_shellisrunning == 1)
 		{
 			ft_putstr(CLR_LINE);
 			ft_putstr(MVCURSOR_BEGL);
 			ft_putstr(CLR_LINE_LEFT);
-
 		}
 		else
 		{
-			// CTRL Backslash
 			ft_putstr(MVCURSOR_LEFT);
 			ft_putstr(MVCURSOR_LEFT);
 			ft_putstr(CLR_LINE_RIGHT);
 		}
 	}
-
 }
 
 /*
@@ -79,7 +92,7 @@ void	handlesignals(int signal)
 
 void	siglisten(void)
 {
-	signal(SIGINT, handlesignals);
-	signal(SIGQUIT, handlesignals);
-	signal(SIGTSTP, handlesignals);
+	signal(SIGINT, handlesigint);
+	signal(SIGQUIT, handlesigquit);
+	signal(SIGTSTP, handlesigtstp);
 }

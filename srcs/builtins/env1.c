@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:48:11 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/24 17:41:51 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/25 18:54:45 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void		unsetenvar(char **cmds, t_envar *envar)
 ** Rajouter le case insensitive
 */
 
-void	builtinsenv(char **cmds, t_envar *envar)
+void		builtinsenv(char **cmds, t_envar *envar)
 {
 	if (strcmpcasei(cmds[0], "env"))
 		printenv(envar);

@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 23:52:46 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/24 17:46:19 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/25 18:54:22 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	builtinexit(char **cmds)
 	ft_putstr("exit\n");
 	if (ft_strslen(cmds) == 1)
 		exit((g_exitvalue = EXIT_SUCCESS));
-	if (ft_strslen(cmds) >= 2 && (strisdigit(cmds[1]) == 0 && cmds[1][0] != '-'))
+	if (ft_strslen(cmds) >= 2 &&
+	(strisdigit(cmds[1]) == 0 && cmds[1][0] != '-'))
 	{
 		ft_putstr(cmds[1]);
 		ft_putstr(": numeric argument required\n");

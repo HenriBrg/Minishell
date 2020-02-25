@@ -6,13 +6,13 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 17:57:36 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/21 17:19:04 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/25 18:56:41 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	swapenvar(t_envar *current, t_envar *next)
+void		swapenvar(t_envar *current, t_envar *next)
 {
 	char *tmpname;
 	char *tmpvalue;
@@ -35,7 +35,7 @@ void	swapenvar(t_envar *current, t_envar *next)
 ** Trie par valeur ASCII les variables d'ENV (exportées aussi)
 */
 
-void	sortenvar(t_envar *envar)
+void		sortenvar(t_envar *envar)
 {
 	t_envar	*current1;
 	t_envar	*current2;
@@ -46,7 +46,8 @@ void	sortenvar(t_envar *envar)
 		current2 = envar;
 		while (current2)
 		{
-			if (current2->next && ft_strcmp(current2->name, current2->next->name) > 0)
+			if (current2->next && ft_strcmp(current2->name,
+				current2->next->name) > 0)
 				swapenvar(current2, current2->next);
 			current2 = current2->next;
 		}
@@ -98,7 +99,7 @@ void		namevaluefilter(char *cmd, char **name, char **value)
 	char		*tmp;
 
 	tmp = ft_strchr(cmd, '=');
-	i = (tmp) ?  tmp - cmd : ft_strlen(cmd);
+	i = (tmp) ? tmp - cmd : ft_strlen(cmd);
 	*name = ft_strndup(cmd, i);
 	if (tmp)
 		*value = ft_strdup(cmd + ft_strlen(*name) + 1);
