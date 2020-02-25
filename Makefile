@@ -6,7 +6,7 @@
 #    By: hberger <hberger@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/18 19:03:18 by hberger           #+#    #+#              #
-#    Updated: 2020/02/25 02:30:46 by macasubo         ###   ########.fr        #
+#    Updated: 2020/02/25 19:32:37 by macasubo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ FLAGS = -Wall -Wextra -Werror
 SRCS = srcs/main.c srcs/utils/env.c srcs/utils/free.c srcs/utils/input.c	   \
 	   srcs/parser/parse.c srcs/parser/ft_supersplit.c srcs/utils/errors.c     \
 	   srcs/builtins/cd.c srcs/builtins/echo.c srcs/builtins/env1.c			   \
-	   srcs/builtins/env2.c srcs/parser/parse_redirections.c
+	   srcs/builtins/env2.c srcs/parser/parse_redirections.c				   \
+	   srcs/parser/parse_commands.c
 
 OBJS = ${SRCS:.c=.o}
 

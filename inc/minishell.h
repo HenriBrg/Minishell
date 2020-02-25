@@ -66,6 +66,9 @@ void						handle_error(char *message);
 t_commands_list				*parse(char *input);
 void						parse_redirections(t_strlist *command,
 											t_command *supertab, int n);
+t_command					*parse_commands(t_strlist **pipe_list);
+void						parse_args(t_strlist *command, t_command *supertab,
+										int n);
 t_strlist					*ft_supersplit(char *string, char **separators,
 											int inclusion);
 void						addback(t_strlist **list, char *str, int n);
