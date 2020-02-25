@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 18:10:59 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/25 20:10:33 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/02/25 20:55:39 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ t_commands_list		*parse(char *input)
 	char			**separators;
 	t_strlist		*semicolon_list;
 	t_commands_list	*list;
-	int				i;
-	int				j;
+	// int				i;
+	// int				j;
 
 	if (!(separators = malloc(sizeof(char *) * 2)) || !(separators[0] =
 			ft_strdup(";")))
@@ -120,28 +120,28 @@ t_commands_list		*parse(char *input)
 	free(separators[0]);
 	free(separators);
 
-	t_commands_list *cur = list;
-	while (cur)
-	{
-		i = 0;
-		while (cur->command[i].args)
-		{
-			printf("----- ARGS -----\n");
-			j = 0;
-			while (cur->command[i].args[j])
-			{
-				printf("%s\n", cur->command[i].args[j]);
-				j++;
-			}
-			printf("----- IN -----\n");
-			printf("%s\n", cur->command[i].in);
-			printf("----- OUT -----\n");
-			printf("%s\n", cur->command[i].out);
-			printf("---------END OF COMMAND---------\n");
-			i++;
-		}
-		printf("---------END OF SEMICOLON---------\n");
-		cur = cur->next;
-	}
+	// t_commands_list *cur = list;
+	// while (cur)
+	// {
+	// 	i = 0;
+	// 	while (cur->command[i].args)
+	// 	{
+	// 		printf("----- ARGS -----\n");
+	// 		j = 0;
+	// 		while (cur->command[i].args[j])
+	// 		{
+	// 			printf("%s\n", cur->command[i].args[j]);
+	// 			j++;
+	// 		}
+	// 		printf("----- IN -----\n");
+	// 		printf("%s\n", cur->command[i].in);
+	// 		printf("----- OUT -----\n");
+	// 		printf("%s\n", cur->command[i].out);
+	// 		printf("---------END OF COMMAND---------\n");
+	// 		i++;
+	// 	}
+	// 	printf("---------END OF SEMICOLON---------\n");
+	// 	cur = cur->next;
+	// }
 	return (list);
 }

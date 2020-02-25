@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/19 17:56:32 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/25 19:03:39 by hberger          ###   ########.fr       */
+/*   Created: 2020/02/21 00:31:17 by hberger           #+#    #+#             */
+/*   Updated: 2020/02/24 17:46:55 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void		handle_error(char *message)
+void		builtinpwd(t_envar *envar)
 {
-	if (message)
-		ft_putendl_fd(message, 2);
+	char	*tmp;
+
+	tmp = getvar(envar, "PWD");
+	if (tmp)
+	{
+		ft_putendl_fd(tmp, 1);
+		g_exitvalue = EXIT_SUCCESS;
+	}
 	else
-		perror(strerror(errno));
-	g_exitvalue = EXIT_FAILURE;
-	exit(EXIT_FAILURE);
+	{
+		g_exitvalue = EXIT_FAILURE;
+		return ;
+	}
 }

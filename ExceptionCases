@@ -1,0 +1,22 @@
+ls -la 2> errors.txt       ----------> NE PAS GERER car multi redirections
+'e'"c"""'''h'""'o' coucou Henri
+
+
+--------------------------------------------------------------------------------
+bash-3.2$ export var=cho
+bash-3.2$ e$var dd
+dd
+--------------------------------------------------------------------------------
+bash-3.2$ echo $($b)
+ExceptionCases Makefile TODO Liste inc libft minishell piperedir.c srcs
+bash-3.2$
+--------------------------------------------------------------------------------
+Faut il gerer les executable locals ? Et la recursion d'appel ./minishell
+--------------------------------------------------------------------------------
+bash-3.2$ echo|cat -e
+$
+bash-3.2$
+--------------------------------------------------------------------------------
+Apres avoir parser, remplacer tous les $var ? sauf si \$
+--------------------------------------------------------------------------------
+Doit on gerer les ``
