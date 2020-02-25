@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:56:01 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/25 21:05:15 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/25 22:04:26 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,16 @@ void	executebuiltins(char **cmds, t_envar *envar)
 
 void		pipexec(t_command *tab, t_envar *envar)
 {
-	if (isbuiltin(tab->args))
-		executebuiltins(tab->args, envar);
-	else
-		executables(tab->args, envar);
+	// gerer les < > >>
+	//if (isbuiltin(tab->args))
+	//	executebuiltins(tab->args, envar);
+	//else
+	int i = -1;
+	while (tab->args[++i])
+		printf("-->%s\n", tab->args[i]);
+	executables(tab->args, envar);
 }
+
 
 /*
 ** Loop sur le tableau de commande séparé par des pipes
@@ -85,7 +90,6 @@ void		pipeline(t_command *tab, t_envar *envar)
 	backupfd = 0;
 	while (tab[i].args != NULL)
 	{
-		printf("---->%s\n", tab[i].args[0]);
 		pipe(fd);
 		if ((pid = fork()) == -1)
 			exit((g_exitvalue = EXIT_FAILURE));
@@ -95,8 +99,7 @@ void		pipeline(t_command *tab, t_envar *envar)
 			if (tab[i + 1].args != NULL)
 				dup2(fd[1], 1);
 			close(fd[0]);
-			//pipexec(tab + i, envar);
-			execve(tab[i].args[0], tab[i].args);
+			pipexec(tab + i, envar);
 			exit((g_exitvalue = EXIT_FAILURE));
 		}
 		else

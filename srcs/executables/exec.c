@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 18:29:47 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/25 20:54:53 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/25 22:05:29 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ void			executables(char **cmds, t_envar *envar)
 	{
 		// Change into execv
 		// How free an allocation going to exec ? In the parent I guess ?
+		// printf("%s\n", tab->args);
 		ret = execv(execpath, cmds);
+		// printf("ret = %d\n", ret);
 		free(execpath);
 		exit((g_exitvalue = EXIT_FAILURE));
 	}
@@ -82,5 +84,5 @@ void			executables(char **cmds, t_envar *envar)
 		exit(EXIT_FAILURE);
 	else
 		waitpid(pid, &wpid, 0);
-		// free ici ?
+		//free ici ?
 }

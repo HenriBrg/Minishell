@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/25 20:45:00 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/25 22:32:27 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ void		prompt(t_envar *envar)
 	(void)envar;
 	ft_putstr(getvar(envar, "PWD"));
 	ft_putstr("/ ------> ");
+}
+
+void		monoprocess(t_command *tab, t_envar *envar)
+{
+	if (isbuiltin(tab->args))
+		executebuiltins(tab->args, envar);
+	else
+		executables(tab->args, envar);
 }
 
 /*
@@ -64,13 +72,20 @@ int			main(int ac, char **av, char **env)
 		// commande de test :
 		// echo salut < in comment >> out ca va | head < in > out | less moi ca va > out bien < in ; sort il fait > out ; cat >> out tres beau < in ajd | echo >> out en effet < in oui
 
+		// iterer sur la liste chainees
+
 		g_shellisrunning = 1;
 
-		pipeline(list->command, envar);
-		// if (isbuiltin(cmds))
-		// 	executebuiltins(cmds, envar);
-		// else
-		// 	executables(cmds, envar);
+		int countpipe = 0;
+		while (list->command[countpipe].args != NULL)
+			countpipe++;
+			printf("pipe : %d\n", countpipe);
+		if (countpipe <= 1) // zero processus
+		{
+			monoprocess(list->command, envar);
+		}
+		else
+			pipeline(list->command, envar);
 		free(input);
 	}
 	lstclear(envar);

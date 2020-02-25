@@ -32,13 +32,13 @@ pipeline(char ***cmd)
 
 	while (*cmd != NULL) {
 		pipe(fd);
-		// printf("1- CALL PIPE() and FORK()\n");
+		printf("1- CALL PIPE() and FORK()\n");
 		if ((pid = fork()) == -1) {
 			perror("fork");
 			exit(1);
 		}
 		else if (pid == 0) { // On est dans le processus fils
-			// printf("3- DUP FDD FROM CHILD - Then DUP2 & EXCV\n");
+			printf("3- DUP FDD FROM CHILD - Then DUP2 & EXCV\n");
 			dup2(fdd, 0); // Au premier tout cela ne change rien
 			if (*(cmd + 1) != NULL) {
 				printf("CMD + 1 EXISTS\n");
@@ -49,15 +49,18 @@ pipeline(char ***cmd)
 			exit(1);
 		}
 		else {
-			// printf("2- WAIT CHILD FROM PARENT\n");
+			printf("2- WAIT CHILD FROM PARENT\n");
+
+
+			
 			wait(NULL); 		/* Collect childs */
 			close(fd[1]);
-			// printf("4- OLD FDD : %d\n", fdd);
+			printf("4- OLD FDD : %d\n", fdd);
 			fdd = fd[0];
-			// printf("5- NEW FDD : %d\n", fdd);
+			printf("5- NEW FDD : %d\n", fdd);
 			cmd++;
 		}
-		// printf("\n\n\n1 LOOP DONE \n\n\n");
+		printf("\n\n\n1 LOOP DONE \n\n\n");
 	}
 }
 
@@ -74,7 +77,7 @@ main(int argc, char *argv[])
 	char *rev[] = {"/usr/bin/rev", NULL};
 	char *nl[] = {"/usr/bin/nl", NULL};
 	char *cat[] = {"/bin/cat", "-e", NULL};
-	char **cmd[] = {ls, wc, NULL};
+	char **cmd[] = {ls, wc, nl, NULL};
 	// char *c1[] = {"cat", "/dev/urandom"};
 	// char *c2[] = {"head", "-c", "1000"};
 	// char *c3[] = {"wc", "-c"};

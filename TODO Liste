@@ -1,1 +1,11 @@
-LIRE TOUT : https://n-pn.fr/t/2318-c--programmation-systeme-execve-fork-et-pipe
+CONSERVER LES TESTS
+
+CLEAN PARSING
+
+CHEVRONS
+
+REMPLACER DOLLARS après avoir splitté totalement (attention aux escapes)
+
+LEAKS
+
+$?

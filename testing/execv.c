@@ -20,6 +20,6 @@ int    executables(char *str, char **av)
 int main(int ac, char **av)
 {
 	//executables("/usr/bin/cd", av);
-	executables("/bin/ls", av)
+	executables("$aa", av);
 	return 0;
 }
