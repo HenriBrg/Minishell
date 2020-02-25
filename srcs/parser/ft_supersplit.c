@@ -6,13 +6,13 @@
 /*   By: macasubo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 01:44:19 by macasubo          #+#    #+#             */
-/*   Updated: 2020/02/21 04:20:21 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/02/24 23:01:13 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void			addback(t_strlist **list, char *str, int n, int out_type)
+void			addback(t_strlist **list, char *str, int n)
 {
 	t_strlist	*new;
 	t_strlist	*current;
@@ -21,8 +21,8 @@ void			addback(t_strlist **list, char *str, int n, int out_type)
 		handle_error(NULL);
 	if (str)
 	{
-		new->str = ft_strsub(str, 0, n);
-		new->out_type = out_type;
+		if (!(new->str = ft_strsub(str, 0, n)))
+			handle_error(NULL);
 	}
 	else
 		new->str = NULL;
@@ -78,9 +78,9 @@ static void		check_separator(t_envsplit *env)
 				== 0)
 		{
 			if (env->index > 0)
-				addback(&(env->list), env->string, env->index, 0);
+				addback(&(env->list), env->string, env->index);
 			if (env->inclusion && env->separators[j][0] != ' ')
-				addback(&(env->list), env->string + env->index, len_sep, 0);
+				addback(&(env->list), env->string + env->index, len_sep);
 			env->string += env->index + len_sep;
 			env->index = -1;
 			return ;
@@ -89,8 +89,7 @@ static void		check_separator(t_envsplit *env)
 	}
 }
 
-t_strlist		*ft_supersplit(char *string, char **separators, int inclusion
-								, char *trim)
+t_strlist		*ft_supersplit(char *string, char **separators, int inclusion)
 {
 	t_envsplit	env;
 
@@ -104,18 +103,14 @@ t_strlist		*ft_supersplit(char *string, char **separators, int inclusion
 	env.string = string;
 	env.separators = separators;
 	env.inclusion = inclusion;
-	env.trim = trim;
-	while (string[env.index])
+	while (env.string[env.index])
 	{
 		check_quote(&env);
 		if (!(env.quotes[0]) && !(env.quotes[1]) && !(env.quotes[2]))
 			check_separator(&env);
 		(env.index)++;
 	}
-	//printf("char sortie : %d, index : %d\n", string[env.index], env.index);
 	if (env.index != 0 && env.string[0] != 0)
-	{
-		addback(&(env.list), env.string, env.index, 0);
-	}
+		addback(&(env.list), env.string, env.index);
 	return (env.list);
 }

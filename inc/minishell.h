@@ -20,16 +20,22 @@ typedef struct		s_envar
 typedef struct			s_strlist
 {
 	char				*str;
-	int					out_type;
 	struct s_strlist	*next;
 }						t_strlist;
 
 typedef struct			s_command
 {
 	char				**args;
-	t_strlist			*out;
-	t_strlist			*in;
+	char				*out;
+	char				*in;
+	int					out_type;
 }						t_command;
+
+typedef struct			s_commands_list
+{
+	t_command			*command;
+	struct s_commands_list	*next;
+}						t_commands_list;
 
 typedef struct			s_envsplit
 {
@@ -57,10 +63,10 @@ void		handle_error(char *message);
 ** parse/
 */
 
-t_command				*parse(char *input);
+t_commands_list			*parse(char *input);
 t_strlist				*ft_supersplit(char *string, char **separators,
-										int inclusion, char *trim);
-void					addback(t_strlist **list, char *str, int n, int out_type);
+										int inclusion);
+void					addback(t_strlist **list, char *str, int n);
 
 /*
 ** bultins/
