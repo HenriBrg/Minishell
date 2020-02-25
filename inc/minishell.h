@@ -116,4 +116,11 @@ void					exportenvar(char **cmds, t_envar *envar);
 
 void					executables(char **cmds, t_envar *envar);
 
+/*
+** direction/
+*/
+
+int						isbuiltin(char **cmds);
+void					executebuiltins(char **cmds, t_envar *envar);
+
 #endif

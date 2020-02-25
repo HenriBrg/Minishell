@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:55:57 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/24 19:56:29 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/25 19:20:39 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,3 @@ int main(int argc, char **argv)
 
   execvp("grep", grep_args);
 }
-p

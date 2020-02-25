@@ -6,11 +6,55 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:56:01 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/25 17:54:19 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/25 20:17:12 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+/*
+** Retourne 1 si cmds[0] fait appel à un builtin
+*/
+
+int		isbuiltin(char **cmds)
+{
+	return (strcmpcasei(cmds[0], "echo") || strcmpcasei(cmds[0], "cd")
+			|| strcmpcasei(cmds[0], "pwd") || strcmpcasei(cmds[0], "env")
+			|| strcmpcasei(cmds[0], "export") || strcmpcasei(cmds[0], "unset")
+			|| strcmpcasei(cmds[0], "exit") ? 1 : 0);
+}
+
+/*
+** Test chaque builtin
+*/
+
+void	executebuiltins(char **cmds, t_envar *envar)
+{
+	if (strcmpcasei(cmds[0], "echo"))
+		builtinecho(cmds, envar);
+	else if (strcmpcasei(cmds[0], "cd"))
+		builtincd(cmds, envar);
+	else if (strcmpcasei(cmds[0], "pwd"))
+		builtinpwd(envar);
+	else if (strcmpcasei(cmds[0], "unset")
+			|| strcmpcasei(cmds[0], "export")
+			|| strcmpcasei(cmds[0], "env"))
+				builtinsenv(cmds, envar);
+	else if (strcmpcasei(cmds[0], "exit"))
+		builtinexit(cmds);
+}
+
+/*
+** Redirige sur un builtin / executable selon les chevrons précisé
+*/
+
+void		pipexec(t_command *tab, t_envar *envar)
+{
+	if (isbuiltin(tab->args))
+		executebuiltins(tab->args, envar);
+	else
+		executables(tab->args, envar);
+}
 
 /*
 ** Loop sur le tableau de commande séparé par des pipes
@@ -25,9 +69,11 @@
 **
 ** https://gist.github.com/iomonad/a66f6e9cfb935dc12c0244c1e48db5c8
 ** Le child lit - Le parent ecrit : https://www.youtube.com/watch?v=yQLd2iJ9Oa0
+** https://www.youtube.com/watch?v=yQLd2iJ9Oa0
 */
 
-void		pipeline(t_command **tab)
+
+void		pipeline(t_command **tab, t_envar *envar)
 {
 	int		i;
 	int		fd[2];
@@ -43,15 +89,12 @@ void		pipeline(t_command **tab)
 			exit((g_exitvalue = EXIT_FAILURE));
 		else if (pid == 0)
 		{
-			// Child - Looped
-			dup2(backupfd, 0); // Duplication de STDIN
-			if (*(tab + 1) != NULL) // If other pipe :
+			dup2(backupfd, 0);
+			if (*(tab + 1) != NULL)
 				dup2(fd[1], 1);
 			close(fd[0]);
-
-			// CALL EXECUTABLES OR BUILTINS with tab->args
-
-			exit((g_exitvalue = EXIT_SUCCESS));
+			pipexec(tab[i], envar);
+			exit((g_exitvalue = EXIT_FAILURE));
 		}
 		else
 		{

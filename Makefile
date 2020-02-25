@@ -6,7 +6,7 @@
 #    By: hberger <hberger@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/18 19:03:18 by hberger           #+#    #+#              #
-#    Updated: 2020/02/25 19:06:30 by hberger          ###   ########.fr        #
+#    Updated: 2020/02/25 19:21:04 by hberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS = srcs/main.c srcs/utils/env.c srcs/utils/free.c 				    	   \
 	   srcs/parser/parse.c srcs/parser/ft_supersplit.c srcs/utils/errors.c     \
 	   srcs/builtins/cd.c srcs/builtins/echo.c srcs/builtins/env1.c			   \
 	   srcs/builtins/env2.c srcs/builtins/pwd.c srcs/builtins/exit.c		   \
-	   srcs/executables/exec.c srcs/utils/signals.c
+	   srcs/executables/exec.c srcs/utils/signals.c srcs/direction/pipes.c
 
 OBJS = ${SRCS:.c=.o}
 

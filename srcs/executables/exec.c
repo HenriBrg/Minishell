@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 18:29:47 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/25 19:02:27 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/25 19:45:09 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,14 @@ void			executables(char **cmds, t_envar *envar)
 	pid = fork();
 	if (pid == 0)
 	{
+		// How free an allocation going to exec ? In the parent I guess ?
 		ret = execv(execpath, cmds);
 		free(execpath);
-		g_exitvalue = ret;
-		exit(ret);
+		exit((g_exitvalue = EXIT_FAILURE));
 	}
 	else if (pid == -1)
 		exit(EXIT_FAILURE);
 	else
 		waitpid(pid, &wpid, 0);
+		// free ici ?
 }

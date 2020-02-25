@@ -73,7 +73,7 @@ main(int argc, char *argv[])
 	char *rev[] = {"/usr/bin/rev", NULL};
 	char *nl[] = {"/usr/bin/nl", NULL};
 	char *cat[] = {"/bin/cat", "-e", NULL};
-	char **cmd[] = {ls, rev, nl, NULL};
+	char **cmd[] = {ls, NULL};
 
 	// char *c1[] = {"cat", "/dev/urandom"};
 	// char *c2[] = {"head", "-c", "1000"};
