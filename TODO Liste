@@ -5,6 +5,9 @@ CLEAN PARSING
 CHEVRONS
 
 REMPLACER DOLLARS après avoir splitté totalement (attention aux escapes)
+bash-3.2$ export var=cho
+bash-3.2$ e$var dd
+dd
 
 LEAKS
 

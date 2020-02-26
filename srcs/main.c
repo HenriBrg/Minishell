@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/26 00:59:24 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/02/26 17:47:12 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int			main(int ac, char **av, char **env)
 			int countpipe = 0;
 			while (list->command[countpipe].args != NULL)
 				countpipe++;
-				printf("pipe : %d\n", countpipe);
+			//	printf("pipe : %d\n", countpipe);
 			if (countpipe <= 1) // zero processus
 			{
 				monoprocess(list->command, envar);

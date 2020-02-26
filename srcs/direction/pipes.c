@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:56:01 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/25 22:04:26 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/26 17:48:23 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,10 @@ void	executebuiltins(char **cmds, t_envar *envar)
 void		pipexec(t_command *tab, t_envar *envar)
 {
 	// gerer les < > >>
-	//if (isbuiltin(tab->args))
-	//	executebuiltins(tab->args, envar);
-	//else
-	int i = -1;
-	while (tab->args[++i])
-		printf("-->%s\n", tab->args[i]);
-	executables(tab->args, envar);
+	if (isbuiltin(tab->args))
+		executebuiltins(tab->args, envar);
+	else
+		executables(tab->args, envar);
 }
 
 
