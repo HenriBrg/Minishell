@@ -6,7 +6,7 @@
 /*   By: macasubo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 02:36:17 by macasubo          #+#    #+#             */
-/*   Updated: 2020/02/25 03:10:44 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/02/26 19:21:38 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,23 @@ static int			handle_path(t_command *supertab, t_strlist *command,
 {
 	if (*in == 1)
 	{
-		if (supertab->in)
-			handle_error("minishell: fd aggregation not supported");
-		if (!(supertab->in = ft_strdup(command->str)))
-			handle_error(NULL);
+		//if (supertab->in)
+		//	handle_error("minishell: fd aggregation not supported");
+		//if (!(supertab->in = ft_strdup(command->str)))
+		//	handle_error(NULL);
+		addback(&(supertab->in), command->str, ft_strlen(command->str), 0);
 		*in = 0;
 		return (1);
 	}
 	else if (*out == 1 || *out == 2)
 	{
-		if (supertab->out)
-			handle_error("minishell: fd aggregation not supported");
-		if (!(supertab->out = ft_strdup(command->str)))
-			handle_error(NULL);
-		supertab->out_type = *out;
+		//if (supertab->out)
+		//	handle_error("minishell: fd aggregation not supported");
+		//if (!(supertab->out = ft_strdup(command->str)))
+		//	handle_error(NULL);
+		//supertab->out_type = *out;
+		addback(&(supertab->out), command->str, ft_strlen(command->str), 0);
+		supertab->out->out_type = *out;
 		*out = 0;
 		return (1);
 	}
@@ -99,7 +102,6 @@ void				parse_redirections(t_strlist *command, t_command *supertab,
 
 	supertab[n].out = NULL;
 	supertab[n].in = NULL;
-	supertab[n].out_type = 0;
 	in = 0;
 	out = 0;
 	while (command)

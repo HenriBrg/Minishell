@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 18:10:59 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/26 19:00:27 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/02/26 19:20:15 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ t_commands_list		*parse(char *input)
 	free(separators);
 
 	t_commands_list *cur = list;
+	t_strlist		*iter;
 	while (cur)
 	{
 		i = 0;
@@ -137,10 +138,22 @@ t_commands_list		*parse(char *input)
 	 			printf("%s\n", cur->command[i].args[j]);
 	 			j++;
 	 		}
-	 		printf("----- IN -----\n");
-	 		printf("%s\n", cur->command[i].in);
-	 		printf("----- OUT -----\n");
-	 		printf("%s\n", cur->command[i].out);
+	 		printf("----- INS -----\n");
+			iter = cur->command[i].in;
+			while (iter)
+			{
+				printf("%s\n", iter->str);
+				iter = iter->next;
+			}
+	 		//printf("%s\n", cur->command[i].in);
+	 		printf("----- OUTS -----\n");
+			iter = cur->command[i].out;
+			while (iter)
+			{
+				printf("%s\n", iter->str);
+				iter = iter->next;
+			}
+	 		//printf("%s\n", cur->command[i].out);
 	 		printf("---------END OF COMMAND---------\n");
 	 		i++;
 	 	}

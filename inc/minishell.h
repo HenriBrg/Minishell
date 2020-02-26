@@ -44,15 +44,15 @@ typedef struct			s_envar
 typedef struct				s_strlist
 {
 	char					*str;
+	int						out_type;
 	struct s_strlist		*next;
 }							t_strlist;
 
 typedef struct				s_command
 {
 	char					**args;
-	char					*out;
-	char					*in;
-	int						out_type;
+	t_strlist				*out;
+	t_strlist				*in;
 }							t_command;
 
 typedef struct				s_commands_list
