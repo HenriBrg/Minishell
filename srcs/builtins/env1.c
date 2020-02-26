@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:48:11 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/25 18:54:45 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/26 20:17:24 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void		builtinsenv(char **cmds, t_envar *envar)
 {
 	if (strcmpcasei(cmds[0], "env"))
 		printenv(envar);
-	else if (strcmpcasei(cmds[0], "export"))
+	else if (strcmpcasei(cmds[0], "export")) // bloquer export avec " dans le nom
 		exportenvar(cmds, envar);
 	else if (strcmpcasei(cmds[0], "unset"))
 		unsetenvar(cmds, envar);

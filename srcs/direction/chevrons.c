@@ -6,11 +6,53 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:55:57 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/25 19:20:39 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/26 21:41:48 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+/*
+typedef struct				s_strlist
+{
+	char					*str;
+	int						out_type;
+	struct s_strlist		*next;
+}							t_strlist;
+​
+typedef struct				s_command
+{
+	char					**args;
+	t_strlist				*out;
+	t_strlist				*in;
+
+
+*/
+
+void		nopiped_chevrons(t_command *tab, t_envar *envar)
+{
+	int 				in;
+	int 				out;
+	struct t_strlist	*tmp;
+
+	tmp = tab[0].in;
+	while (tmp)
+	{
+		dup2(fd, 1);
+		tmp = tmp->in->next;
+	}
+
+	tmp = tab[0].out;
+	while (tmp)
+	{
+		dup2(fd, 1);
+		tmp = tmp->next;
+	}
+
+}
+
+
+
 
 /**
  * Executes the command "grep Villanova < scores > out".

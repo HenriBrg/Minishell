@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:56:01 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/26 17:48:23 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/26 19:18:58 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void		pipeline(t_command *tab, t_envar *envar)
 	int		backupfd;
 	pid_t	pid;
 
-	(void)envar;
 	i = 0;
 	backupfd = 0;
 	while (tab[i].args != NULL)
@@ -107,4 +106,5 @@ void		pipeline(t_command *tab, t_envar *envar)
 			i++;
 		}
 	}
+	// ADD CAT /DEV/RANDOM | HEAD feature
 }
