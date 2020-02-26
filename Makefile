@@ -6,7 +6,7 @@
 #    By: hberger <hberger@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/18 19:03:18 by hberger           #+#    #+#              #
-#    Updated: 2020/02/25 20:25:20 by hberger          ###   ########.fr        #
+#    Updated: 2020/02/26 18:57:20 by macasubo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SRCS = srcs/main.c srcs/utils/env.c srcs/utils/free.c 				    	   \
 	   srcs/builtins/cd.c srcs/builtins/echo.c srcs/builtins/env1.c			   \
 	   srcs/builtins/env2.c srcs/builtins/pwd.c srcs/builtins/exit.c		   \
 	   srcs/parser/parse_redirections.c srcs/parser/parse_commands.c		   \
-	   srcs/executables/exec.c srcs/utils/signals.c srcs/direction/pipes.c
+	   srcs/executables/exec.c srcs/utils/signals.c srcs/direction/pipes.c	   \
+	   srcs/parser/remove_quotes.c
 
 OBJS = ${SRCS:.c=.o}
 

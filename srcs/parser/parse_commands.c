@@ -6,7 +6,7 @@
 /*   By: macasubo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 19:30:53 by macasubo          #+#    #+#             */
-/*   Updated: 2020/02/26 03:38:39 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/02/26 18:56:04 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void			parse_commands_ter(t_strlist *current, t_strlist **command,
 	if (!(separators = malloc(sizeof(char *) * 5)))
 		handle_error(NULL);
 	parse_commands_assign_separators(separators);
-	*command = ft_supersplit(current->str, separators, 0, 1);
+	*command = ft_supersplit(current->str, separators, 0, 0);
 	parse_args(*command, supertab, n);
 	if (!(new_string = ft_strsub(current->str, ft_strlen((*command)->str),
 				ft_strlen(current->str) - ft_strlen((*command)->str))))

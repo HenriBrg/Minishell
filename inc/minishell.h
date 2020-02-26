@@ -106,6 +106,7 @@ t_strlist					*ft_supersplit(char *string, char **separators,
 											int inclusion, int trim);
 void						addback(t_strlist **list, char *str, int n,
 									int trim);
+char						*trim_quotes(char *s);
 
 /*
 ** bultins/
