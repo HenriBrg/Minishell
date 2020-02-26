@@ -6,7 +6,8 @@ SRCS =  src/str/ft_strcmp.c  src/str/ft_strncmp.c src/str/ft_strcat.c		   \
 		src/str/ft_strnew.c  src/str/ft_strnstr.c src/str/ft_strrchr.c		   \
 		src/str/ft_strstr.c  src/str/ft_strsub.c  src/str/ft_strlen.c		   \
 		src/str/ft_strndup.c src/str/ft_stroccurs.c	src/str/ft_strsplit.c	   \
-		src/str/ft_strsfree.c src/str/ft_strslen.c							   \
+		src/str/ft_strsfree.c src/str/ft_strslen.c src/str/ft_strlcpy.c		   \
+		src/str/ft_strtrim.c \
 		src/others/ft_bzero.c src/others/ft_calloc.c src/others/ft_memset.c    \
 		src/others/ft_memcpy.c src/others/ft_isdigit.c src/others/ft_isalpha.c \
 		src/others/ft_isspace.c	src/others/get_next_line.c					   \

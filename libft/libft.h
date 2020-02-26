@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 17:17:16 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/18 21:58:47 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/25 23:29:23 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,7 @@ char			*ft_strndup(const char *src, size_t n);
 char			**ft_strsplit(char *str, char *charset);
 void			ft_strsfree(char **strs);
 size_t			ft_strlen(const char *str);
+char			*ft_strtrim(char const *s1, char const *set);
+size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize);
 
 #endif

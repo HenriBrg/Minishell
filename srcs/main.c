@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/25 22:32:27 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/26 00:59:24 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,23 @@ int			main(int ac, char **av, char **env)
 	char			**cmds;
 	(void)av;
 	envar = NULL;
+	//input = malloc(sizeof(char **));
 	input = NULL;
 	if (ac != 1 || (envar = lstenv(env)) == 0)
 		return (-1);
 	siglisten();
 	while (42)
 	{
+		//printf("YO\n");
 		prompt(envar);
 		g_shellisrunning = 0;
 		get_next_line(0, &input);
+		//printf("input : %s\n", input);
 
 		list = parse(input); // AJOUTER EXIT $?
-		cmds = list->command[0].args;
+		//printf("input : %s\n", input);
+		//printf("BONJOUR\n");
+		//printf("%s\n", (char *)list);
 		// les maillons de list sont separes par un ;
 		// les cases du tableau dans chacun des maillon sont des |
 		// a l'interieur de chacune des cases : tableau des args, entree et sortie
@@ -74,19 +79,24 @@ int			main(int ac, char **av, char **env)
 
 		// iterer sur la liste chainees
 
-		g_shellisrunning = 1;
-
-		int countpipe = 0;
-		while (list->command[countpipe].args != NULL)
-			countpipe++;
-			printf("pipe : %d\n", countpipe);
-		if (countpipe <= 1) // zero processus
+		if (list && list->command)
 		{
-			monoprocess(list->command, envar);
+			cmds = list->command[0].args;
+			g_shellisrunning = 1;
+
+			int countpipe = 0;
+			while (list->command[countpipe].args != NULL)
+				countpipe++;
+				printf("pipe : %d\n", countpipe);
+			if (countpipe <= 1) // zero processus
+			{
+				monoprocess(list->command, envar);
+			}
+			else
+				pipeline(list->command, envar);
 		}
-		else
-			pipeline(list->command, envar);
-		free(input);
+		if (input)
+			free(input);
 	}
 	lstclear(envar);
 	return (0);

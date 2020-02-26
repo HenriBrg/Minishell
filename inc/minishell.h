@@ -103,8 +103,9 @@ t_command					*parse_commands(t_strlist **pipe_list);
 void						parse_args(t_strlist *command, t_command *supertab,
 										int n);
 t_strlist					*ft_supersplit(char *string, char **separators,
-											int inclusion);
-void						addback(t_strlist **list, char *str, int n);
+											int inclusion, int trim);
+void						addback(t_strlist **list, char *str, int n,
+									int trim);
 
 /*
 ** bultins/

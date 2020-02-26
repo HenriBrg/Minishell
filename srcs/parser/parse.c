@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 18:10:59 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/25 20:55:39 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/26 03:30:57 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void			parse_args_bis(t_strlist *args, t_command *supertab,
 		free(tmp);
 	}
 	free(separators[0]);
+	free(separators[1]);
 	free(separators);
 }
 
@@ -42,12 +43,14 @@ void				parse_args(t_strlist *command, t_command *supertab, int n)
 
 	if (command)
 	{
-		if (!(separators = malloc(sizeof(char *) * 2)))
+		if (!(separators = malloc(sizeof(char *) * 3)))
 			handle_error(NULL);
 		if (!(separators[0] = ft_strdup(" ")))
 			handle_error(NULL);
-		separators[1] = NULL;
-		args = ft_supersplit(command->str, separators, 0);
+		if (!(separators[1] = ft_strdup("\t")))
+			handle_error(NULL);
+		separators[2] = NULL;
+		args = ft_supersplit(command->str, separators, 0, 0);
 		len = 0;
 		tmp = args;
 		while (tmp)
@@ -89,7 +92,7 @@ static void			top_level_parsing(t_strlist **semicolon_list,
 	t_command		*supertab;
 	t_strlist		*tmp;
 
-	pipe_list = ft_supersplit((*semicolon_list)->str, separators, 0);
+	pipe_list = ft_supersplit((*semicolon_list)->str, separators, 0, 0);
 	supertab = parse_commands(&pipe_list);
 	addback_command(list, supertab);
 	tmp = *semicolon_list;
@@ -103,14 +106,14 @@ t_commands_list		*parse(char *input)
 	char			**separators;
 	t_strlist		*semicolon_list;
 	t_commands_list	*list;
-	// int				i;
-	// int				j;
+	int				i;
+	int				j;
 
 	if (!(separators = malloc(sizeof(char *) * 2)) || !(separators[0] =
 			ft_strdup(";")))
 		handle_error(NULL);
 	separators[1] = NULL;
-	semicolon_list = ft_supersplit(input, separators, 0);
+	semicolon_list = ft_supersplit(input, separators, 0, 0);
 	list = NULL;
 	free(separators[0]);
 	if (!(separators[0] = ft_strdup("|")))
@@ -120,28 +123,28 @@ t_commands_list		*parse(char *input)
 	free(separators[0]);
 	free(separators);
 
-	// t_commands_list *cur = list;
-	// while (cur)
-	// {
-	// 	i = 0;
-	// 	while (cur->command[i].args)
-	// 	{
-	// 		printf("----- ARGS -----\n");
-	// 		j = 0;
-	// 		while (cur->command[i].args[j])
-	// 		{
-	// 			printf("%s\n", cur->command[i].args[j]);
-	// 			j++;
-	// 		}
-	// 		printf("----- IN -----\n");
-	// 		printf("%s\n", cur->command[i].in);
-	// 		printf("----- OUT -----\n");
-	// 		printf("%s\n", cur->command[i].out);
-	// 		printf("---------END OF COMMAND---------\n");
-	// 		i++;
-	// 	}
-	// 	printf("---------END OF SEMICOLON---------\n");
-	// 	cur = cur->next;
-	// }
+	t_commands_list *cur = list;
+	while (cur)
+	{
+		i = 0;
+		while (cur->command[i].args)
+	 	{
+	 		printf("----- ARGS -----\n");
+	 		j = 0;
+	 		while (cur->command[i].args[j])
+	 		{
+	 			printf("%s\n", cur->command[i].args[j]);
+	 			j++;
+	 		}
+	 		printf("----- IN -----\n");
+	 		printf("%s\n", cur->command[i].in);
+	 		printf("----- OUT -----\n");
+	 		printf("%s\n", cur->command[i].out);
+	 		printf("---------END OF COMMAND---------\n");
+	 		i++;
+	 	}
+		printf("---------END OF SEMICOLON---------\n");
+		cur = cur->next;
+	}
 	return (list);
 }
