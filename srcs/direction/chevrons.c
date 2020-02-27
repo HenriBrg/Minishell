@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:55:57 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/26 22:56:05 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/27 20:21:36 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,20 @@ typedef struct				s_command
 
 int		nopiped_chevrons(t_command *tab, t_envar *envar)
 {
-	int					fd;
 	t_strlist			*tmp;
-
 	(void)envar;
-	(void)fd;
+
 	tmp = tab[0].out;
 	while (tmp)
 	{
-		printf("out\n");
-		fd = open(tmp->str, O_CREAT | O_WRONLY | O_TRUNC, 0777);// (tmp->out_type == 2 ? O_APPEND : O_TRUNC), 0777);
+		int fd = open(tmp->str, O_CREAT | O_WRONLY | O_TRUNC, 0777);// (tmp->out_type == 2 ? O_APPEND : O_TRUNC), 0777);
 		if (tmp->next == 0 && fd != -1)
 		{
 			printf("DUP\n");
-			dup2(fd, 1);
+			dup2(fd, STDOUT_FILENO);
+			close(fd);
+			return 0;
 		}
-		close(fd);
-		if (tmp->next == 0)
-			return (fd);
 		tmp = tmp->next;
 	}
 
@@ -65,6 +61,64 @@ int		nopiped_chevrons(t_command *tab, t_envar *envar)
 	return (0);
 }
 
+/*
+int		nopiped_chevrons(t_command *tab, t_envar *envar)
+{
+	int					pid;
+	int					fd;
+	t_strlist			*tmp;
+
+
+
+	(void)envar;
+	(void)fd;
+
+	tmp = tab[0].out;
+	if ((pid = fork()) < 0)
+		exit((g_exitvalue = EXIT_FAILURE));
+	else if (pid == 0)
+	{
+	    // if (in)
+	    // {
+	    //     int fd0 = open(input, O_RDONLY);
+	    //     dup2(fd0, STDIN_FILENO);
+	    //     close(fd0);
+	    // }
+
+		// tmp = tab[0].out;
+		// while (tmp)
+		// {
+		// 	int fd1 = open(tmp->str, O_CREAT | O_WRONLY | O_TRUNC, 0777);// (tmp->out_type == 2 ? O_APPEND : O_TRUNC), 0777);
+		// 	if (tmp->next == 0 && fd != -1)
+		// 		dup2(fd1, STDOUT_FILENO);
+	    //     close(fd1);
+		// 	tmp = tmp->next;
+		// }
+
+	    if (tmp)
+	    {
+			int fd1 = open(tmp->str, O_CREAT | O_WRONLY | O_TRUNC, 0777);// (tmp->out_type == 2 ? O_APPEND : O_TRUNC), 0777);
+	        dup2(fd1, STDOUT_FILENO);
+	        close(fd1);
+	    }
+
+		if (isbuiltin(tab->args))
+		{
+			printf("buitin\n");
+			executebuiltins(tab->args, envar);
+			exit(0);
+		}
+		else
+			executablesnofork(tab->args, envar);
+	}
+	else
+	{
+		wait(NULL);
+	}
+	return 0;
+
+}
+*/
 
 
 

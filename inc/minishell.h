@@ -143,5 +143,9 @@ int						isbuiltin(char **cmds);
 void					executebuiltins(char **cmds, t_envar *envar);
 void					pipeline(t_command *tab, t_envar *envar);
 int		nopiped_chevrons(t_command *tab, t_envar *envar);
+void			executablesnofork(char **cmds, t_envar *envar);
+char			*finishpath(char **pathtab, char *tmp2);
+
+char			*checkpath(char **cmds, struct stat *s, char *envpath);
 
 #endif

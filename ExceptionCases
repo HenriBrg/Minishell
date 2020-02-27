@@ -20,3 +20,58 @@ bash-3.2$
 Apres avoir parser, remplacer tous les $var ? sauf si \$
 --------------------------------------------------------------------------------
 Doit on gerer les ``
+
+TJRS MEME RESULTAT SI PIPE redirections
+
+72163 ttys001    0:00.54 -zsh
+➜  minishell git:(redirections) ✗ kill 82827
+➜  minishell git:(redirections) ✗ c
+➜  minishell git:(redirections) ✗ ls > tmp | wc
+      10      11      82
+➜  minishell git:(redirections) ✗ ls >> tmp | wc
+      10      11      82
+➜  minishell git:(redirections) ✗ ls >> tmp | wc
+      10      11      82
+➜  minishell git:(redirections) ✗ ls > tmp | wc
+      10      11      82
+➜  minishell git:(redirections) ✗ ls >> tmp | wc
+      10      11      82
+➜  minishell git:(redirections) ✗ ls >> tmp | wc
+      10      11      82
+➜  minishell git:(redirections) ✗
+
+
+exit qui marche pas
+
+/Users/hberger/Desktop/Projets/minishell/ ------> ls
+execpath = /bin/ls
+ExceptionCases	UnitTests	minishell	o2		tmp11
+File		hello		neww		ooo		tmp2
+Makefile	inc		newww		srcs
+TODO Liste	libft		o1		testing
+/Users/hberger/Desktop/Projets/minishell/ ------> ls | wc
+      18      19     121
+/Users/hberger/Desktop/Projets/minishell/ ------> ls | wc > file
+/Users/hberger/Desktop/Projets/minishell/ ------> cat file
+execpath = /bin/cat
+      18      19     121
+/Users/hberger/Desktop/Projets/minishell/ ------> rm file
+execpath = /bin/rm
+/Users/hberger/Desktop/Projets/minishell/ ------> c;ear
+minishell: command not found : c
+/Users/hberger/Desktop/Projets/minishell/ ------> clear
+execpath = /usr/bin/clear
+TERM environment variable not set.
+/Users/hberger/Desktop/Projets/minishell/ ------> cat fil
+execpath = /bin/cat
+cat: fil: No such file or directory
+/Users/hberger/Desktop/Projets/minishell/ ------> ls | wc > file
+/Users/hberger/Desktop/Projets/minishell/ ------> cat file
+execpath = /bin/cat
+      18      19     121
+/Users/hberger/Desktop/Projets/minishell/ ------> exit
+unset exit export cd
+exit
+/Users/hberger/Desktop/Projets/minishell/ ------> exit
+unset exit export cd
+exit

@@ -4,11 +4,12 @@ CLEAN PARSING
 
 CHEVRONS
 
-REMPLACER DOLLARS après avoir splitté totalement (attention aux escapes)
-bash-3.2$ export var=cho
-bash-3.2$ e$var dd
-dd
-
 LEAKS
 
 $?
+
+BUG SUR EXIT donc en theorie il y a aussi unset cd export
+
+/Users/hberger/Desktop/Projets/minishell/ ------> clear
+execpath = /usr/bin/clear
+TERM environment variable not set.
