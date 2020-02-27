@@ -6,7 +6,7 @@
 /*   By: macasubo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 21:48:00 by macasubo          #+#    #+#             */
-/*   Updated: 2020/02/27 02:04:30 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/02/27 23:04:04 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,19 @@ static void		substitute_variable(char **s, int *i, int *len, t_envar *envar)
 			(*s)[*i + len_var_name] != '\"' && (*s)[*i + len_var_name] != '\\'
 			&& (*s)[*i + len_var_name] != '$')
 		len_var_name++;
-	var_name = ft_strsub(*s, *i, len_var_name);
+	var_name = NULL;
+	if ((*s)[*i] != '?')
+		var_name = ft_strsub(*s, *i, len_var_name);
+	var_name = 
 	new_string = NULL;
 	a = NULL;
 	c = NULL;
 	var_subst = NULL;
 	tmp = NULL;
-	var_subst = getvar(envar, var_name);
+	if ((*s)[*i] == '?')
+		var_subst = ft_itoa(g_exitvalue);
+	else
+		var_subst = getvar(envar, var_name);
 	if (var_name)
 		free(var_name);
 	if (*i - 1 > 0)
