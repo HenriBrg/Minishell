@@ -6,7 +6,7 @@
 /*   By: macasubo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 01:44:19 by macasubo          #+#    #+#             */
-/*   Updated: 2020/02/26 18:55:15 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/02/26 20:10:36 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void			addback(t_strlist **list, char *str, int n, int trim)
 		if (!(new->str = ft_strsub(str, 0, n)))
 			handle_error(NULL);
 		if (trim)
-			new->str = trim_quotes(new->str);
+			new->str = trim_quotes(new->str, NULL);
 	}
 	else
 		new->str = NULL;

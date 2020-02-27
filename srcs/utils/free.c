@@ -6,16 +6,16 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:01:02 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/20 20:45:54 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/27 00:26:54 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void		lstclear(t_envar *lst)
+void				lstclear(t_envar *lst)
 {
-	t_envar	*current;
-	t_envar	*next;
+	t_envar			*current;
+	t_envar			*next;
 
 	if (lst == 0)
 		return ;
@@ -29,4 +29,46 @@ void		lstclear(t_envar *lst)
 		current = next;
 	}
 	lst = NULL;
+}
+
+void				commands_lstclear(t_commands_list *list)
+{
+	t_commands_list	*tmp;
+	t_strlist		*tmp2;
+	int				i;
+	int				j;
+
+	while (list)
+	{
+		i = 0;
+		while (list->command[i].args)
+		{
+			while (list->command[i].in)
+			{
+				free(list->command[i].in->str);
+				tmp2 = list->command[i].in;
+				list->command[i].in = list->command[i].in->next;
+				free(tmp2);
+			}
+			while (list->command[i].out)
+			{
+				free(list->command[i].out->str);
+				tmp2 = list->command[i].out;
+				list->command[i].out = list->command[i].out->next;
+				free(tmp2);
+			}
+			j = 0;
+			while (list->command[i].args[j])
+			{
+				free(list->command[i].args[j]);
+				j++;
+			}
+			free(list->command[i].args);
+			i++;
+		}
+		free(list->command);
+		tmp = list;
+		list = list->next;
+		free(tmp);
+	}
 }

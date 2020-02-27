@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/26 17:47:12 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/27 01:28:21 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int			main(int ac, char **av, char **env)
 
 	char			**cmds;
 	(void)av;
+	(void)cmds;
 	envar = NULL;
 	//input = malloc(sizeof(char **));
 	input = NULL;
@@ -64,8 +65,8 @@ int			main(int ac, char **av, char **env)
 		g_shellisrunning = 0;
 		get_next_line(0, &input);
 		//printf("input : %s\n", input);
-
-		list = parse(input); // AJOUTER EXIT $?
+		list = NULL;
+		list = parse(input, envar); // AJOUTER EXIT $?
 		//printf("input : %s\n", input);
 		//printf("BONJOUR\n");
 		//printf("%s\n", (char *)list);
@@ -95,6 +96,7 @@ int			main(int ac, char **av, char **env)
 			else
 				pipeline(list->command, envar);
 		}
+		commands_lstclear(list);
 		if (input)
 			free(input);
 	}

@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 18:10:59 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/26 19:20:15 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/02/27 00:56:33 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static void			top_level_parsing(t_strlist **semicolon_list,
 	free(tmp);
 }
 
-t_commands_list		*parse(char *input)
+t_commands_list		*parse(char *input, t_envar *envar)
 {
 	char			**separators;
 	t_strlist		*semicolon_list;
@@ -130,34 +130,33 @@ t_commands_list		*parse(char *input)
 		i = 0;
 		while (cur->command[i].args)
 	 	{
-	 		printf("----- ARGS -----\n");
+	 		//printf("----- ARGS -----\n");
 	 		j = 0;
 	 		while (cur->command[i].args[j])
 	 		{
-				cur->command[i].args[j] = trim_quotes(cur->command[i].args[j]);
-	 			printf("%s\n", cur->command[i].args[j]);
+				cur->command[i].args[j] = trim_quotes(cur->command[i].args[j],
+														envar);
+	 			//printf("%s\n", cur->command[i].args[j]);
 	 			j++;
 	 		}
-	 		printf("----- INS -----\n");
+	 		//printf("----- INS -----\n");
 			iter = cur->command[i].in;
 			while (iter)
 			{
-				printf("%s\n", iter->str);
+				//printf("%s\n", iter->str);
 				iter = iter->next;
 			}
-	 		//printf("%s\n", cur->command[i].in);
-	 		printf("----- OUTS -----\n");
+	 		//printf("----- OUTS -----\n");
 			iter = cur->command[i].out;
 			while (iter)
 			{
-				printf("%s\n", iter->str);
+				//printf("%s\n", iter->str);
 				iter = iter->next;
 			}
-	 		//printf("%s\n", cur->command[i].out);
-	 		printf("---------END OF COMMAND---------\n");
+	 		//printf("---------END OF COMMAND---------\n");
 	 		i++;
 	 	}
-		printf("---------END OF SEMICOLON---------\n");
+		//printf("---------END OF SEMICOLON---------\n");
 		cur = cur->next;
 	}
 	return (list);

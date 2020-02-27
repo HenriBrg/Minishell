@@ -90,13 +90,14 @@ int						inputcontrol(char *input);
 int						strcmpcasei(char *s1, char *s2);
 void					handle_error(char *message);
 void					siglisten(void);
+void					commands_lstclear(t_commands_list *list);
 
 
 /*
 ** parse/
 */
 
-t_commands_list				*parse(char *input);
+t_commands_list				*parse(char *input, t_envar *envar);
 void						parse_redirections(t_strlist *command,
 											t_command *supertab, int n);
 t_command					*parse_commands(t_strlist **pipe_list);
@@ -106,7 +107,7 @@ t_strlist					*ft_supersplit(char *string, char **separators,
 											int inclusion, int trim);
 void						addback(t_strlist **list, char *str, int n,
 									int trim);
-char						*trim_quotes(char *s);
+char						*trim_quotes(char *s, t_envar *envar);
 
 /*
 ** bultins/
