@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 18:10:59 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/26 21:07:55 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/26 22:22:59 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,8 @@ t_commands_list		*parse(char *input)
 	free(separators);
 
 	t_commands_list *cur = list;
-	while (cur)
+	t_strlist		*iter;
+	while (0 && cur)
 	{
 		i = 0;
 		while (cur->command[i].args)
@@ -133,13 +134,26 @@ t_commands_list		*parse(char *input)
 	 		j = 0;
 	 		while (cur->command[i].args[j])
 	 		{
+				cur->command[i].args[j] = trim_quotes(cur->command[i].args[j]);
 	 			printf("%s\n", cur->command[i].args[j]);
 	 			j++;
 	 		}
-	 		printf("----- IN -----\n");
-	 		printf("%s\n", cur->command[i].in);
-	 		printf("----- OUT -----\n");
-	 		printf("%s\n", cur->command[i].out);
+	 		printf("----- INS -----\n");
+			iter = cur->command[i].in;
+			while (iter)
+			{
+				printf("%s\n", iter->str);
+				iter = iter->next;
+			}
+	 		//printf("%s\n", cur->command[i].in);
+	 		printf("----- OUTS -----\n");
+			iter = cur->command[i].out;
+			while (iter)
+			{
+				printf("%s\n", iter->str);
+				iter = iter->next;
+			}
+	 		//printf("%s\n", cur->command[i].out);
 	 		printf("---------END OF COMMAND---------\n");
 	 		i++;
 	 	}

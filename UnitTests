@@ -29,3 +29,5 @@ HOME=/tmp cd dans bash ça t’envoie bien dans tmp
 1) guillemet correct
 2) substitutiom
 3) recheck guillemetse
+
+ls > tmp . out

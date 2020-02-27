@@ -44,15 +44,15 @@ typedef struct			s_envar
 typedef struct				s_strlist
 {
 	char					*str;
+	int						out_type;
 	struct s_strlist		*next;
 }							t_strlist;
 
 typedef struct				s_command
 {
 	char					**args;
-	char					*out;
-	char					*in;
-	int						out_type;
+	t_strlist				*out;
+	t_strlist				*in;
 }							t_command;
 
 typedef struct				s_commands_list
@@ -106,6 +106,7 @@ t_strlist					*ft_supersplit(char *string, char **separators,
 											int inclusion, int trim);
 void						addback(t_strlist **list, char *str, int n,
 									int trim);
+char						*trim_quotes(char *s);
 
 /*
 ** bultins/
@@ -140,6 +141,7 @@ void					executables(char **cmds, t_envar *envar);
 
 int						isbuiltin(char **cmds);
 void					executebuiltins(char **cmds, t_envar *envar);
-void		pipeline(t_command *tab, t_envar *envar);
+void					pipeline(t_command *tab, t_envar *envar);
+int		nopiped_chevrons(t_command *tab, t_envar *envar);
 
 #endif

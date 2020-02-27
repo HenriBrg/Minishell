@@ -1,9 +1,0 @@
-total 40
-drwxr-xr-x   8 hberger  2019_paris   272 26 fév 20:41 .
-drwxr-xr-x  12 hberger  2019_paris   408 26 fév 20:01 ..
--rw-r--r--   1 hberger  2019_paris   538 25 fév 20:18 chevrons.c
--rw-r--r--   1 hberger  2019_paris   366 25 fév 21:25 execv.c
--rw-r--r--   1 hberger  2019_paris     6 25 fév 21:17 ficier
--rw-r--r--   1 hberger  2019_paris   830 25 fév 20:18 pid.c
--rw-r--r--   1 hberger  2019_paris  2133 25 fév 21:23 pipe.c
--rw-r--r--   1 hberger  2019_paris     0 26 fév 21:07 tmp

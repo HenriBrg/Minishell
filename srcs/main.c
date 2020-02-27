@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/26 17:47:12 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/26 22:54:13 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,16 @@ void		prompt(t_envar *envar)
 
 void		monoprocess(t_command *tab, t_envar *envar)
 {
+	int fd;
+
+	fd = nopiped_chevrons(tab, envar);
 	if (isbuiltin(tab->args))
 		executebuiltins(tab->args, envar);
 	else
 		executables(tab->args, envar);
+	dup2(fd, 1);
+	//dup2(0, 0);
+
 }
 
 /*
@@ -77,7 +83,7 @@ int			main(int ac, char **av, char **env)
 		// commande de test :
 		// echo salut < in comment >> out ca va | head < in > out | less moi ca va > out bien < in ; sort il fait > out ; cat >> out tres beau < in ajd | echo >> out en effet < in oui
 
-		// iterer sur la liste chainees
+		// iterer sur la liste chainees de ;
 
 		if (list && list->command)
 		{
@@ -90,10 +96,15 @@ int			main(int ac, char **av, char **env)
 			//	printf("pipe : %d\n", countpipe);
 			if (countpipe <= 1) // zero processus
 			{
+				printf("monprocess\n");
 				monoprocess(list->command, envar);
 			}
 			else
+			{
+				printf("multiprocess\n");
 				pipeline(list->command, envar);
+
+			}
 		}
 		if (input)
 			free(input);
