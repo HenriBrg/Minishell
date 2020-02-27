@@ -10,3 +10,25 @@ ls -la | nl  | rev | sort
 TODO ---------------------------------------------------------------------------
 
 'e'"c"""'''h'""'o' coucou Henri <--done
+'e'"c"""'''h'""'o' coucou Henri
+
+HOME=/tmp cd dans bash ça t’envoie bien dans tmp
+
+/Users/hberger/Desktop/Projets/minishell/ ------> |
+[1]    11520 segmentation fault  ./minishell
+
+/Users/hberger/Desktop/Projets/minishell/ ------> >
+[1]    11562 segmentation fault  ./minishell
+➜  minishell git:(redirections) ✗ ./minishell
+/Users/hberger/Desktop/Projets/minishell/ ------> <
+[1]    11573 segmentation fault  ./minishell
+➜  minishell git:(redirections) ✗ ./minishell
+/Users/hberger/Desktop/Projets/minishell/ ------> >>
+[1]    11584 segmentation fault  ./minishell
+
+
+1) guillemet correct
+2) substitutiom
+3) recheck guillemetse
+
+ls > tmp . out

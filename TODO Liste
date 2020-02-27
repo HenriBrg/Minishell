@@ -1,14 +1,13 @@
-CONSERVER LES TESTS
+bug clear
+check $?
+chevrons en fin et debut exit dans parsing
+norm
+full tests
+leaks
 
-CLEAN PARSING
 
-CHEVRONS
+------
 
-REMPLACER DOLLARS après avoir splitté totalement (attention aux escapes)
-bash-3.2$ export var=cho
-bash-3.2$ e$var dd
-dd
-
-LEAKS
-
-$?
+bug exit
+fixer le < des pipes
+faire review

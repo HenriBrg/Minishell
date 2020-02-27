@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:56:01 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/26 17:48:23 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/28 00:20:03 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,30 +81,62 @@ void		pipeline(t_command *tab, t_envar *envar)
 	int		fd[2];
 	int		backupfd;
 	pid_t	pid;
+	int 	status;
+	int 	numPipes;
+	int 	redir;
+	t_strlist		*tmp;
+	int				fdout;
 
-	(void)envar;
+
 	i = 0;
 	backupfd = 0;
+	numPipes = -1;
 	while (tab[i].args != NULL)
 	{
-		pipe(fd);
+		status = pipe(fd);
 		if ((pid = fork()) == -1)
 			exit((g_exitvalue = EXIT_FAILURE));
 		else if (pid == 0)
 		{
+
 			dup2(backupfd, 0);
+
+			tmp = tab[i].out;
+			while (tmp)
+			{
+				fdout = open(tmp->str, O_CREAT | O_WRONLY | (tmp->out_type == 2 ? O_APPEND : O_TRUNC), 0777);
+				if (tmp->next == 0 && fdout != -1)
+				{
+					redir = 1;
+					dup2(fdout, STDOUT_FILENO);
+					close(fdout);
+				}
+				tmp = tmp->next;
+			}
+
 			if (tab[i + 1].args != NULL)
-				dup2(fd[1], 1);
+				dup2(fd[1], (redir == 1) ? backupfd : 1);
+			redir = 0;
 			close(fd[0]);
 			pipexec(tab + i, envar);
 			exit((g_exitvalue = EXIT_FAILURE));
 		}
 		else
 		{
-			wait(NULL);
+			// wait(&status);
 			close(fd[1]);
 			backupfd = fd[0];
 			i++;
 		}
+		numPipes++;
 	}
+
+	while (numPipes)
+	{
+		wait(&status);
+		numPipes--;
+	}
+	wait(NULL);
+
+	// cat /dev/random | head -c 100
 }

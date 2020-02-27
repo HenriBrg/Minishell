@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 18:10:59 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/27 00:56:33 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/02/28 00:30:07 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ t_commands_list		*parse(char *input, t_envar *envar)
 
 	t_commands_list *cur = list;
 	t_strlist		*iter;
-	while (cur)
+	while (0 && cur)
 	{
 		i = 0;
 		while (cur->command[i].args)

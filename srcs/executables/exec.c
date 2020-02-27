@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 18:29:47 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/26 18:41:39 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/27 19:48:06 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,8 @@ void			executables(char **cmds, t_envar *envar)
 	pid = fork();
 	if (pid == 0)
 	{
-		// Change into execv
 		// How free an allocation going to exec ? In the parent I guess ?
-		// printf("%s\n", tab->args);
 		ret = execve(execpath, cmds, NULL);
-		// printf("ret = %d\n", ret);
 		free(execpath);
 		exit((g_exitvalue = EXIT_FAILURE));
 	}
@@ -85,4 +82,18 @@ void			executables(char **cmds, t_envar *envar)
 	else
 		waitpid(pid, &wpid, 0);
 		//free ici ?
+}
+
+void			executablesnofork(char **cmds, t_envar *envar)
+{
+	int			ret;
+	char		*execpath;
+	struct stat	s;
+
+	execpath = 0;
+	if ((execpath = checkpath(cmds, &s, getvar(envar, "PATH"))) == 0)
+		return ;
+	ret = execve(execpath, cmds, NULL);
+	//free(execpath);
+	exit((g_exitvalue = EXIT_FAILURE));
 }
