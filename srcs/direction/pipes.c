@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:56:01 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/27 22:43:58 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/28 00:20:03 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,6 @@ void		pipeline(t_command *tab, t_envar *envar)
 	numPipes = -1;
 	while (tab[i].args != NULL)
 	{
-
-
-
-
 		status = pipe(fd);
 		if ((pid = fork()) == -1)
 			exit((g_exitvalue = EXIT_FAILURE));

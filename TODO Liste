@@ -1,15 +1,13 @@
-CONSERVER LES TESTS
+bug clear
+check $?
+chevrons en fin et debut exit dans parsing
+norm
+full tests
+leaks
 
-CLEAN PARSING
 
-CHEVRONS
+------
 
-LEAKS
-
-$?
-
-BUG SUR EXIT donc en theorie il y a aussi unset cd export
-
-/Users/hberger/Desktop/Projets/minishell/ ------> clear
-execpath = /usr/bin/clear
-TERM environment variable not set.
+bug exit
+fixer le < des pipes
+faire review
