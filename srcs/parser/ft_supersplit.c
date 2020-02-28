@@ -6,7 +6,7 @@
 /*   By: macasubo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 01:44:19 by macasubo          #+#    #+#             */
-/*   Updated: 2020/02/26 20:10:36 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/02/28 03:27:27 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void			addback(t_strlist **list, char *str, int n, int trim)
 	t_strlist	*new;
 	t_strlist	*current;
 
+	(void)trim;
 	if (!check_spaces(str, n))
 		return ;
 	if (!(new = malloc(sizeof(t_strlist))))
@@ -39,8 +40,6 @@ void			addback(t_strlist **list, char *str, int n, int trim)
 	{
 		if (!(new->str = ft_strsub(str, 0, n)))
 			handle_error(NULL);
-		if (trim)
-			new->str = trim_quotes(new->str, NULL);
 	}
 	else
 		new->str = NULL;
@@ -107,13 +106,12 @@ static void		check_separator(t_envsplit *env, int trim)
 	}
 }
 
-#include <stdio.h>
-
 t_strlist		*ft_supersplit(char *string, char **separators, int inclusion,
 								int trim)
 {
-	trim = 0;
 	t_envsplit	env;
+
+	trim = 0;
 	if (!string || !separators)
 		return (NULL);
 	env.quotes[0] = 0;

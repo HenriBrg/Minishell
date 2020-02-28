@@ -1,6 +1,7 @@
 bug clear
 check $?
 chevrons en fin et debut exit dans parsing
+quitter sur des guillemets impairs
 norm
 full tests
 leaks

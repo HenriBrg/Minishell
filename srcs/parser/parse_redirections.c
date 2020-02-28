@@ -6,13 +6,36 @@
 /*   By: macasubo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 02:36:17 by macasubo          #+#    #+#             */
-/*   Updated: 2020/02/26 19:21:38 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/02/28 03:50:40 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-#include <stdio.h>
+void				purify(t_commands_list *list, t_envar *envar)
+{
+	int				i;
+	int				j;
+	t_commands_list	*cur;
+
+	cur = list;
+	while (cur)
+	{
+		i = 0;
+		while (cur->command[i].args)
+		{
+			j = 0;
+			while (cur->command[i].args[j])
+			{
+				cur->command[i].args[j] = trim_quotes(cur->command[i].args[j],
+												envar);
+				j++;
+			}
+			i++;
+		}
+		cur = cur->next;
+	}
+}
 
 static int			handle_chevrons(t_strlist *command, int *in, int *out)
 {
@@ -45,21 +68,12 @@ static int			handle_path(t_command *supertab, t_strlist *command,
 {
 	if (*in == 1)
 	{
-		//if (supertab->in)
-		//	handle_error("minishell: fd aggregation not supported");
-		//if (!(supertab->in = ft_strdup(command->str)))
-		//	handle_error(NULL);
 		addback(&(supertab->in), command->str, ft_strlen(command->str), 0);
 		*in = 0;
 		return (1);
 	}
 	else if (*out == 1 || *out == 2)
 	{
-		//if (supertab->out)
-		//	handle_error("minishell: fd aggregation not supported");
-		//if (!(supertab->out = ft_strdup(command->str)))
-		//	handle_error(NULL);
-		//supertab->out_type = *out;
 		addback(&(supertab->out), command->str, ft_strlen(command->str), 0);
 		supertab->out->out_type = *out;
 		*out = 0;

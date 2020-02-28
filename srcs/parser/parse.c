@@ -6,13 +6,11 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 18:10:59 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/28 00:30:07 by hberger          ###   ########.fr       */
+/*   Updated: 2020/02/28 03:52:59 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-#include <stdio.h>
 
 static void			parse_args_bis(t_strlist *args, t_command *supertab,
 									t_strlist *tmp, char **separators)
@@ -41,28 +39,25 @@ void				parse_args(t_strlist *command, t_command *supertab, int n)
 	char			**separators;
 	int				len;
 
-	if (command)
+	if (!(separators = malloc(sizeof(char *) * 3)))
+		handle_error(NULL);
+	if (!(separators[0] = ft_strdup(" ")))
+		handle_error(NULL);
+	if (!(separators[1] = ft_strdup("\t")))
+		handle_error(NULL);
+	separators[2] = NULL;
+	args = ft_supersplit(command->str, separators, 0, 0);
+	len = 0;
+	tmp = args;
+	while (tmp)
 	{
-		if (!(separators = malloc(sizeof(char *) * 3)))
-			handle_error(NULL);
-		if (!(separators[0] = ft_strdup(" ")))
-			handle_error(NULL);
-		if (!(separators[1] = ft_strdup("\t")))
-			handle_error(NULL);
-		separators[2] = NULL;
-		args = ft_supersplit(command->str, separators, 0, 0);
-		len = 0;
-		tmp = args;
-		while (tmp)
-		{
-			len++;
-			tmp = tmp->next;
-		}
-		if (!(supertab[n].args = malloc(sizeof(char *) * (len + 1))))
-			handle_error(NULL);
-		supertab[n].args[len] = NULL;
-		parse_args_bis(args, supertab + n, tmp, separators);
+		len++;
+		tmp = tmp->next;
 	}
+	if (!(supertab[n].args = malloc(sizeof(char *) * (len + 1))))
+		handle_error(NULL);
+	supertab[n].args[len] = NULL;
+	parse_args_bis(args, supertab + n, tmp, separators);
 }
 
 static void			addback_command(t_commands_list **list, t_command *command)
@@ -106,11 +101,10 @@ t_commands_list		*parse(char *input, t_envar *envar)
 	char			**separators;
 	t_strlist		*semicolon_list;
 	t_commands_list	*list;
-	int				i;
-	int				j;
 
-	if (!(separators = malloc(sizeof(char *) * 2)) || !(separators[0] =
-			ft_strdup(";")))
+	if (!(separators = malloc(sizeof(char *) * 2)))
+		handle_error(NULL);
+	if (!(separators[0] = ft_strdup(";")))
 		handle_error(NULL);
 	separators[1] = NULL;
 	semicolon_list = ft_supersplit(input, separators, 0, 0);
@@ -122,42 +116,6 @@ t_commands_list		*parse(char *input, t_envar *envar)
 		top_level_parsing(&semicolon_list, separators, &list);
 	free(separators[0]);
 	free(separators);
-
-	t_commands_list *cur = list;
-	t_strlist		*iter;
-	while (0 && cur)
-	{
-		i = 0;
-		while (cur->command[i].args)
-	 	{
-	 		//printf("----- ARGS -----\n");
-	 		j = 0;
-	 		while (cur->command[i].args[j])
-	 		{
-				cur->command[i].args[j] = trim_quotes(cur->command[i].args[j],
-														envar);
-	 			//printf("%s\n", cur->command[i].args[j]);
-	 			j++;
-	 		}
-	 		//printf("----- INS -----\n");
-			iter = cur->command[i].in;
-			while (iter)
-			{
-				//printf("%s\n", iter->str);
-				iter = iter->next;
-			}
-	 		//printf("----- OUTS -----\n");
-			iter = cur->command[i].out;
-			while (iter)
-			{
-				//printf("%s\n", iter->str);
-				iter = iter->next;
-			}
-	 		//printf("---------END OF COMMAND---------\n");
-	 		i++;
-	 	}
-		//printf("---------END OF SEMICOLON---------\n");
-		cur = cur->next;
-	}
+	purify(list, envar);
 	return (list);
 }

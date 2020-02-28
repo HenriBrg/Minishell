@@ -72,6 +72,17 @@ typedef struct				s_envsplit
 	t_strlist				*list;
 }							t_envsplit;
 
+typedef struct				s_envsubvar
+{
+	int						len_var_name;
+	char					*var_name;
+	char					*var_subst;
+	char					*a;
+	char					*c;
+	char					*new_string;
+	char					*tmp;
+}							t_envsubvar;
+
 /*
 ** main.c
 */
@@ -108,6 +119,9 @@ t_strlist					*ft_supersplit(char *string, char **separators,
 void						addback(t_strlist **list, char *str, int n,
 									int trim);
 char						*trim_quotes(char *s, t_envar *envar);
+void						substitute_variable(char **s, int *i, int *len,
+												t_envar *envar);
+void						purify(t_commands_list *list, t_envar *envar);
 
 /*
 ** bultins/
