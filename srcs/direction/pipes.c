@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:56:01 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/03 01:44:50 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/03/03 02:36:30 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ void			pipeline(t_command *tab, t_envar *envar, int nbpipes)
 	int			redirin;
 	int			redirout;
 
+
 	i = 0;
 	while (i < nbpipes) // On cree d'abord tous les pipes
 	{
@@ -179,7 +180,8 @@ void			pipeline(t_command *tab, t_envar *envar, int nbpipes)
 					handle_error(NULL);
 				if ((dup2(fd, 0)) == -1)
 					handle_error(NULL);
-				close(fd);
+				if ((close(fd)) == -1)
+					handle_error(NULL);
 				redirin = 1;
 			}
 			tmp = tab[i].out;
@@ -192,7 +194,8 @@ void			pipeline(t_command *tab, t_envar *envar, int nbpipes)
 				{
 					if ((dup2(fd, 1)) == -1)
 						handle_error(NULL);
-					close(fd);
+					if ((close(fd)) == -1)
+						handle_error(NULL);
 					redirout = 1;
 				}
 				tmp = tmp->next;
@@ -208,7 +211,8 @@ void			pipeline(t_command *tab, t_envar *envar, int nbpipes)
 			j = 0;
 			while (j < 2 * nbpipes)
 			{
-				close(pipefds[j]);
+				if ((close(pipefds[j])) == -1)
+					handle_error(NULL);
 				j++;
 			}
 			//pipexec(tab + i, envar);
@@ -221,7 +225,8 @@ void			pipeline(t_command *tab, t_envar *envar, int nbpipes)
 	j = 0;
 	while (j < 2 * nbpipes)
 	{
-		close(pipefds[j]);
+		if ((close(pipefds[j])) == -1)
+			handle_error(NULL);
 		j++;
 	}
 	j = 0;

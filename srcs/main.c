@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/03 01:52:30 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/03/03 04:14:58 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int					setfds(t_command *tab, t_envar *envar)
 	int				fd;
 	int				pid;
 	t_strlist		*tmp;
+
 
 	if ((pid = fork()) < 0)
 		exit(1);

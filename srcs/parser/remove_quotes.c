@@ -6,7 +6,7 @@
 /*   By: macasubo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 21:48:00 by macasubo          #+#    #+#             */
-/*   Updated: 2020/02/28 01:55:27 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/03/03 02:18:42 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,8 @@ char			*trim_quotes(char *s, t_envar *envar)
 							substitute_variable(&s, &i, &len, envar);
 		i++;
 	}
+	if (state[0] || state[1] || state[2])
+		handle_error("error: multiline commands are not supported");
 	new = NULL;
 	new = trim_quotes_final(len, s);
 	return (new);

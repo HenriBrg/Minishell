@@ -6,7 +6,7 @@
 /*   By: macasubo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 02:36:17 by macasubo          #+#    #+#             */
-/*   Updated: 2020/02/28 03:50:40 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/03/03 02:21:36 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,4 +128,6 @@ void				parse_redirections(t_strlist *command, t_command *supertab,
 		free(tmp->str);
 		free(tmp);
 	}
+	if (in || out)
+		handle_error("error: path of file missing");
 }

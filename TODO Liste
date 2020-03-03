@@ -1,7 +1,7 @@
 bug clear
 check $?
-chevrons en fin et debut exit dans parsing
-quitter sur des guillemets impairs
+chevrons en fin et debut exit dans parsing <-- OK
+quitter sur des guillemets impairs <-- OK
 norm
 full tests
 leaks
@@ -10,8 +10,10 @@ leaks
 ------
 
 bug exit
-fixer le < des pipes
+fixer le < des pipes <-- OK
 faire review
+gerer toutes les commandes dans pipeline()
+faire la redirection vers les executables a la place de execvp dans pipeline()
 
 test multiple in : echo hey | cat < a < b
 test multiple out : echo salut > a > b | cat
