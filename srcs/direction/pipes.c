@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:56:01 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/03 02:36:30 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/03/03 22:00:26 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	executebuiltins(char **cmds, t_envar *envar)
 ** Redirige sur un builtin / executable selon les chevrons précisé
 */
 
-void		pipexec(t_command *tab, t_envar *envar)
+void	pipexec(t_command *tab, t_envar *envar)
 {
 	// gerer les < > >>
 	if (isbuiltin(tab->args))
@@ -153,10 +153,13 @@ void			pipeline(t_command *tab, t_envar *envar, int nbpipes)
 	int			redirin;
 	int			redirout;
 
-
+	if (nbpipes == 0 && monoprocess(tab, envar))
+		return ;
 	i = 0;
 	while (i < nbpipes) // On cree d'abord tous les pipes
 	{
+		pipefds[i * 2 + 0] = -1;
+		pipefds[i * 2 + 1] = -1;
 		if (pipe(pipefds + i * 2) == -1)
 			handle_error(NULL);
 		i++;
@@ -202,22 +205,28 @@ void			pipeline(t_command *tab, t_envar *envar, int nbpipes)
 			}
 			if (i != 0 && !redirin)
 				if (dup2(pipefds[(i - 1) * 2], 0) == -1) // Dup 0 > stdin de la cmd
+					//exit(0);
 					handle_error(NULL);
 			if (tab[i + 1].args && !redirout)
 			{
 				if (dup2(pipefds[i * 2 + 1], 1) == -1) // Dup 1 > stdout de la cmd
+					//exit(0);
 					handle_error(NULL);
 			}
 			j = 0;
 			while (j < 2 * nbpipes)
 			{
-				if ((close(pipefds[j])) == -1)
+				if (pipefds[j] != -1 && (close(pipefds[j])) == -1)
+					//exit(0);
 					handle_error(NULL);
+				pipefds[j] = -1;
 				j++;
 			}
-			//pipexec(tab + i, envar);
+			pipexec(tab + i, envar); /* ICI */
 			(void)envar;
-			execvp(*(tab[i].args), tab[i].args);
+			//execvp(*(tab[i].args), tab[i].args);
+			//printf("BONSOIR !\n");
+			//exit(0);
 			handle_error(NULL);
 		}
 		i++;
@@ -225,8 +234,10 @@ void			pipeline(t_command *tab, t_envar *envar, int nbpipes)
 	j = 0;
 	while (j < 2 * nbpipes)
 	{
-		if ((close(pipefds[j])) == -1)
+		if (pipefds[j] != - 1 && (close(pipefds[j])) == -1)
+			//exit(0);
 			handle_error(NULL);
+		pipefds[j] = -1;
 		j++;
 	}
 	j = 0;

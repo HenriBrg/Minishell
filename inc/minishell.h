@@ -162,5 +162,6 @@ void			executablesnofork(char **cmds, t_envar *envar);
 char			*finishpath(char **pathtab, char *tmp2);
 
 char			*checkpath(char **cmds, struct stat *s, char *envpath);
+int				monoprocess(t_command *tab, t_envar *envar);
 
 #endif

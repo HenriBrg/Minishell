@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/03 04:14:58 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/03/03 20:03:23 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,16 @@ int					setfds(t_command *tab, t_envar *envar)
 	return (0);
 }
 
-void				monoprocess(t_command *tab, t_envar *envar)
+int					monoprocess(t_command *tab, t_envar *envar)
 {
 	if (strcmpcasei(tab->args[0], "unset") || strcmpcasei(tab->args[0], "cd")
 		|| strcmpcasei(tab->args[0], "export") || strcmpcasei(tab->args[0], "exit"))
 		{
 			printf("unset exit export cd\n");
 			executebuiltins(tab->args, envar);
+			return (1);
 		}
-	else
-		setfds(tab, envar);
-
+	return (0);
 }
 
 /*
@@ -109,7 +108,7 @@ int					main(int ac, char **av, char **env)
 	t_commands_list	*list;
 	t_commands_list	*tmp;
 
-	char			**cmds;
+	//char			**cmds;
 	(void)av;
 	envar = NULL;
 	input = NULL;
@@ -137,20 +136,20 @@ int					main(int ac, char **av, char **env)
 		{
 			if (tmp->command && tmp->command[0].args)
 			{
-				cmds = tmp->command[0].args;
+				//cmds = tmp->command[0].args;
 				g_shellisrunning = 1;
 
 				int countpipe = 0;
 				while (tmp->command[countpipe].args != NULL)
 					countpipe++;
-				if (countpipe <= 1) // zero processus
-				{
-					monoprocess(tmp->command, envar);
-				}
-				else
-				{
+				//if (countpipe <= 1) // zero processus
+				//{
+				//	monoprocess(tmp->command, envar);
+				//}
+				//else
+				//{
 					pipeline(tmp->command, envar, countpipe - 1);
-				}
+				//}
 			}
 			tmp = tmp->next;
 		}
