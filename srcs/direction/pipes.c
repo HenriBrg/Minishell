@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:56:01 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/28 00:20:03 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/03 01:44:50 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		pipexec(t_command *tab, t_envar *envar)
 	if (isbuiltin(tab->args))
 		executebuiltins(tab->args, envar);
 	else
-		executables(tab->args, envar);
+		executablesnofork(tab->args, envar); // Attention : changee de fork a no fork
 }
 
 
@@ -75,7 +75,7 @@ void		pipexec(t_command *tab, t_envar *envar)
 */
 
 
-void		pipeline(t_command *tab, t_envar *envar)
+/*void		pipeline(t_command *tab, t_envar *envar)
 {
 	int		i;
 	int		fd[2];
@@ -139,4 +139,95 @@ void		pipeline(t_command *tab, t_envar *envar)
 	wait(NULL);
 
 	// cat /dev/random | head -c 100
+}*/
+
+void			pipeline(t_command *tab, t_envar *envar, int nbpipes)
+{
+	int			pipefds[2 * nbpipes];
+	int			i;
+	int			j;
+	pid_t		pid;
+	int			status;
+	t_strlist	*tmp;
+	int			fd;
+	int			redirin;
+	int			redirout;
+
+	i = 0;
+	while (i < nbpipes) // On cree d'abord tous les pipes
+	{
+		if (pipe(pipefds + i * 2) == -1)
+			handle_error(NULL);
+		i++;
+	}
+	i = 0;
+	//redirout = 0;
+	while (tab[i].args) // On itere sur les commandes
+	{
+		redirin = 0;
+		redirout = 0;
+		if ((pid = fork()) == -1) // Fork
+			handle_error(NULL);
+		else if (pid == 0) // Child process
+		{
+			tmp = tab[i].in;
+			if (tmp)
+			{
+				while (tmp->next)
+					tmp = tmp->next;
+				if ((fd = open(tmp->str, O_RDONLY)) == -1)
+					handle_error(NULL);
+				if ((dup2(fd, 0)) == -1)
+					handle_error(NULL);
+				close(fd);
+				redirin = 1;
+			}
+			tmp = tab[i].out;
+			while (tmp)
+			{
+				if ((fd = open(tmp->str, O_CREAT | O_WRONLY |
+					(tmp->out_type == 2 ? O_APPEND : O_TRUNC), 0777)) == -1)
+					handle_error(NULL);
+				if (!(tmp->next))
+				{
+					if ((dup2(fd, 1)) == -1)
+						handle_error(NULL);
+					close(fd);
+					redirout = 1;
+				}
+				tmp = tmp->next;
+			}
+			if (i != 0 && !redirin)
+				if (dup2(pipefds[(i - 1) * 2], 0) == -1) // Dup 0 > stdin de la cmd
+					handle_error(NULL);
+			if (tab[i + 1].args && !redirout)
+			{
+				if (dup2(pipefds[i * 2 + 1], 1) == -1) // Dup 1 > stdout de la cmd
+					handle_error(NULL);
+			}
+			j = 0;
+			while (j < 2 * nbpipes)
+			{
+				close(pipefds[j]);
+				j++;
+			}
+			//pipexec(tab + i, envar);
+			(void)envar;
+			execvp(*(tab[i].args), tab[i].args);
+			handle_error(NULL);
+		}
+		i++;
+	}
+	j = 0;
+	while (j < 2 * nbpipes)
+	{
+		close(pipefds[j]);
+		j++;
+	}
+	j = 0;
+	while (j < nbpipes + 1)
+	{
+		wait(&status);
+		j++;
+	}
 }

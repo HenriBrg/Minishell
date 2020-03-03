@@ -12,3 +12,7 @@ leaks
 bug exit
 fixer le < des pipes
 faire review
+
+test multiple in : echo hey | cat < a < b
+test multiple out : echo salut > a > b | cat
+test ; : echo salut > a > b | cat ; echo salut > a ; echo bonjour > b ; echo hey | cat < a < b

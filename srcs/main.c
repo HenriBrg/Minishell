@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/28 00:30:27 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/03 01:52:30 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,54 +106,52 @@ int					main(int ac, char **av, char **env)
 	char			*input;
 	t_envar			*envar;
 	t_commands_list	*list;
+	t_commands_list	*tmp;
 
 	char			**cmds;
 	(void)av;
-	(void)cmds;
 	envar = NULL;
-	//input = malloc(sizeof(char **));
 	input = NULL;
 	if (ac != 1 || (envar = lstenv(env)) == 0)
 		return (-1);
 	siglisten();
 	while (42)
 	{
-		//printf("YO\n");
 		prompt(envar);
 		g_shellisrunning = 0;
 		get_next_line(0, &input);
-		//printf("input : %s\n", input);
 		list = NULL;
-		list = parse(input, envar); // AJOUTER EXIT $?
-		//printf("input : %s\n", input);
-		//printf("BONJOUR\n");
-		//printf("%s\n", (char *)list);
+		list = parse(input, envar);
 		// les maillons de list sont separes par un ;
 		// les cases du tableau dans chacun des maillon sont des |
 		// a l'interieur de chacune des cases : tableau des args, entree et sortie
 		// valeurs de out_type : 0 pour aucun, 1 pour > et 2 pour >>
-		// exemple de parcours dans la fonction parse()
 		// commande de test :
 		// echo salut < in comment >> out ca va | head < in > out | less moi ca va > out bien < in ; sort il fait > out ; cat >> out tres beau < in ajd | echo >> out en effet < in oui
 
 		// iterer sur la liste chainees de ;
 
-		if (list && list->command)
+		tmp = list;
+		while (tmp)
 		{
-			cmds = list->command[0].args;
-			g_shellisrunning = 1;
+			if (tmp->command && tmp->command[0].args)
+			{
+				cmds = tmp->command[0].args;
+				g_shellisrunning = 1;
 
-			int countpipe = 0;
-			while (list->command[countpipe].args != NULL)
-				countpipe++;
-			if (countpipe <= 1) // zero processus
-			{
-				monoprocess(list->command, envar);
+				int countpipe = 0;
+				while (tmp->command[countpipe].args != NULL)
+					countpipe++;
+				if (countpipe <= 1) // zero processus
+				{
+					monoprocess(tmp->command, envar);
+				}
+				else
+				{
+					pipeline(tmp->command, envar, countpipe - 1);
+				}
 			}
-			else
-			{
-				pipeline(list->command, envar);
-			}
+			tmp = tmp->next;
 		}
 		commands_lstclear(list);
 		if (input)
