@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:48:11 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/26 20:17:24 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/04 18:16:43 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,13 +127,14 @@ void		unsetenvar(char **cmds, t_envar *envar)
 
 /*
 ** Rajouter le case insensitive
+** TODO : bloquer export avec " dans le nom de la var @@@@@@@@@@@@
 */
 
 void		builtinsenv(char **cmds, t_envar *envar)
 {
 	if (strcmpcasei(cmds[0], "env"))
 		printenv(envar);
-	else if (strcmpcasei(cmds[0], "export")) // bloquer export avec " dans le nom
+	else if (strcmpcasei(cmds[0], "export"))
 		exportenvar(cmds, envar);
 	else if (strcmpcasei(cmds[0], "unset"))
 		unsetenvar(cmds, envar);

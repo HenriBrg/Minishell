@@ -6,17 +6,11 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 18:29:47 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/04 00:14:06 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/03/04 19:37:44 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-/*
-** Leaks to handle
-*/
-
-extern char		**environ;
 
 char			*finishpath(char **pathtab, char *tmp2)
 {
@@ -74,7 +68,6 @@ void			executables(char **cmds, t_envar *envar)
 	pid = fork();
 	if (pid == 0)
 	{
-		// How free an allocation going to exec ? In the parent I guess ?
 		ret = execve(execpath, cmds, NULL);
 		free(execpath);
 		exit((g_exitvalue = EXIT_FAILURE));
@@ -82,8 +75,10 @@ void			executables(char **cmds, t_envar *envar)
 	else if (pid == -1)
 		exit(EXIT_FAILURE);
 	else
+	{
 		waitpid(pid, &wpid, 0);
-		//free ici ?
+		free(execpath);
+	}
 }
 
 void			executablesnofork(char **cmds, t_envar *envar)
@@ -96,7 +91,7 @@ void			executablesnofork(char **cmds, t_envar *envar)
 	if ((execpath = checkpath(cmds, &s, getvar(envar, "PATH"))) == 0)
 		return ;
 	(void)ret;
-	ret = execve(execpath, cmds, environ);
-	//free(execpath);
+	ret = execve(execpath, cmds, g_environ_strstab);
+	free(execpath);
 	exit((g_exitvalue = EXIT_FAILURE));
 }
