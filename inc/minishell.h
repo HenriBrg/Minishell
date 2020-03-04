@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 18:07:34 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/04 20:47:58 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/03/04 22:50:56 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <sys/stat.h>
 # include <sys/errno.h>
 # include <signal.h>
-
+# include <dirent.h>
 /*
 ** MVCURSOR_BEGL : Move cursor to beginning of line.
 ** MVCURSOR_LEFT : Move cursor left by # characters.
@@ -147,7 +147,7 @@ void						builtinpwd(t_envar *envar);
 void						cd(char **cmds, t_envar *envar);
 void						builtinecho(char **cmds, t_envar *envar);
 void						builtinpwd(t_envar *envar);
-void						builtinexit(char **cmds);
+void						builtinexit(char **cmds, int piped);
 void						builtinsenv(char **cmds, t_envar *envar);
 void						builtinpwd(t_envar *envar);
 void						builtincd(char **cmds, t_envar *envar);
@@ -165,7 +165,8 @@ void						executables(char **cmds, t_envar *envar);
 */
 
 int							isbuiltin(char **cmds);
-void						executebuiltins(char **cmds, t_envar *envar);
+void						executebuiltins(char **cmds, t_envar *envar,
+	int piped);
 void						pipeline(t_command *tab, t_envar *envar,
 	int nbpipes);
 void						pipexec(t_command *tab, t_envar *envar);

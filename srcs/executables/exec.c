@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 18:29:47 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/04 20:37:46 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/03/04 22:50:25 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,40 +46,6 @@ char			*checkpath(char **cmds, struct stat *s, char *envpath)
 	g_exitvalue = 127;
 	return (0);
 }
-
-/*
-** 1) On recupere le path
-** 2) On fork et en cas de succes (pid == 0) on execv
-** 3) Sinon on exit ou wait la fin du fork
-*/
-
-/*void			executables(char **cmds, t_envar *envar)
-{
-	int			ret;
-	int			wpid;
-	pid_t		pid;
-	char		*execpath;
-	struct stat	s;
-
-	execpath = 0;
-	wpid = 0;
-	if ((execpath = checkpath(cmds, &s, getvar(envar, "PATH"))) == 0)
-		return ;
-	pid = fork();
-	if (pid == 0)
-	{
-		ret = execve(execpath, cmds, NULL);
-		free(execpath);
-		exit((g_exitvalue = EXIT_FAILURE));
-	}
-	else if (pid == -1)
-		exit(EXIT_FAILURE);
-	else
-	{
-		waitpid(pid, &wpid, 0);
-		free(execpath);
-	}
-}*/
 
 void			executablesnofork(char **cmds, t_envar *envar)
 {

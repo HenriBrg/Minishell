@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:56:01 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/04 22:42:05 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/03/04 22:50:38 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			isbuiltin(char **cmds)
 			|| strcmpcasei(cmds[0], "exit") ? 1 : 0);
 }
 
-void		executebuiltins(char **cmds, t_envar *envar)
+void	executebuiltins(char **cmds, t_envar *envar, int piped)
 {
 	if (strcmpcasei(cmds[0], "echo"))
 		builtinecho(cmds, envar);
@@ -37,13 +37,13 @@ void		executebuiltins(char **cmds, t_envar *envar)
 			|| strcmpcasei(cmds[0], "env"))
 		builtinsenv(cmds, envar);
 	else if (strcmpcasei(cmds[0], "exit"))
-		builtinexit(cmds);
+		builtinexit(cmds, piped);
 }
 
-void		pipexec(t_command *tab, t_envar *envar)
+void		pipexec(t_command *tab, t_envar *envar, int piped)
 {
 	if (isbuiltin(tab->args))
-		executebuiltins(tab->args, envar);
+		executebuiltins(tab->args, envar, piped);
 	else
 		executablesnofork(tab->args, envar);
 }
@@ -123,7 +123,7 @@ void		pipexec(t_command *tab, t_envar *envar)
 					handle_error(NULL);
 				j++;
 			}
-			pipexec(tab + i, envar);
+			pipexec(tab + i, envar, 1);
 			exit(g_exitvalue);
 			//(void)envar;
 			//execvp(*(tab[i].args), tab[i].args);
