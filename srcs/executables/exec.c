@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 18:29:47 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/03 02:37:28 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/03/04 00:14:06 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 /*
 ** Leaks to handle
 */
+
+extern char		**environ;
 
 char			*finishpath(char **pathtab, char *tmp2)
 {
@@ -93,7 +95,8 @@ void			executablesnofork(char **cmds, t_envar *envar)
 	execpath = 0;
 	if ((execpath = checkpath(cmds, &s, getvar(envar, "PATH"))) == 0)
 		return ;
-	ret = execve(execpath, cmds, NULL);
+	(void)ret;
+	ret = execve(execpath, cmds, environ);
 	//free(execpath);
 	exit((g_exitvalue = EXIT_FAILURE));
 }
