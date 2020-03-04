@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:56:01 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/04 20:33:28 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/03/04 22:20:16 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Retourne 1 si cmds[0] fait appel à un builtin
 */
 
-int		isbuiltin(char **cmds)
+int			isbuiltin(char **cmds)
 {
 	return (strcmpcasei(cmds[0], "echo") || strcmpcasei(cmds[0], "cd")
 			|| strcmpcasei(cmds[0], "pwd") || strcmpcasei(cmds[0], "env")
@@ -24,7 +24,7 @@ int		isbuiltin(char **cmds)
 			|| strcmpcasei(cmds[0], "exit") ? 1 : 0);
 }
 
-void	executebuiltins(char **cmds, t_envar *envar)
+void		executebuiltins(char **cmds, t_envar *envar)
 {
 	if (strcmpcasei(cmds[0], "echo"))
 		builtinecho(cmds, envar);
@@ -35,7 +35,7 @@ void	executebuiltins(char **cmds, t_envar *envar)
 	else if (strcmpcasei(cmds[0], "unset")
 			|| strcmpcasei(cmds[0], "export")
 			|| strcmpcasei(cmds[0], "env"))
-				builtinsenv(cmds, envar);
+		builtinsenv(cmds, envar);
 	else if (strcmpcasei(cmds[0], "exit"))
 		builtinexit(cmds);
 }
@@ -48,7 +48,7 @@ void		pipexec(t_command *tab, t_envar *envar)
 		executablesnofork(tab->args, envar);
 }
 
-void			pipeline(t_command *tab, t_envar *envar, int nbpipes)
+/*void			pipeline(t_command *tab, t_envar *envar, int nbpipes)
 {
 	int			pipefds[2 * nbpipes];
 	int			i;
@@ -59,7 +59,6 @@ void			pipeline(t_command *tab, t_envar *envar, int nbpipes)
 	int			fd;
 	int			redirin;
 	int			redirout;
-
 
 	if (nbpipes == 0 && monoprocess(tab, envar))
 		return ;
@@ -147,4 +146,4 @@ void			pipeline(t_command *tab, t_envar *envar, int nbpipes)
 		//printf("status : %d\n", WEXITSTATUS(status));
 		j++;
 	}
-}
+}*/

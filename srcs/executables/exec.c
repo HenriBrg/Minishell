@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 18:29:47 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/04 19:37:44 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/04 20:37:46 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char			*checkpath(char **cmds, struct stat *s, char *envpath)
 ** 3) Sinon on exit ou wait la fin du fork
 */
 
-void			executables(char **cmds, t_envar *envar)
+/*void			executables(char **cmds, t_envar *envar)
 {
 	int			ret;
 	int			wpid;
@@ -79,7 +79,7 @@ void			executables(char **cmds, t_envar *envar)
 		waitpid(pid, &wpid, 0);
 		free(execpath);
 	}
-}
+}*/
 
 void			executablesnofork(char **cmds, t_envar *envar)
 {

@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/04 20:00:01 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/04 21:51:07 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ int					main(int ac, char **av, char **env)
 				countpipe = 0;
 				while (tmp->command[countpipe].args != NULL)
 					countpipe++;
-				pipeline(tmp->command, envar, countpipe - 1);
+				if (!(countpipe - 1 == 0 && monoprocess(tmp->command, envar)))
+					pipeline(tmp->command, envar, countpipe - 1);
 			}
 			tmp = tmp->next;
 		}
