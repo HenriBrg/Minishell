@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:56:01 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/04 19:36:18 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/04 20:33:28 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,8 @@ void			pipeline(t_command *tab, t_envar *envar, int nbpipes)
 	while (j < nbpipes + 1)
 	{
 		wait(&status);
+		g_exitvalue = WEXITSTATUS(status);
+		//printf("status : %d\n", WEXITSTATUS(status));
 		j++;
 	}
 }
