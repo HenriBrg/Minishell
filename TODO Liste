@@ -1,10 +1,10 @@
-bug clear
+bug clear * ok
 check $?
 chevrons en fin et debut exit dans parsing <-- OK
 quitter sur des guillemets impairs <-- OK
-norm
+norm * almost
 full tests
-leaks
+leaks * ok
 
 
 ------

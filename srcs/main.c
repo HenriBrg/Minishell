@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/04 19:40:37 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/04 20:00:01 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,10 @@ int					main(int ac, char **av, char **env)
 		prompt(envar);
 		g_shellisrunning = 0;
 		if (get_next_line(0, &input) == 0)
+		{
+			ft_putstr("exit");
 			exit((g_exitvalue = EXIT_SUCCESS));
+		}
 		list = NULL;
 		list = parse(input, envar);
 		tmp = list;
