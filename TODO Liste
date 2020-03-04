@@ -1,11 +1,7 @@
-bug clear * ok
-check $?
-chevrons en fin et debut exit dans parsing <-- OK
-quitter sur des guillemets impairs <-- OK
-norm * almost
-full tests
-leaks * ok
-
+TODO :
+- SI 1 valeur de tab->args est vide, retour au prompt
+- Supprimer Access
+- Continuer de check $?
 
 ------
 

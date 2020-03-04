@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/04 20:00:01 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/04 22:01:46 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int					monoprocess(t_command *tab, t_envar *envar)
 		|| strcmpcasei(tab->args[0], "export")
 		|| strcmpcasei(tab->args[0], "exit"))
 		{
-			executebuiltins(tab->args, envar);
+			executebuiltins(tab->args, envar, 0);
 			return (1);
 		}
 	return (0);

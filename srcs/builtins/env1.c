@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:48:11 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/04 18:16:43 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/04 21:14:14 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void		exportenvar(char **cmds, t_envar *envar)
 	{
 		if (cmds[i][0] == '=')
 		{
-			ft_putstr("minishell: export: `");
-			ft_putstr(cmds[i]);
-			ft_putstr("': not a valid identifier\n");
+			ft_putstr_fd("minishell: export: `", 2);
+			ft_putstr_fd(cmds[i], 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
 			g_exitvalue = EXIT_FAILURE;
 			return ;
 		}
@@ -41,7 +41,6 @@ void		exportenvar(char **cmds, t_envar *envar)
 			namevaluefilter(cmds[i], &name, &value);
 			if (name)
 				pushbackenvar(name, value, envar);
-			sortenvar(envar);
 		}
 	}
 	g_exitvalue = EXIT_SUCCESS;
@@ -111,9 +110,9 @@ void		unsetenvar(char **cmds, t_envar *envar)
 	{
 		if (ft_strchr(cmds[i], '='))
 		{
-			ft_putstr("minishell: unset: `");
-			ft_putstr(cmds[i]);
-			ft_putstr("': not a valid identifier\n");
+			ft_putstr_fd("minishell: unset: `", 2);
+			ft_putstr_fd(cmds[i], 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
 			g_exitvalue = EXIT_FAILURE;
 		}
 		else

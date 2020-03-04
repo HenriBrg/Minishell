@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 23:52:46 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/26 19:11:48 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/04 22:00:52 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,41 @@ int		strisdigit(char *cmd)
 ** Si ret > 255, la valeur d'exit = modulo 256
 ** https://unix.stackexchange.com/questions/418784/what-is-the-min-and-
 ** max-values-of-exit-codes-in-linux
+** ➜  minishell git:(hb) ✗ bash
+** bash-3.2$ exit 2> file
+** ➜  minishell git:(hb) ✗ cat file
+** exit
+** ➜  minishell git:(hb) ✗ echo -n > file
+** ➜  minishell git:(hb) ✗ bash
+** bash-3.2$ exit 1> file
+** exit
+** ➜  minishell git:(hb) ✗ cat file
+** ➜  minishell git:(hb) ✗
 */
 
-void	builtinexit(char **cmds)
+void	builtinexit(char **cmds, int piped)
 {
 	unsigned char	ret;
-
-	ft_putstr("exit\n");
+	
+	if (piped == 0)
+		ft_putstr_fd("exit\n", 2);
 	if (ft_strslen(cmds) == 1)
 		exit((g_exitvalue = EXIT_SUCCESS));
 	if (ft_strslen(cmds) >= 2 &&
 	(strisdigit(cmds[1]) == 0 && cmds[1][0] != '-'))
 	{
-		ft_putstr(cmds[1]);
-		ft_putstr(": numeric argument required\n");
-		g_exitvalue = 255;
-		exit(255);
+		ft_putstr_fd("exit: ", 2);
+		ft_putstr_fd(cmds[1], 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
+		exit((g_exitvalue = 255));
 	}
 	ret = (unsigned char)ft_atoi(cmds[1]);
 	if (ft_strslen(cmds) >= 3)
 	{
-		ft_putstr("exit: too many arguments\n");
+		ft_putstr_fd("exit: too many arguments\n", 2);
 		g_exitvalue = EXIT_FAILURE;
-		exit(EXIT_FAILURE);
+		return ;
 	}
 	g_exitvalue = (int)ret;
-	exit(ret);
+	exit(g_exitvalue);
 }
