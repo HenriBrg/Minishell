@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 20:58:19 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/04 22:45:29 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/05 20:12:53 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 ** switchdir() verifie la destination puis change de dossier
 */
 
-static int			switchdir(char **cmds, char *dest)
+static int		switchdir(char **cmds, char *dest)
 {
-	int		i;
+	int			i;
 
 	(void)cmds;
 	if ((i = chdir(dest)) != 0)
@@ -35,10 +35,10 @@ static int			switchdir(char **cmds, char *dest)
 
 static void		move(char **cmds, char *dest, t_envar *envar)
 {
-	char	*currentworkdir;
-	char	buf[PATH_MAX - 1];
-	char	*exportation;
-	char	**exportcmds;
+	char		*currentworkdir;
+	char		buf[PATH_MAX - 1];
+	char		*exportation;
+	char		**exportcmds;
 
 	currentworkdir = getcwd(buf, PATH_MAX - 1);
 	if (dest == 0 || switchdir(cmds, dest) == -1)
@@ -71,9 +71,9 @@ static char		*getdest(char **cmds, t_envar *envar)
 	return (ft_strdup(cmds[1]));
 }
 
-void		builtincd(char **cmds, t_envar *envar)
+void			builtincd(char **cmds, t_envar *envar)
 {
-	char	*dest;
+	char		*dest;
 
 	dest = getdest(cmds, envar);
 	move(cmds, dest, envar);

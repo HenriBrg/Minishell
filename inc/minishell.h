@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 18:07:34 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/05 18:11:38 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/05 22:02:39 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ char						**g_environ_strstab;
 
 typedef struct				s_envar
 {
+	int						declared;
 	char					*name;
 	char					*value;
 	struct s_envar			*next;
@@ -94,12 +95,6 @@ typedef struct				s_envsubvar
 }							t_envsubvar;
 
 /*
-** main.c
-*/
-
-void						prompt(t_envar *envar);
-
-/*
 ** utils/
 */
 
@@ -135,14 +130,15 @@ void						purify(t_commands_list *list, t_envar *envar);
 ** bultins/
 */
 
+void						exportenvar(char **cmds, t_envar *envar);
 void						pushbackenvar(char *name, char *value,
 	t_envar *envar);
+
 void						namevaluefilter(char *cmd, char **name,
 	char **value);
-void						pushbackenvar(char *name, char *value,
-	t_envar *envar);
-void						namevaluefilter(char *cmd, char **name,
-	char **value);
+void						printdeclaredvars(t_envar *envar);
+
+void						sortenvar(t_envar *envar);
 void						builtinpwd(t_envar *envar);
 void						cd(char **cmds, t_envar *envar);
 void						builtinecho(char **cmds, t_envar *envar);
@@ -151,8 +147,6 @@ void						builtinexit(char **cmds, int piped);
 void						builtinsenv(char **cmds, t_envar *envar);
 void						builtinpwd(t_envar *envar);
 void						builtincd(char **cmds, t_envar *envar);
-void						sortenvar(t_envar *envar);
-void						exportenvar(char **cmds, t_envar *envar);
 
 /*
 ** executables/
@@ -175,6 +169,5 @@ void						executablesnofork(char **cmds, t_envar *envar);
 char						*finishpath(char **pathtab, char *tmp2);
 char						*checkpath(char **cmds, struct stat *s,
 	char *envpath);
-int							monoprocess(t_command *tab, t_envar *envar);
 
 #endif

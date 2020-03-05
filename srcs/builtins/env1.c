@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:48:11 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/04 21:14:14 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/05 21:59:14 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 /*
 ** Voir dans env2.c
 ** Verifie que l'argument ne commence pas par un =
-** Si ok, on extrait le name et l'eventuelle value qui peut etre nulle (var=)
+** Si ok, on extrait le name et l'eventuel value qui peut etre nulle (var=)
 ** puis on pushbackenvar()
 */
 
-void		exportenvar(char **cmds, t_envar *envar)
+void			exportenvar(char **cmds, t_envar *envar)
 {
-	int		i;
-	char	*name;
-	char	*value;
+	int			i;
+	char		*name;
+	char		*value;
 
 	i = 0;
 	while (cmds[++i])
@@ -43,6 +43,8 @@ void		exportenvar(char **cmds, t_envar *envar)
 				pushbackenvar(name, value, envar);
 		}
 	}
+	if (i == 1)
+		printdeclaredvars(envar);
 	g_exitvalue = EXIT_SUCCESS;
 }
 
@@ -50,20 +52,22 @@ void		exportenvar(char **cmds, t_envar *envar)
 ** Affiche chaque variable d'environnement
 */
 
-void		printenv(t_envar *envar)
+static void		printenv(t_envar *envar)
 {
 	t_envar	*current;
 
 	current = envar;
 	while (current)
 	{
-		if (ft_strlen(current->value) > 0)
-		{
-			write(1, current->name, ft_strlen(current->name));
-			write(1, "=", 1);
+		// ADD BOOLEAN
+		// if (ft_strlen(current->value) > 0)
+		// {
+		write(1, current->name, ft_strlen(current->name));
+		write(1, "=", 1);
+		if (current->value)
 			write(1, current->value, ft_strlen(current->value));
-			write(1, "\n", 1);
-		}
+		write(1, "\n", 1);
+		// }
 		current = current->next;
 	}
 	g_exitvalue = EXIT_SUCCESS;
@@ -73,7 +77,7 @@ void		printenv(t_envar *envar)
 ** Quasiment identique à un lst remove if ()
 */
 
-void		removevar(char *name, t_envar *envar)
+static void		removevar(char *name, t_envar *envar)
 {
 	t_envar *next;
 	t_envar *current;
@@ -101,7 +105,7 @@ void		removevar(char *name, t_envar *envar)
 ** On start à cmds[1] pour jump le 1er argument
 */
 
-void		unsetenvar(char **cmds, t_envar *envar)
+static void		unsetenvar(char **cmds, t_envar *envar)
 {
 	int		i;
 
@@ -126,10 +130,10 @@ void		unsetenvar(char **cmds, t_envar *envar)
 
 /*
 ** Rajouter le case insensitive
-** TODO : bloquer export avec " dans le nom de la var @@@@@@@@@@@@
+** TODO : bloquer export avec " dans le nom de la var
 */
 
-void		builtinsenv(char **cmds, t_envar *envar)
+void			builtinsenv(char **cmds, t_envar *envar)
 {
 	if (strcmpcasei(cmds[0], "env"))
 		printenv(envar);

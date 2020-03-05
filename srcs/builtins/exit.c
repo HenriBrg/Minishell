@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 23:52:46 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/04 22:00:52 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/05 20:12:10 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		strisdigit(char *cmd)
 void	builtinexit(char **cmds, int piped)
 {
 	unsigned char	ret;
-	
+
 	if (piped == 0)
 		ft_putstr_fd("exit\n", 2);
 	if (ft_strslen(cmds) == 1)

@@ -6,13 +6,13 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 17:57:36 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/25 18:56:41 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/05 22:09:36 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void		swapenvar(t_envar *current, t_envar *next)
+static void		swapenvar(t_envar *current, t_envar *next)
 {
 	char *tmpname;
 	char *tmpvalue;
@@ -20,20 +20,17 @@ void		swapenvar(t_envar *current, t_envar *next)
 	tmpname = ft_strdup(current->name);
 	free(current->name);
 	current->name = ft_strdup(next->name);
-	tmpvalue = ft_strdup(current->value);
+	tmpvalue = (current->value != 0) ? ft_strdup(current->value) : 0;
 	free(current->value);
-	current->value = ft_strdup(next->value);
+	current->value = (next->value != 0) ? ft_strdup(next->value) : 0;
 	free(next->name);
 	current->next->name = ft_strdup(tmpname);
 	free(tmpname);
 	free(next->value);
-	current->next->value = ft_strdup(tmpvalue);
+	current->next->value = (tmpvalue != 0) ?ft_strdup(tmpvalue) : 0;
 	free(tmpvalue);
 }
 
-/*
-** Trie par valeur ASCII les variables d'ENV (exportées aussi)
-*/
 
 void		sortenvar(t_envar *envar)
 {
@@ -55,6 +52,31 @@ void		sortenvar(t_envar *envar)
 	}
 }
 
+void		printdeclaredvars(t_envar *envar)
+{
+	t_envar	*envarcopy;
+
+	envarcopy = envar;
+	printf("SORTING ...\n");
+	sortenvar(envar);
+	printf("... DONE\n");
+	while (envarcopy)
+	{
+		write(1, "declare -x ", 11);
+		write(1, envarcopy->name, ft_strlen(envarcopy->name));
+		if (envarcopy->value)
+		{
+			write(1, "=\"", 2);
+			write(1, envarcopy->value, ft_strlen(envarcopy->value));
+			write(1, "\"\n", 2);
+		}
+		else
+			write(1, "\n", 1);
+		envarcopy = envarcopy->next;
+	}
+	lstclear(envarcopy);
+}
+
 /*
 ** On change la valeur si la variable existe deja
 ** Autrement, on malloc puis on la positionne en fin de liste
@@ -71,7 +93,7 @@ void		pushbackenvar(char *name, char *value, t_envar *envar)
 		if (ft_strcmp(current->name, name) == 0)
 		{
 			free(current->value);
-			current->value = ft_strdup(value);
+			current->value = (value ? ft_strdup(value) : 0);
 			free(name);
 			free(value);
 			return ;
