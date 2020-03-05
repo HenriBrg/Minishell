@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:48:11 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/05 21:59:14 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/05 22:52:20 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 ** Verifie que l'argument ne commence pas par un =
 ** Si ok, on extrait le name et l'eventuel value qui peut etre nulle (var=)
 ** puis on pushbackenvar()
+** Si i == 1 : export sans argument
 */
 
 void			exportenvar(char **cmds, t_envar *envar)
@@ -40,7 +41,8 @@ void			exportenvar(char **cmds, t_envar *envar)
 		{
 			namevaluefilter(cmds[i], &name, &value);
 			if (name)
-				pushbackenvar(name, value, envar);
+				pushbackenvar(name, value, envar,
+					(ft_strchr(cmds[i], '=') ? 1 : 0));
 		}
 	}
 	if (i == 1)
@@ -59,15 +61,13 @@ static void		printenv(t_envar *envar)
 	current = envar;
 	while (current)
 	{
-		// ADD BOOLEAN
-		// if (ft_strlen(current->value) > 0)
-		// {
-		write(1, current->name, ft_strlen(current->name));
-		write(1, "=", 1);
-		if (current->value)
+		if (current->assigned == 1)
+		{
+			write(1, current->name, ft_strlen(current->name));
+			write(1, "=", 1);
 			write(1, current->value, ft_strlen(current->value));
-		write(1, "\n", 1);
-		// }
+			write(1, "\n", 1);
+		}
 		current = current->next;
 	}
 	g_exitvalue = EXIT_SUCCESS;

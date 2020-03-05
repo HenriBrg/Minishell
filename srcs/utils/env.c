@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:15 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/25 19:05:30 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/05 22:52:08 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_envar		*lstnewenvar(char *envstr)
 	i = ft_strrchr(envstr, '=') - envstr;
 	current->name = ft_strndup(envstr, i);
 	current->value = ft_strdup(envstr + i + 1);
+	current->assigned = 1;
 	current->next = NULL;
 	return (current);
 }

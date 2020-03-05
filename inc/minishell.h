@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 18:07:34 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/05 22:02:39 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/05 22:57:09 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char						**g_environ_strstab;
 
 typedef struct				s_envar
 {
-	int						declared;
+	int						assigned;
 	char					*name;
 	char					*value;
 	struct s_envar			*next;
@@ -132,7 +132,7 @@ void						purify(t_commands_list *list, t_envar *envar);
 
 void						exportenvar(char **cmds, t_envar *envar);
 void						pushbackenvar(char *name, char *value,
-	t_envar *envar);
+	t_envar *envar, int assigned);
 
 void						namevaluefilter(char *cmd, char **name,
 	char **value);

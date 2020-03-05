@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 17:57:36 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/05 22:09:36 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/05 23:23:22 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,66 @@
 
 static void		swapenvar(t_envar *current, t_envar *next)
 {
-	char *tmpname;
-	char *tmpvalue;
+	int 	tmpassigned;
+	char	*tmpname;
+	char	*tmpvalue;
 
-	tmpname = ft_strdup(current->name);
-	free(current->name);
-	current->name = ft_strdup(next->name);
-	tmpvalue = (current->value != 0) ? ft_strdup(current->value) : 0;
-	free(current->value);
-	current->value = (next->value != 0) ? ft_strdup(next->value) : 0;
-	free(next->name);
-	current->next->name = ft_strdup(tmpname);
-	free(tmpname);
-	free(next->value);
-	current->next->value = (tmpvalue != 0) ?ft_strdup(tmpvalue) : 0;
-	free(tmpvalue);
+	tmpname = current->name;
+	tmpvalue = current->value;
+	tmpassigned = current->assigned;
+	current->name = next->name;
+	current->value = next->value;
+	current->assigned = next->assigned;
+	next->name = tmpname;
+	next->value = tmpvalue;
+	next->assigned = tmpassigned;
+
+}
+
+t_envar		*copylstnewvar(t_envar *envar)
+{
+	t_envar	*current;
+
+	if (!(current = (t_envar*)malloc(sizeof(t_envar))))
+		return (NULL);
+	current->name = ft_strdup(envar->name);
+	current->value = (envar->value) ? ft_strdup(envar->value) : 0;
+	current->assigned = envar->assigned;
+	current->next = NULL;
+	return (current);
+}
+
+t_envar		*fullcopyenvar(t_envar *origin)
+{
+	t_envar		*begin;
+	t_envar		*current;
+	t_envar		*previous;
+
+	current = origin;
+	begin = 0;
+	while (origin != 0)
+	{
+		current = copylstnewvar(origin);
+		if (begin != 0)
+			previous->next = current;
+		else
+			begin = current;
+		previous = current;
+		origin = origin->next;
+	}
+	return (begin);
 }
 
 
-void		sortenvar(t_envar *envar)
+void		sortenvar(t_envar *envarcopy)
 {
 	t_envar	*current1;
 	t_envar	*current2;
 
-	current1 = envar;
+	current1 = envarcopy;
 	while (current1)
 	{
-		current2 = envar;
+		current2 = envarcopy;
 		while (current2)
 		{
 			if (current2->next && ft_strcmp(current2->name,
@@ -56,10 +89,8 @@ void		printdeclaredvars(t_envar *envar)
 {
 	t_envar	*envarcopy;
 
-	envarcopy = envar;
-	printf("SORTING ...\n");
-	sortenvar(envar);
-	printf("... DONE\n");
+	envarcopy = fullcopyenvar(envar);
+	sortenvar(envarcopy);
 	while (envarcopy)
 	{
 		write(1, "declare -x ", 11);
@@ -82,7 +113,7 @@ void		printdeclaredvars(t_envar *envar)
 ** Autrement, on malloc puis on la positionne en fin de liste
 */
 
-void		pushbackenvar(char *name, char *value, t_envar *envar)
+void		pushbackenvar(char *name, char *value, t_envar *envar, int assigned)
 {
 	t_envar	*new;
 	t_envar	*current;
@@ -105,6 +136,7 @@ void		pushbackenvar(char *name, char *value, t_envar *envar)
 	new->name = name;
 	new->value = value;
 	new->next = NULL;
+	new->assigned = assigned;
 	current = envar;
 	while (current->next)
 		current = current->next;
