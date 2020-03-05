@@ -4,7 +4,7 @@ OK -----------------------------------------------------------------------------
 ls -la | nl  | rev | sort
 
 
-
+notament ./minishelle < Nom_d'un_dossier,export = 42, une leaks avec echo $HOME\salut Bonne chance pour la suite
 
 
 TODO ---------------------------------------------------------------------------
@@ -32,3 +32,9 @@ HOME=/tmp cd dans bash ça t’envoie bien dans tmp
 3) recheck guillemetse
 
 ls > tmp . out
+
+
+notament ./minishelle < Nom_d'un_dossier,export = 42, une leaks avec echo $HOME\salut Bonne chance pour la suite
+
+
+GERER LES ARROW en input

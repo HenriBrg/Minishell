@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/04 22:50:12 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/05 19:37:02 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 void				prompt(t_envar *envar)
 {
-	ft_putstr(getvar(envar, "PWD"));
-	ft_putstr("/ ------> ");
+	ft_putstr_fd(getvar(envar, "PWD"), 2);
+	ft_putstr_fd("/ ------> ", 2);
 }
 
 int					monoprocess(t_command *tab, t_envar *envar)
@@ -32,17 +32,6 @@ int					monoprocess(t_command *tab, t_envar *envar)
 	return (0);
 }
 
-/*
-**
-** les maillons de list sont separes par un ;
-** les cases du tableau dans chacun des maillon sont des |
-** a l'interieur de chacune des cases : tableau des args, entree et sortie
-** valeurs de out_type : 0 pour aucun, 1 pour > et 2 pour >>
-** commande de test :
-** echo salut < in comment >> out ca va | head < in > out | less moi ca va > out bien < in ; sort il fait > out ; cat >> out tres beau < in ajd | echo >> out en effet < in oui
-** iterer sur la liste chainees de ;
-*/
-
 int					main(int ac, char **av, char **env)
 {
 	char			*input;
@@ -50,7 +39,6 @@ int					main(int ac, char **av, char **env)
 	t_commands_list	*list;
 	t_commands_list	*tmp;
 	int 			countpipe;
-
 	(void)av;
 	envar = NULL;
 	input = NULL;
@@ -62,7 +50,7 @@ int					main(int ac, char **av, char **env)
 	{
 		prompt(envar);
 		g_shellisrunning = 0;
-		if (get_next_line(0, &input) == 0)
+		if (get_next_line(0, &input) <= 0)
 		{
 			ft_putstr("exit");
 			exit((g_exitvalue = EXIT_SUCCESS));

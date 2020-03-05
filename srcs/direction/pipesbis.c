@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipesbis.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macasubo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: macasubo <macasubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 20:50:33 by macasubo          #+#    #+#             */
-/*   Updated: 2020/03/04 22:19:24 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/03/05 18:13:42 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void			pipeline(t_command *tab, t_envar *envar, int nbpipes)
 			handle_in_redirection(tab, i, pipefds);
 			handle_out_redirection(tab, i, pipefds);
 			close_pipefds(nbpipes, pipefds);
-			pipexec(tab + i, envar);
+			pipexec(tab + i, envar, 1);
 			exit(g_exitvalue);
 		}
 		i++;

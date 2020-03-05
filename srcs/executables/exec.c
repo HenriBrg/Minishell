@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 18:29:47 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/04 22:50:25 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/05 18:39:44 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char			*checkpath(char **cmds, struct stat *s, char *envpath)
 	char		*tmp2;
 	char		**pathtab;
 
-	if ((i = -1) && stat(cmds[0], s) == 0 && access(cmds[0], F_OK | X_OK) == 0)
+	if ((i = -1) && stat(cmds[0], s) == 0)
 		if ((s->st_mode & S_IFREG) && (s->st_mode & S_IXUSR))
 			return (ft_strdup(cmds[0]));
 	pathtab = ft_strsplit(envpath, ":");
@@ -35,14 +35,15 @@ char			*checkpath(char **cmds, struct stat *s, char *envpath)
 		tmp1 = ft_strjoin("/", cmds[0]);
 		tmp2 = ft_strjoin(pathtab[i], tmp1);
 		free(tmp1);
-		if (stat(tmp2, s) == 0 && access(tmp2, F_OK | X_OK) == 0)
+		if (stat(tmp2, s) == 0)
 			if ((s->st_mode & S_IFREG) && (s->st_mode & S_IXUSR))
 				return (finishpath(pathtab, tmp2));
 		free(tmp2);
 	}
 	ft_strsfree(pathtab);
-	ft_putstr("minishell: command not found : ");
-	ft_putendl_fd(cmds[0], 1);
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(cmds[0], 2);
+	ft_putendl_fd(": command not found", 2);
 	g_exitvalue = 127;
 	return (0);
 }

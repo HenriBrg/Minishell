@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 18:07:34 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/04 22:50:56 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/05 18:11:38 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ void						executebuiltins(char **cmds, t_envar *envar,
 	int piped);
 void						pipeline(t_command *tab, t_envar *envar,
 	int nbpipes);
-void						pipexec(t_command *tab, t_envar *envar);
+void						pipexec(t_command *tab, t_envar *envar, int piped);
 int							nopiped_chevrons(t_command *tab, t_envar *envar);
 void						executablesnofork(char **cmds, t_envar *envar);
 char						*finishpath(char **pathtab, char *tmp2);
