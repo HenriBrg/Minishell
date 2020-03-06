@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 17:57:36 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/05 23:23:22 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/06 18:49:54 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ t_envar		*fullcopyenvar(t_envar *origin)
 	t_envar		*current;
 	t_envar		*previous;
 
-	current = origin;
 	begin = 0;
 	while (origin != 0)
 	{
@@ -87,10 +86,12 @@ void		sortenvar(t_envar *envarcopy)
 
 void		printdeclaredvars(t_envar *envar)
 {
+	t_envar	*backup;
 	t_envar	*envarcopy;
 
 	envarcopy = fullcopyenvar(envar);
 	sortenvar(envarcopy);
+	backup = envarcopy;
 	while (envarcopy)
 	{
 		write(1, "declare -x ", 11);
@@ -105,7 +106,7 @@ void		printdeclaredvars(t_envar *envar)
 			write(1, "\n", 1);
 		envarcopy = envarcopy->next;
 	}
-	lstclear(envarcopy);
+	lstclear(backup);
 }
 
 /*
