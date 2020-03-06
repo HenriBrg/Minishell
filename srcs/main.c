@@ -6,10 +6,9 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/05 20:37:09 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/06 18:55:32 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../inc/minishell.h"
 
@@ -21,14 +20,12 @@ static void			prompt(t_envar *envar)
 
 static int			monoprocess(t_command *tab, t_envar *envar)
 {
-	if (strcmpcasei(tab->args[0], "unset")
-		|| strcmpcasei(tab->args[0], "cd")
-		|| strcmpcasei(tab->args[0], "export")
-		|| strcmpcasei(tab->args[0], "exit"))
-		{
-			executebuiltins(tab->args, envar, 0);
-			return (1);
-		}
+	if (strcmpcasei(tab->args[0], "unset") || strcmpcasei(tab->args[0], "cd")
+	|| strcmpcasei(tab->args[0], "export") || strcmpcasei(tab->args[0], "exit"))
+	{
+		executebuiltins(tab->args, envar, 0);
+		return (1);
+	}
 	return (0);
 }
 
@@ -36,7 +33,7 @@ static void			shell(char *input, t_envar *envar)
 {
 	t_commands_list	*list;
 	t_commands_list	*tmp;
-	int 			countpipe;
+	int				countpipe;
 
 	list = NULL;
 	list = parse(input, envar);

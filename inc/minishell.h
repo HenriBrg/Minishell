@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 18:07:34 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/05 22:57:09 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/06 19:08:40 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/errno.h>
 # include <signal.h>
 # include <dirent.h>
+
 /*
 ** MVCURSOR_BEGL : Move cursor to beginning of line.
 ** MVCURSOR_LEFT : Move cursor left by # characters.
@@ -147,6 +148,8 @@ void						builtinexit(char **cmds, int piped);
 void						builtinsenv(char **cmds, t_envar *envar);
 void						builtinpwd(t_envar *envar);
 void						builtincd(char **cmds, t_envar *envar);
+void						swapenvar(t_envar *current, t_envar *next);
+t_envar						*fullcopyenvar(t_envar *origin);
 
 /*
 ** executables/

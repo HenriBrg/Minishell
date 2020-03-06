@@ -1,0 +1,14 @@
+- SI 1 valeur de tab->args est vide, retour au prompt
+- Juste un | ou un ; ou < ou > ou >> bash retourne exit 258
+- Tjrs check $?
+
+echo hey | cat < a < b
+echo salut > a > b | cat
+echo salut > a > b | cat ; echo salut > a ; echo bonjour > b ; echo hey | cat < a < b
+
+
+--------------------------------------------------------------------------------
+A gerer ou non ?
+Non - echo $HOME\salut
+
+Les < passé à l'exécutable

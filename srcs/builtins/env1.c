@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:48:11 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/06 18:44:17 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/06 18:56:26 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void			exportenvar(char **cmds, t_envar *envar)
 
 	i = 0;
 	while (cmds[++i])
-	{
 		if (cmds[i][0] == '=')
 		{
 			ft_putstr_fd("minishell: export: `", 2);
@@ -44,7 +43,6 @@ void			exportenvar(char **cmds, t_envar *envar)
 				pushbackenvar(name, value, envar,
 					(ft_strchr(cmds[i], '=') ? 1 : 0));
 		}
-	}
 	if (i == 1)
 		printdeclaredvars(envar);
 	g_exitvalue = EXIT_SUCCESS;
