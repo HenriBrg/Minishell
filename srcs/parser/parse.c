@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 18:10:59 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/28 03:52:59 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/03/05 01:31:44 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void				parse_args(t_strlist *command, t_command *supertab, int n)
 	if (!(separators[1] = ft_strdup("\t")))
 		handle_error(NULL);
 	separators[2] = NULL;
-	args = ft_supersplit(command->str, separators, 0, 0);
+	args = command ? ft_supersplit(command->str, separators, 0, 0) : NULL;
 	len = 0;
 	tmp = args;
 	while (tmp)

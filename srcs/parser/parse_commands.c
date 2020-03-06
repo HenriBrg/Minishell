@@ -6,7 +6,7 @@
 /*   By: macasubo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 19:30:53 by macasubo          #+#    #+#             */
-/*   Updated: 2020/02/28 03:31:21 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/03/05 01:31:15 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,11 @@ static void			parse_commands_ter(t_strlist *current, t_strlist **command,
 	*command = ft_supersplit(current->str, separators, 0, 0);
 	if (command)
 		parse_args(*command, supertab, n);
-	if (!(new_string = ft_strsub(current->str, ft_strlen((*command)->str),
+	new_string = NULL;
+	if (*command && (*command)->str)
+		if (!(new_string = ft_strsub(current->str, ft_strlen((*command)->str),
 				ft_strlen(current->str) - ft_strlen((*command)->str))))
-		handle_error(NULL);
+			handle_error(NULL);
 	while (*command)
 	{
 		free((*command)->str);

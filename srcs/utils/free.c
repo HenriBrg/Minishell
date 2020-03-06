@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:01:02 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/05 20:20:09 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/06 21:25:50 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,29 @@ void				lstclear(t_envar *lst)
 	lst = NULL;
 }
 
+static void			free_redirections(t_commands_list *list, int i)
+{
+	t_strlist		*tmp;
+
+	while (list->command[i].in)
+	{
+		free(list->command[i].in->str);
+		tmp = list->command[i].in;
+		list->command[i].in = list->command[i].in->next;
+		free(tmp);
+	}
+	while (list->command[i].out)
+	{
+		free(list->command[i].out->str);
+		tmp = list->command[i].out;
+		list->command[i].out = list->command[i].out->next;
+		free(tmp);
+	}
+}
+
 void				commands_lstclear(t_commands_list *list)
 {
 	t_commands_list	*tmp;
-	t_strlist		*tmp2;
 	int				i;
 	int				j;
 
@@ -43,20 +62,7 @@ void				commands_lstclear(t_commands_list *list)
 		i = 0;
 		while (list->command[i].args)
 		{
-			while (list->command[i].in)
-			{
-				free(list->command[i].in->str);
-				tmp2 = list->command[i].in;
-				list->command[i].in = list->command[i].in->next;
-				free(tmp2);
-			}
-			while (list->command[i].out)
-			{
-				free(list->command[i].out->str);
-				tmp2 = list->command[i].out;
-				list->command[i].out = list->command[i].out->next;
-				free(tmp2);
-			}
+			free_redirections(list, i);
 			j = 0;
 			while (list->command[i].args[j])
 			{
