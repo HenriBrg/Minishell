@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/06 18:55:32 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/06 19:43:19 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ int					main(int ac, char **av, char **env)
 		prompt(envar);
 		g_shellisrunning = 0;
 		if (get_next_line(0, &input) <= 0 && write(2, "exit\n", 5))
+		{
 			exit((g_exitvalue = EXIT_SUCCESS));
+		}
 		shell(input, envar);
 		if (input)
 			free(input);

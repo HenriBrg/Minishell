@@ -8,7 +8,12 @@ echo salut > a > b | cat ; echo salut > a ; echo bonjour > b ; echo hey | cat < 
 
 
 --------------------------------------------------------------------------------
-A gerer ou non ?
-Non - echo $HOME\salut
 
-Les < passé à l'exécutable
+To fix :
+
+echo < et echo >
+On exit alors que bash non
+
+ctrl d avec un input remplit
+
+unset path puis ls doit fail et afficher :  bash: ls: No such file or directory

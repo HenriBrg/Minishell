@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 18:29:47 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/05 18:39:44 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/06 20:46:17 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ char			*checkpath(char **cmds, struct stat *s, char *envpath)
 	char		*tmp2;
 	char		**pathtab;
 
-	if ((i = -1) && stat(cmds[0], s) == 0)
-		if ((s->st_mode & S_IFREG) && (s->st_mode & S_IXUSR))
-			return (ft_strdup(cmds[0]));
+	// if ((i = -1) && stat(cmds[0], s) == 0)
+	// 	if ((s->st_mode & S_IFREG) && (s->st_mode & S_IXUSR))
+	// 		return (ft_strdup(cmds[0]));
+	i = -1;
 	pathtab = ft_strsplit(envpath, ":");
 	while (pathtab[++i])
 	{
@@ -51,13 +52,26 @@ char			*checkpath(char **cmds, struct stat *s, char *envpath)
 void			executablesnofork(char **cmds, t_envar *envar)
 {
 	int			ret;
+	char		*fullpath;
 	char		*execpath;
 	struct stat	s;
 
 	execpath = 0;
-	if ((execpath = checkpath(cmds, &s, getvar(envar, "PATH"))) == 0)
+	fullpath = getvar(envar, "PATH");
+	if (stat(cmds[0], &s) == 0)
+	{
+		if ((s.st_mode & S_IFREG) && (s.st_mode & S_IXUSR))
+			execpath = ft_strdup(cmds[0]);
+	}
+	else if (fullpath == NULL)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmds[0], 2);
+		ft_putendl_fd(": No such file or directory", 2);
 		return ;
-	(void)ret;
+	}
+	else if ((execpath = checkpath(cmds, &s, fullpath)) == 0)
+		return ;
 	ret = execve(execpath, cmds, g_environ_strstab);
 	free(execpath);
 	exit((g_exitvalue = EXIT_FAILURE));

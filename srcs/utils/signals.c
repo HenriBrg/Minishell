@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 15:15:08 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/05 19:21:29 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/06 19:40:45 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,29 +56,6 @@ void	handlesigquit(int signal)
 		}
 	}
 }
-
-/*
-** CTRL + Z == SIGTSTP : Suspendre
-**
-** void	handlesigtstp(int signal)
-** {
-** 	if (signal == SIGTSTP)
-** 	{
-** 		if (g_shellisrunning == 1)
-** 		{
-** 			ft_putstr(CLR_LINE);
-** 			ft_putstr(MVCURSOR_BEGL);
-** 			ft_putstr(CLR_LINE_LEFT);
-** 		}
-** 		else
-** 		{
-** 			ft_putstr(MVCURSOR_LEFT);
-** 			ft_putstr(MVCURSOR_LEFT);
-** 			ft_putstr(CLR_LINE_RIGHT);
-** 		}
-** 	}
-** }
-*/
 
 /*
 ** man signal
