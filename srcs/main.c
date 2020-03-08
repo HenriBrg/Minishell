@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/08 21:51:10 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/08 22:17:53 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void			prompt(t_envar *envar)
 {
-	ft_putstr_fd(getvar(envar, "PWD"), 2);
-	ft_putstr_fd("/ ------> ", 2);
+	ft_putstr_fd(getvar(envar, "PWD"), 1);
+	ft_putstr_fd("/ ------> ", 1);
 	g_shellisrunning = 0;
 }
 
@@ -73,12 +73,78 @@ static void			shell(char *input, t_envar *envar)
 **  	}
 **
 **  }
-*/
+ */
+
+
+static int previousiseof(int *ret, int *eof)
+ {
+ 	char		*bef_line;
+ 	char		*new_line;
+
+ 	bef_line = input;
+ 	new_line = 0;
+ 	if ((*ret = get_next_line(0, &new_line)) < 0)
+		exit(EXIT_FAILURE);
+ 	if (!(input = ft_strjoin(bef_line, new_line)))
+		exit(EXIT_FAILURE);
+ 	free(bef_line);
+ 	free(new_line);
+ 	if (*ret > 0)
+ 		*eof = 0;
+ 	if (*ret == 0)
+ 	{
+ 		ft_putstr("  \b\b");
+ 		return (0);
+ 	}
+ 	return (1);
+ }
+static int currentlinehandle(int *ret, int *eof)
+ {
+ 	*ret = get_next_line(0, &input);
+ 	if (*ret == -1)
+ 		exit(-1);
+ 	if ((*ret == 0 && ft_strlen(input)))
+ 	{
+ 		*eof = 1;
+ 		ft_putstr("  \b\b");
+ 		return (0);
+ 	}
+ 	if (*ret == 0 && !ft_strlen(input))
+ 	{
+ 		ft_putstr("  \b\b");
+		ft_putstr("\n");
+		exit(0);
+ 	}
+ 	return (1);
+ }
+
+ int				readinput(void)
+ {
+	 static int	ret;
+	 static int	eof;
+
+	if (eof)
+	{
+		write(1, "***", 3);
+
+		if (!previousiseof(&ret, &eof))
+			return (0);
+
+	}
+	else
+	{
+		write(1, "---", 3);
+
+		if (!currentlinehandle(&ret, &eof))
+			return (0);
+	}
+	return (1);
+ }
 
 int					main(int ac, char **av, char **env)
 {
-	int				ret;
-	char			*input;
+	//int				ret;
+	//char			*input;
 	t_envar			*envar;
 
 	(void)av;
@@ -92,11 +158,14 @@ int					main(int ac, char **av, char **env)
 	while (42)
 	{
 		prompt(envar);
-		ret = get_next_line(0, &input);
+		// ret = get_next_line(0, &input);
 		g_shellisrunning = 1;
-		if (ret <= 0 && write(2, "exit\n", 5))
-			exit((g_exitvalue = EXIT_SUCCESS));
-		shell(input, envar);
+		// if (ret <= 0 && write(2, "exit\n", 5))
+		// 	exit((g_exitvalue = EXIT_SUCCESS));
+		if (!readinput())
+			continue ;
+		if (0)
+			shell(input, envar);
 		if (input)
 			free(input);
 	}

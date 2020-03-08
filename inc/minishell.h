@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 18:07:34 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/08 19:29:26 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/08 22:01:03 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 
 int							g_shellisrunning;
 int							g_exitvalue;
+char						*input;
 char						**g_environ_strstab;
 
 typedef struct				s_envar
