@@ -6,7 +6,7 @@
 #    By: hberger <hberger@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/18 19:03:18 by hberger           #+#    #+#              #
-#    Updated: 2020/03/06 18:53:44 by hberger          ###   ########.fr        #
+#    Updated: 2020/03/08 21:18:03 by hberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,9 @@ OBJS = ${SRCS:.c=.o}
 
 HEADER = -I ./inc/
 
-# ifndef VERBOSE
-# .SILENT:
-# endif
+ifndef VERBOSE
+.SILENT:
+endif
 
 all: $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 15:15:08 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/06 19:40:45 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/08 21:02:12 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,16 @@ void	handlesigint(int signal)
 {
 	if (signal == SIGINT)
 	{
-		ft_putstr("\b\b  \n");
-		if (g_shellisrunning == 0)
+		if (g_shellisrunning == 1)
+		{
+			ft_putstr("\n");
+			g_shellisrunning = 0;
+		}
+		else
+		{
+			ft_putstr("\b\b  \n");
 			ft_putstr_fd("------> ", 2);
+		}
 	}
 }
 
@@ -47,6 +54,8 @@ void	handlesigquit(int signal)
 			ft_putstr(CLR_LINE);
 			ft_putstr(MVCURSOR_BEGL);
 			ft_putstr(CLR_LINE_LEFT);
+			ft_putstr_fd("^\\Quit: 3\n", 2);
+			g_shellisrunning = 0;
 		}
 		else
 		{

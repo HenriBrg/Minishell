@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/06 19:43:19 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/08 21:51:10 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void			prompt(t_envar *envar)
 {
 	ft_putstr_fd(getvar(envar, "PWD"), 2);
 	ft_putstr_fd("/ ------> ", 2);
+	g_shellisrunning = 0;
 }
 
 static int			monoprocess(t_command *tab, t_envar *envar)
@@ -54,8 +55,29 @@ static void			shell(char *input, t_envar *envar)
 	commands_lstclear(list);
 }
 
+
+/*
+**  char	*readline(char *intput)
+**  {
+**  	if (ret == -1)
+**  		exit((g_exitvalue = EXIT_SUCCESS));
+**  	if (ret == 0 && ft_strlen(input))
+**  	{
+**  		eof = 1;
+**  		ft_putstr_fd("  \b\b", 2);
+**  	}
+**  	if (ret == 0 && ft_strlen(input) == 0)
+**  	{
+**  		ft_putstr_fd("  \b\b", 2);
+**  		exit((g_exitvalue = EXIT_SUCCESS));
+**  	}
+**
+**  }
+*/
+
 int					main(int ac, char **av, char **env)
 {
+	int				ret;
 	char			*input;
 	t_envar			*envar;
 
@@ -65,15 +87,15 @@ int					main(int ac, char **av, char **env)
 	if (ac != 1 || (envar = lstenv(env)) == 0)
 		return (-1);
 	siglisten();
+	g_shellisrunning = 0;
 	g_environ_strstab = env;
 	while (42)
 	{
 		prompt(envar);
-		g_shellisrunning = 0;
-		if (get_next_line(0, &input) <= 0 && write(2, "exit\n", 5))
-		{
+		ret = get_next_line(0, &input);
+		g_shellisrunning = 1;
+		if (ret <= 0 && write(2, "exit\n", 5))
 			exit((g_exitvalue = EXIT_SUCCESS));
-		}
 		shell(input, envar);
 		if (input)
 			free(input);

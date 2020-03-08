@@ -6,11 +6,12 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 15:08:42 by hberger           #+#    #+#             */
-/*   Updated: 2019/10/28 19:00:09 by henri            ###   ########.fr       */
+/*   Updated: 2020/03/08 21:50:55 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft.h"
+#include <stdio.h>
 
 static char	*ft_read(const int fd, char *str)
 {
