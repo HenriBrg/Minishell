@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/08 22:17:53 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/09 16:45:28 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ static int currentlinehandle(int *ret, int *eof)
 
 	if (eof)
 	{
-		write(1, "***", 3);
+		// write(1, "***", 3);
 
 		if (!previousiseof(&ret, &eof))
 			return (0);
@@ -133,7 +133,7 @@ static int currentlinehandle(int *ret, int *eof)
 	}
 	else
 	{
-		write(1, "---", 3);
+		// write(1, "---", 3);
 
 		if (!currentlinehandle(&ret, &eof))
 			return (0);
@@ -164,8 +164,7 @@ int					main(int ac, char **av, char **env)
 		// 	exit((g_exitvalue = EXIT_SUCCESS));
 		if (!readinput())
 			continue ;
-		if (0)
-			shell(input, envar);
+		shell(input, envar);
 		if (input)
 			free(input);
 	}
