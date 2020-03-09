@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/08 21:51:10 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/09 18:23:32 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,26 +54,6 @@ static void			shell(char *input, t_envar *envar)
 	}
 	commands_lstclear(list);
 }
-
-
-/*
-**  char	*readline(char *intput)
-**  {
-**  	if (ret == -1)
-**  		exit((g_exitvalue = EXIT_SUCCESS));
-**  	if (ret == 0 && ft_strlen(input))
-**  	{
-**  		eof = 1;
-**  		ft_putstr_fd("  \b\b", 2);
-**  	}
-**  	if (ret == 0 && ft_strlen(input) == 0)
-**  	{
-**  		ft_putstr_fd("  \b\b", 2);
-**  		exit((g_exitvalue = EXIT_SUCCESS));
-**  	}
-**
-**  }
-*/
 
 int					main(int ac, char **av, char **env)
 {

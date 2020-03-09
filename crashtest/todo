@@ -1,0 +1,127 @@
+echo -n ls > script
+./minishell < script
+Sachant que echo "ls" > script fonctionne pourtant
+------------------
+Multi pipe à la chaine
+Too many open files
+
+Il faut fermer le fd ou alors en ouvrir et fermer aussitot
+------------------
+ls |
+------------------
+> newfile : creer newfile
+------------------
+| ou < ou > seul
+------------------
+Apres avoir fait :     > ls
+La commande ls ne fonctionne plus
+------------------
+bash-3.2$ > ls echo test
+bash-3.2$ cat ls
+test
+bash-3.2$
+------------------
+echo test > ls
+La commande ls ne fonctionne plus
+> ls
+La commande ls ne fonctionne plus
+------------------
+> lol
+------------------
+bash-3.2$ > ls
+bash-3.2$ ls
+Makefile	crashtest	libft		ls		script
+TODO		inc		lol		minishell	srcs
+bash-3.2$
+-----------------
+./ls
+bash-3.2$ ./ls
+bash: ./ls: Permission denied
+----------------
+/Users/hberger/Desktop/Projets/minishell/ ------> echo test >ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls
+Too many open files
+-----------------
+echo "$=TEST"
+echo "$1TEST"
+echo "$T1EST"
+error sur export 1TEST=LOL et non sur T1EST=LOL
+export " "=TEST
+unset 1TEST puis echo $? = 1
+
+
+
+export LS="ls       -la"
+bash-3.2$ echo $LS
+ls -la -------> mais que via echo, dans env c'est bien stocker avec espaces
+$LS fait un ls -la du coup
+-----------------
+
+attention sur :
+➜  minishell git:(master) ✗ bash
+bash-3.2$ dsfg
+bash: dsfg: command not found
+bash-3.2$ exit
+exit
+➜  minishell git:(master) ✗ echo $?
+127           valeur de dsfg not found et NON la valeur de la reussite d'exit !
+
+-----------------
+ctrl + c
+retourne exit value de 1
+----------------
+cat / grep etc si interupt par ctrl alors exit value = 130
+et si ctrl \ 131
+bash-3.2$ cat
+^\Quit: 3
+bash-3.2$ echo $?
+131
+----------------
+> ls echo lol
+cat ls
+lol
+
+
+> ls
+
+bash-3.2$ echo "$=TEST"
+$=TEST
+bash-3.2$ echo "$1TEST"
+TEST
+bash-3.2$ echo "$T1EST"
+
+bash-3.2$ export 1TEST=LOL
+bash: export: `1TEST=LOL': not a valid identifier
+
+bash-3.2$ export " "=TEST
+bash: export: ` =TEST': not a valid identifier
+
+bash-3.2$ unset 1TEST
+bash: unset: `1TEST': not a valid identifier
+
+
+➜  minishell git:(master) ✗ env -i bash
+bash-3.2$ env
+PWD=/Users/hberger/Desktop/Projets/minishell
+SHLVL=1
+_=/usr/bin/env
+bash-3.2$ ls
+
+bash-3.2$ |
+bash: syntax error near unexpected token `|'
+
+
+
+********************
+
+
+
+./minishell < tmp
+/Users/hberger/Desktop/Projets/minishell/ ------> exit
+
+
+probleme si juste input = minishell, le notre considere l'appel de l'executable et fork donc l'exit d'apres fait rien
+
+ok mais penser a tester apres : exit AA retourne 255
+
+touch testls ; chmod 000 testls ; echo test > testls
+Permission denied

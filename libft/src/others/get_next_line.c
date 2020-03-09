@@ -6,12 +6,17 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 15:08:42 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/08 21:50:55 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/09 18:23:28 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft.h"
 #include <stdio.h>
+
+/*
+** if ((x = read(fd, buffer, BUFFER_SIZE)) < 0)
+** return (0);
+*/
 
 static char	*ft_read(const int fd, char *str)
 {
@@ -25,8 +30,13 @@ static char	*ft_read(const int fd, char *str)
 	while (ft_strchr(str, '\n') == 0)
 	{
 		tmp = str;
-		if ((x = read(fd, buffer, BUFFER_SIZE)) < 0)
-			return (0);
+		if ((x = read(fd, buffer, BUFFER_SIZE)) <= 0)
+		{
+			if (ft_strlen(str) && write(fd, "  \b\b", 4))
+				continue ;
+			else
+				write(fd, "  \b\b", 4);
+		}
 		buffer[x] = '\0';
 		str = ft_strjoin(str, buffer);
 		free(tmp);
