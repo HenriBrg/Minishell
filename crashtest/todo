@@ -21,3 +21,9 @@ echo "$1TEST" // remplacer $1 ou $9 etc par rien car on s'embete pas
 
 export LS="ls       -la"
 bash-3.2$ echo $LS
+
+
+/Users/hberger/Desktop/Projets/minishell/testdir/ ------> rm ../testdir
+rm: ../testdir: is a directory
+/Users/hberger/Desktop/Projets/minishell/testdir/ ------> rm -rf ../testdir
+/Users/hberger/Desktop/Projets/minishell/testdir/ ------> cd .
