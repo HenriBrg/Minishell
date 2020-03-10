@@ -2,11 +2,10 @@ Matthieu (si t'as le temps) :
 Multi pipe à la chaine
 Too many open files
 ------------------------------------------------------------------------------------------------------------
-ls |
 ------------------------------------------------------------------------------------------------------------
 > newfile : creer newfile
 ------------------------------------------------------------------------------------------------------------
-| ou < ou > seul
+| ou < ou > : que des erreurs et EXIT 258 SURTOUT
 ------------------------------------------------------------------------------------------------------------
 mais on a dit qu'on gererai pas ca
 bash-3.2$ > ls echo test
@@ -15,6 +14,9 @@ test
 ------------------------------------------------------------------------------------------------------------
 /Users/hberger/Desktop/Projets/minishell/ ------> echo test >ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls
 Too many open files
+
+ls | multiligne
+
 ------------------------------------------------------------------------------------------------------------
 echo "$=TEST" // parsing ne pas remplacer si $=
 echo "$1TEST" // remplacer $1 ou $9 etc par rien car on s'embete pas

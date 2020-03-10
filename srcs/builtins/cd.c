@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 20:58:19 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/05 20:12:53 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/10 23:02:41 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,38 @@ static int		switchdir(char **cmds, char *dest)
 		return ((g_exitvalue = EXIT_SUCCESS));
 }
 
-static void		move(char **cmds, char *dest, t_envar *envar)
+/*
+** if (cmds[1][0] == '-' && cmds[1][1] == '/')
+**	return (ft_strjoin(getvar(envar, "OLDPWD"), cmds[1] + 1));
+*/
+
+static char		*getdest(char **cmds, t_envar *envar)
 {
-	char		*currentworkdir;
-	char		buf[PATH_MAX - 1];
+	char		*tmp;
+
+	if (cmds[1] == 0)
+		return (ft_strdup(getvar(envar, "HOME")));
+	if (cmds[1][0] == '.' && cmds[1][1] == 0)
+		return (ft_strdup(getvar(envar, "PWD")));
+	if (cmds[1][0] == '-' && cmds[1][1] == 0)
+	{
+		tmp = ft_strdup(getvar(envar, "OLDPWD"));
+		ft_putendl_fd(tmp, 1);
+		return (tmp);
+	}
+	if (cmds[1][0] == '~' && cmds[1][1] == 0)
+		return (ft_strdup(getvar(envar, "HOME")));
+	if (cmds[1][0] == '~' && cmds[1][1] == '/')
+		return (ft_strjoin(getvar(envar, "HOME"), cmds[1] + 1));
+	return (ft_strdup(cmds[1]));
+}
+
+void			competemove(t_envar *envar, char *currentworkdir)
+{
 	char		*exportation;
 	char		**exportcmds;
+	char		buf[PATH_MAX - 1];
 
-	currentworkdir = getcwd(buf, PATH_MAX - 1);
-	if (dest == 0 || switchdir(cmds, dest) == -1)
-		return ;
 	exportation = ft_strjoin("export OLDPWD=", currentworkdir);
 	exportcmds = ft_strsplit(exportation, " ");
 	exportenvar(exportcmds, envar);
@@ -56,19 +78,32 @@ static void		move(char **cmds, char *dest, t_envar *envar)
 	ft_strsfree(exportcmds);
 }
 
-static char		*getdest(char **cmds, t_envar *envar)
+static void		move(char **cmds, char *dest, t_envar *envar)
 {
-	if (cmds[1] == 0)
-		return (ft_strdup(getvar(envar, "HOME")));
-	if (cmds[1][0] == '-' && cmds[1][1] == 0)
-		return (ft_strdup(getvar(envar, "OLDPWD)")));
-	if (cmds[1][0] == '-' && cmds[1][1] == '/')
-		return (ft_strjoin(getvar(envar, "OLDPWD"), cmds[1] + 1));
-	if (cmds[1][0] == '~' && cmds[1][1] == 0)
-		return (ft_strdup(getvar(envar, "HOME")));
-	if (cmds[1][0] == '~' && cmds[1][1] == '/')
-		return (ft_strjoin(getvar(envar, "HOME"), cmds[1] + 1));
-	return (ft_strdup(cmds[1]));
+	char		*tmp;
+	static int	except;
+	char		*currentworkdir;
+	char		buf[PATH_MAX - 1];
+
+	currentworkdir = 0;
+	if ((currentworkdir = getcwd(buf, PATH_MAX - 1)) == 0)
+	{
+		tmp = getdest(cmds, envar);
+		if (except && ft_strcmp(getvar(envar, "PWD"), tmp) != 0)
+			chdir(getdest(cmds, envar));
+		else
+		{
+			except = 1;
+			ft_putstr_fd("cd: error retrieving current directory", 2);
+			ft_putstr_fd(": getcwd: cannot access", 2);
+			ft_putstr_fd(" parent directories: No such file or directory\n", 2);
+		}
+		return ;
+	}
+	except = 0;
+	if (dest == 0 || switchdir(cmds, dest) == -1)
+		return ;
+	competemove(envar, currentworkdir);
 }
 
 void			builtincd(char **cmds, t_envar *envar)
