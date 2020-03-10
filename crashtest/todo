@@ -17,30 +17,18 @@ bash-3.2$
 /Users/hberger/Desktop/Projets/minishell/ ------> echo test >ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls
 Too many open files
 ------------------------------------------------------------------------------------------------------------
-
-
-Henri :
-Apres avoir fait :     > ls
-La commande ls ne fonctionne plus
-En gros si fichier du nom d'une commande commande fonctionne plus
-echo test > ls
-La commande ls ne fonctionne plus
-------------------
-./ls
-bash-3.2$ ./ls
-bash: ./ls: Permission denied si ls existe pas, sinon no such file
------------------
-echo "$=TEST"
-echo "$1TEST"
-echo "$T1EST"
-error sur export 1TEST=LOL et non sur T1EST=LOL
-export " "=TEST
-unset 1TEST puis echo $? = 1
-
-
+echo "$=TEST" // parsing ne pas remplacer si $=
+echo "$1TEST" // remplacer $1 ou $9 etc par rien car on s'embete pas
 
 export LS="ls       -la"
 bash-3.2$ echo $LS
+
+
+Henri :
+-----------------
+
+
+
 ls -la -------> mais que via echo, dans env c'est bien stocker avec espaces
 $LS fait un ls -la du coup
 -----------------

@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:48:11 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/06 18:56:26 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/10 20:22:47 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void			exportenvar(char **cmds, t_envar *envar)
 
 	i = 0;
 	while (cmds[++i])
-		if (cmds[i][0] == '=')
+		if (!ft_isalpha(cmds[i][0]) && cmds[i][0] != '_')
 		{
 			ft_putstr_fd("minishell: export: `", 2);
 			ft_putstr_fd(cmds[i], 2);
@@ -110,7 +110,7 @@ static void		unsetenvar(char **cmds, t_envar *envar)
 	i = 1;
 	while (cmds[i])
 	{
-		if (ft_strchr(cmds[i], '='))
+		if (!ft_isalpha(cmds[i][0]) && cmds[i][0] != '_')
 		{
 			ft_putstr_fd("minishell: unset: `", 2);
 			ft_putstr_fd(cmds[i], 2);

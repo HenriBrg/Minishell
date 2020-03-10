@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 18:11:47 by hberger           #+#    #+#             */
-/*   Updated: 2020/02/24 17:48:11 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/10 20:41:07 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,27 @@
 ** puis un \n sauf si flag -n
 ** echo -n -n ..... n'affiche rien
 */
+
+void		printecho(char *str)
+{
+	int		c;
+	char	*tmp;
+
+	c = 0;
+	tmp = ft_strtrim(str, " ");
+	while (tmp[c] != 0)
+	{
+		if (tmp[c] == ' ')
+		{
+			while (tmp[c] != 0 && tmp[c] == ' ')
+				c++;
+			write(1, " ", 1);
+		}
+		write(1, &(tmp[c]), 1);
+		c++;
+	}
+	free(tmp);
+}
 
 void		builtinecho(char **cmds, t_envar *envar)
 {
@@ -35,7 +56,7 @@ void		builtinecho(char **cmds, t_envar *envar)
 	}
 	while (cmds[i])
 	{
-		write(1, cmds[i], ft_strlen(cmds[i]));
+		printecho(cmds[i]);
 		if (cmds[i + 1])
 			write(1, " ", 1);
 		i++;
