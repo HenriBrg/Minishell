@@ -28,20 +28,6 @@ Henri :
 -----------------
 
 
-
-ls -la -------> mais que via echo, dans env c'est bien stocker avec espaces
-$LS fait un ls -la du coup
------------------
-
-attention sur :
-➜  minishell git:(master) ✗ bash
-bash-3.2$ dsfg
-bash: dsfg: command not found
-bash-3.2$ exit
-exit
-➜  minishell git:(master) ✗ echo $?
-127           valeur de dsfg not found et NON la valeur de la reussite d'exit !
-
 -----------------
 ctrl + c
 retourne exit value de 1

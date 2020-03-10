@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipesbis.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macasubo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: macasubo <macasubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 20:50:33 by macasubo          #+#    #+#             */
-/*   Updated: 2020/03/04 23:57:45 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/03/10 21:04:48 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ static void		pipeline_bis(int nbpipes, int pipefds[])
 	while (j < nbpipes + 1)
 	{
 		wait(&status);
-		g_exitvalue = WEXITSTATUS(status);
+		if (g_exitvalue != 130 && g_exitvalue != 131)
+			g_exitvalue = WEXITSTATUS(status);
 		j++;
 	}
 }

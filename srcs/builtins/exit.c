@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 23:52:46 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/09 19:53:58 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/10 20:46:00 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	builtinexit(char **cmds, int piped)
 	if (piped == 0)
 		ft_putstr_fd("exit\n", 2);
 	if (ft_strslen(cmds) == 1)
-		exit((g_exitvalue = EXIT_SUCCESS));
+		exit(g_exitvalue);
 	if (ft_strslen(cmds) >= 2 &&
 	(strisdigit(cmds[1]) == 0 && cmds[1][0] != '-'))
 	{
