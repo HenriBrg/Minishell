@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 23:52:46 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/10 20:46:00 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/10 21:32:37 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	builtinexit(char **cmds, int piped)
 	if (ft_strslen(cmds) >= 3)
 	{
 		ft_putstr_fd("exit: too many arguments\n", 2);
-		g_exitvalue = EXIT_FAILURE; // sur ? plutot garder la  valeur du dernier prog execute
+		g_exitvalue = EXIT_FAILURE;
 		return ;
 	}
 	g_exitvalue = (int)ret;

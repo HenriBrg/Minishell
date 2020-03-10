@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:15 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/05 22:52:08 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/10 21:27:03 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,6 @@ t_envar		*lstenv(char **env)
 	t_envar		*current;
 	t_envar		*previous;
 
-	if (env == 0 || *env == 0)
-		return (0);
 	i = -1;
 	begin = 0;
 	while (env[++i] != 0)
