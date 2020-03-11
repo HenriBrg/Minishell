@@ -1,31 +1,30 @@
-Matthieu (si t'as le temps) :
-Multi pipe à la chaine
-Too many open files
-------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------
-> newfile : creer newfile
+PIPE DEBUT DE LIGNE
+< DEBUT
+<< DEBUT
+
+
+> ou >> newfile : creer newfile
 ------------------------------------------------------------------------------------------------------------
 | ou < ou > : que des erreurs et EXIT 258 SURTOUT
 ------------------------------------------------------------------------------------------------------------
-mais on a dit qu'on gererai pas ca
+mais on a dit qu'on gererai pas ca, sauf si c'est pas trop hard de detect le'unique cas ou il y a un echo le fd
 bash-3.2$ > ls echo test
 bash-3.2$ cat ls
 test
 ------------------------------------------------------------------------------------------------------------
-/Users/hberger/Desktop/Projets/minishell/ ------> echo test >ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls>ls
-Too many open files
-
 ls | multiligne
-
 ------------------------------------------------------------------------------------------------------------
 echo "$=TEST" // parsing ne pas remplacer si $=
 echo "$1TEST" // remplacer $1 ou $9 etc par rien car on s'embete pas
 
-export LS="ls       -la"
-bash-3.2$ echo $LS
 
 
-/Users/hberger/Desktop/Projets/minishell/testdir/ ------> rm ../testdir
-rm: ../testdir: is a directory
-/Users/hberger/Desktop/Projets/minishell/testdir/ ------> rm -rf ../testdir
-/Users/hberger/Desktop/Projets/minishell/testdir/ ------> cd .
+
+
+
+/Users/hberger/Desktop/Projets/minishell/ ------> echo test |ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls
+------> nbpipe 126
+Makefile	crashtest	inc		libft		minishell	srcs
+/Users/hberger/Desktop/Projets/minishell/ ------> echo test |ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls
+------> nbpipe 127
+Too many open files
