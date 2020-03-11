@@ -6,7 +6,7 @@
 /*   By: macasubo <macasubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 20:50:33 by macasubo          #+#    #+#             */
-/*   Updated: 2020/03/11 22:05:10 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/11 22:09:07 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,8 @@ static void		close_pipefds(int nbpipes, int pipefds[])
 			handle_error(NULL);
 }
 
-// idee : si + de 100 pipes, avoir un previvous et un next et on close le previous a mesure qu'on itere sur .args
 void			pipeline(t_command *tab, t_envar *envar, int nbpipes)
 {
-	int			jump[4];
-
 	int			pipefds[2 * nbpipes];
 	int			i;
 	pid_t		pid;
