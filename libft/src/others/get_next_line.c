@@ -6,26 +6,12 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 15:08:42 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/10 18:32:19 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/12 21:32:47 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft.h"
 #include <stdio.h>
-
-/*
-** if ((x = read(fd, buffer, BUFFER_SIZE)) < 0)
-** return (0);
-*/
-// 	if (read(0, buf, 1) == 0)
-// (ligne vide) ? exit_ctrl_d() : write(1, "  \b\b", 4);
-
-	//printf("STR = %s et BUFFER = %s et X = %d\n", str, buffer, x);
-
-		//printf("True\n");
-
-// else
-// 	printf("ELSE : STR = %s et BUFFER = %s et X = %d\n", str, buffer, x);
 
 static char	*ft_read(const int fd, char *str)
 {
