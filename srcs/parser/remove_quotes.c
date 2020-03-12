@@ -6,7 +6,7 @@
 /*   By: macasubo <macasubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 21:48:00 by macasubo          #+#    #+#             */
-/*   Updated: 2020/03/11 22:12:39 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/12 21:02:51 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ char			*trim_quotes(char *s, t_envar *envar)
 						!= '\"' && s[i + 1] != '\\')
 						if (state[2] == 0 && state[0] == 0 &&
 							(s[i + 1] == '_' || ft_isalpha(s[i + 1]) ||
-							ft_isdigit(s[i + 1])))
+							ft_isdigit(s[i + 1]) || s[i + 1] == '?'))
 							substitute_variable(&s, &i, &len, envar);
 	if (!(new = NULL) && (state[0] || state[1] || state[2]))
 		handle_error("error: multiline commands are not supported");

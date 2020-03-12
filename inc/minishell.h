@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 18:07:34 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/08 19:29:26 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/12 20:53:15 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ void						builtinpwd(t_envar *envar);
 void						builtincd(char **cmds, t_envar *envar);
 void						swapenvar(t_envar *current, t_envar *next);
 t_envar						*fullcopyenvar(t_envar *origin);
+int							onlyfdout(char *input);
 
 /*
 ** executables/
