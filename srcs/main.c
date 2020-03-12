@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/11 20:19:08 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/12 19:53:09 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static void			shell(char *input, t_envar *envar)
 	int				countpipe;
 
 	list = NULL;
+	if (onlyfdout(input) == 1)
+		return ;
 	list = parse(input, envar);
 	tmp = list;
 	while (tmp)
