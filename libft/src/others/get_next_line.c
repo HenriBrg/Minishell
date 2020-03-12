@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 15:08:42 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/12 21:32:47 by hberger          ###   ########.fr       */
+/*   Updated: 2020/03/12 21:53:01 by hberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static char	*ft_read(const int fd, char *str)
 {
-	int 	i;
+	int		i;
 	int		x;
 	char	*tmp;
 	char	buffer[BUFFER_SIZE + 1];
