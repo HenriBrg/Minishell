@@ -59,13 +59,13 @@ void	builtinexit(char **cmds, int piped)
 		ft_putstr_fd("exit: ", 2);
 		ft_putstr_fd(cmds[1], 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
-		exit((g_exitvalue = 255));
+		exit((g_exitvalue = 2));
 	}
 	ret = (unsigned char)ft_atoi(cmds[1]);
 	if (ft_strslen(cmds) >= 3)
 	{
 		ft_putstr_fd("exit: too many arguments\n", 2);
-		g_exitvalue = EXIT_FAILURE;
+		g_exitvalue = 2;
 		return ;
 	}
 	g_exitvalue = (int)ret;

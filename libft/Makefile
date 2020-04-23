@@ -33,7 +33,7 @@ FLAGS = -Wall -Wextra -Werror
 all: $(NAME)
 
 .c.o:
-	gcc $(FLAGS) -c $< -o $@
+	clang $(FLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)

@@ -101,7 +101,7 @@ static void		move(char **cmds, char *dest, t_envar *envar)
 		return ;
 	}
 	except = 0;
-	if (dest == 0 || switchdir(cmds, dest) == -1)
+	if (dest == 0 || switchdir(cmds, dest) == 1)
 		return ;
 	competemove(envar, currentworkdir);
 }

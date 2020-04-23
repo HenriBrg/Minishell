@@ -34,11 +34,11 @@ HEADER = -I ./inc/
 all: $(NAME)
 
 .c.o:
-	gcc $(FLAGS) $(HEADER) -c $< -o $@
+	clang $(FLAGS) $(HEADER) -c $< -o $@
 
 $(NAME): $(OBJS)
 	make -C libft
-	gcc $(FLAGS) $(SRCS) -o $(NAME) -L. libft/libft.a
+	clang $(FLAGS) $(SRCS) -o $(NAME) -L. libft/libft.a
 
 run: $(NAME)
 	./minishell

@@ -22,6 +22,7 @@
 ** argument-to-signal-handler
 ** ft_putstr("\b\b \n") ----> https://abs.traduc.org/abs-5.3-fr/abs-5.3.pdf
 ** (backspace non destructif)
+** ft_putstr("\b\b  \n");
 */
 
 void	handlesigint(int signal)
@@ -36,8 +37,7 @@ void	handlesigint(int signal)
 		}
 		else
 		{
-			ft_putstr("\b\b  \n");
-			ft_putstr_fd("------> ", 2);
+			ft_putstr_fd("\n------> ", 2);
 			g_exitvalue = EXIT_FAILURE;
 		}
 	}
