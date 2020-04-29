@@ -22,7 +22,7 @@ void		handle_error(char *message)
 	exit(EXIT_FAILURE);
 }
 
-void		checkborderssymbol(char **cmds)
+int			checkborderssymbol(char **cmds)
 {
 	if (ft_strcmp(cmds[0], "|") == 0)
 	{
@@ -36,12 +36,7 @@ void		checkborderssymbol(char **cmds)
 		exit((g_exitvalue = 258));
 		ft_strsfree(cmds);
 	}
-	else if (ft_strcmp(cmds[0], ">") == 0 || ft_strcmp(cmds[0], ">>") == 0)
-	{
-		ft_putstr_fd("minishell: error near unexpected token `newline'\n", 2);
-		exit((g_exitvalue = 258));
-		ft_strsfree(cmds);
-	}
+	return (0);
 }
 
 int			onlyfdout(char *input)
@@ -53,8 +48,7 @@ int			onlyfdout(char *input)
 		return (0);
 	if ((cmds = ft_strsplit(input, " ")) == 0)
 		return (0);
-	checkborderssymbol(cmds);
-	if (cmds[0] && cmds[1] &&
+	if (checkborderssymbol(cmds) == 0 && cmds[0] && cmds[1] &&
 		(ft_strcmp(cmds[0], ">") == 0 || ft_strcmp(cmds[0], ">>") == 0))
 	{
 		if ((fd = open(cmds[1], O_CREAT | O_WRONLY | (ft_strcmp(cmds[1], ">>")
@@ -64,7 +58,8 @@ int			onlyfdout(char *input)
 		ft_strsfree(cmds);
 		return (1);
 	}
-	else if (ft_strcmp(cmds[0], ">") == 0 && cmds[1] == 0)
+	else if ((ft_strcmp(cmds[0], ">") == 0 ||
+				ft_strcmp(cmds[0], ">>") == 0) && cmds[1] == 0)
 	{
 		ft_putstr_fd("minishell: error near unexpected token `newline'\n", 2);
 		exit((g_exitvalue = 258));

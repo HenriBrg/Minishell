@@ -53,8 +53,8 @@ void	builtinexit(char **cmds, int piped)
 		ft_putstr_fd("exit\n", 2);
 	if (ft_strslen(cmds) == 1)
 		exit(g_exitvalue);
-	if (ft_strslen(cmds) >= 2 &&
-	(strisdigit(cmds[1]) == 0 && cmds[1][0] != '-'))
+	if (ft_strslen(cmds) >= 2 && (strisdigit(cmds[1]) == 0
+				&& (cmds[1][0] != '-' || !ft_isdigit(cmds[1][1]))))
 	{
 		ft_putstr_fd("exit: ", 2);
 		ft_putstr_fd(cmds[1], 2);
