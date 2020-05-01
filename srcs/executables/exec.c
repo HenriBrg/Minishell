@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 18:29:47 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/10 21:45:40 by hberger          ###   ########.fr       */
+/*   Updated: 2020/05/01 16:17:25 by henri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void			executablesnofork(char **cmds, t_envar *envar)
 			return (ft_putendl_fd(": Permission denied", 2));
 		}
 	}
-	else if (ft_strstr(cmds[0], "/bin/") && lstat(cmds[0], &s) == 0)
+	else if ((ft_strstr(cmds[0], "/bin/") || ft_strstr(cmds[0], "/sbin/"))
+	&& lstat(cmds[0], &s) == 0)
 	{
 		if ((s.st_mode & S_IFREG) && (s.st_mode & S_IXUSR))
 			execpath = ft_strdup(cmds[0]);
