@@ -6,11 +6,12 @@
 /*   By: macasubo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 01:54:40 by macasubo          #+#    #+#             */
-/*   Updated: 2020/02/28 03:24:31 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/05/01 15:36:17 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+#include <stdio.h>
 
 static char		*substitute_variable_bis(char **s, int *i, t_envsubvar *env)
 {
@@ -21,7 +22,8 @@ static char		*substitute_variable_bis(char **s, int *i, t_envsubvar *env)
 	(*i)++;
 	while ((*s)[*i + env->len_var_name] && (*s)[*i + env->len_var_name] != '\''
 			&& (*s)[*i + env->len_var_name] != '\"' && (*s)[*i +
-			env->len_var_name] != '\\' && (*s)[*i + env->len_var_name] != '$')
+			env->len_var_name] != '\\' && (*s)[*i + env->len_var_name] != '$'
+			&& (*s)[*i + env->len_var_name] != ' ')
 		(env->len_var_name)++;
 	if ((*s)[*i] != '?')
 		var_name = ft_strsub(*s, *i, env->len_var_name);
@@ -34,7 +36,7 @@ static char		*substitute_variable_ter(int *i, char **s, t_envsubvar *env)
 
 	if (*i - 1 > 0)
 	{
-		if (!(env->a = ft_strsub(*s, 0, *i - 1)))
+		if (!(env->a = ft_strsub_ignore_null(*s, 0, *i - 1)))
 			handle_error(NULL);
 	}
 	else

@@ -4,7 +4,7 @@ SRCS =  src/str/ft_strcmp.c  src/str/ft_strncmp.c src/str/ft_strcat.c		   \
 		src/str/ft_strchr.c  src/str/ft_strcpy.c  src/str/ft_strdup.c		   \
 		src/str/ft_strjoin.c src/str/ft_strncat.c src/str/ft_strncpy.c		   \
 		src/str/ft_strnew.c  src/str/ft_strnstr.c src/str/ft_strrchr.c		   \
-		src/str/ft_strstr.c  src/str/ft_strsub.c  src/str/ft_strlen.c		   \
+		src/str/ft_strstr.c  src/str/ft_strsub.c  src/str/ft_strsub_ignore_null.c src/str/ft_strlen.c		   \
 		src/str/ft_strndup.c src/str/ft_stroccurs.c	src/str/ft_strsplit.c	   \
 		src/str/ft_strsfree.c src/str/ft_strslen.c src/str/ft_strlcpy.c		   \
 		src/str/ft_strtrim.c \
