@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 18:07:34 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/12 20:53:15 by hberger          ###   ########.fr       */
+/*   Updated: 2020/05/02 17:14:41 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int							strcmpcasei(char *s1, char *s2);
 void						handle_error(char *message);
 void						siglisten(void);
 void						commands_lstclear(t_commands_list *list);
+int							error_unexpected_token(char token);
 
 /*
 ** parse/

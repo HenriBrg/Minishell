@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:56:32 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/12 21:24:32 by hberger          ###   ########.fr       */
+/*   Updated: 2020/05/02 17:15:18 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,14 @@ int			onlyfdout(char *input)
 		exit((g_exitvalue = 258));
 	}
 	ft_strsfree(cmds);
+	return (0);
+}
+
+int			error_unexpected_token(char token)
+{
+	ft_putstr_fd("minishell: error near unexpected token `", 2);
+	write(2, &token, 1);
+	ft_putstr_fd("'\n", 2);
+	exit((g_exitvalue = 258));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: macasubo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 01:44:19 by macasubo          #+#    #+#             */
-/*   Updated: 2020/02/28 03:27:27 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/05/02 17:17:42 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,10 @@ static void		check_separator(t_envsplit *env, int trim)
 		if (ft_strncmp(env->string + env->index, env->separators[j], len_sep)
 				== 0)
 		{
+			if ((env->index == 0 || !check_spaces(env->string, env->index))
+					&& (env->separators[j][0] == ';'
+					|| env->separators[j][0] == '|'))
+				error_unexpected_token(env->string[env->index]);
 			if (env->index > 0)
 				addback(&(env->list), env->string, env->index, trim);
 			if (env->inclusion && env->separators[j][0] != ' ')

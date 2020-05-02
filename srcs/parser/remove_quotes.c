@@ -6,7 +6,7 @@
 /*   By: macasubo <macasubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 21:48:00 by macasubo          #+#    #+#             */
-/*   Updated: 2020/05/01 15:34:34 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/05/02 17:33:49 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ static int		trim_quotes_antislash(char *s, int i, int state[3])
 			}
 			else
 				state[2] = 0;
+		}
+		else if (state[1] == 1 && s[i + 1] == '\"')
+		{
+			state[2] = 1;
+			s[i] = 0;
 		}
 		return (1);
 	}
