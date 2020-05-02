@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 18:29:47 by hberger           #+#    #+#             */
-/*   Updated: 2020/05/01 16:17:25 by henri            ###   ########.fr       */
+/*   Updated: 2020/05/02 17:27:42 by henri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,7 @@ void			executablesnofork(char **cmds, t_envar *envar)
 		if ((s.st_mode & S_IFREG) && (s.st_mode & S_IXUSR))
 			execpath = ft_strdup(cmds[0]);
 		else
-		{
-			ft_putstr_fd(cmds[0], 2);
-			return (ft_putendl_fd(": Permission denied", 2));
-		}
+			return (ft_putendl_fd("minishell: Permission denied", 2));
 	}
 	else if ((ft_strstr(cmds[0], "/bin/") || ft_strstr(cmds[0], "/sbin/"))
 	&& lstat(cmds[0], &s) == 0)
@@ -74,6 +71,7 @@ void			executablesnofork(char **cmds, t_envar *envar)
 	}
 	else if ((execpath = checkpath(cmds, &s, getvar(envar, "PATH"))) == 0)
 	{
+		g_exitvalue = EXIT_FAILURE;
 		ft_putstr_fd(cmds[0], 2);
 		return (ft_putendl_fd(": command not found", 2));
 	}

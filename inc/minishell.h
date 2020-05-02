@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 18:07:34 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/12 20:53:15 by hberger          ###   ########.fr       */
+/*   Updated: 2020/05/02 17:31:42 by henri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,5 +174,7 @@ void						executablesnofork(char **cmds, t_envar *envar);
 char						*finishpath(char **pathtab, char *tmp2);
 char						*checkpath(char **cmds, struct stat *s,
 	char *envpath);
+char						*finishgetdest(t_envar *envar, char *varname,
+	int specific);
 
 #endif
