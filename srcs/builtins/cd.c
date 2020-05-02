@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 20:58:19 by hberger           #+#    #+#             */
-/*   Updated: 2020/04/29 23:20:12 by henri            ###   ########.fr       */
+/*   Updated: 2020/05/02 16:57:23 by henri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,29 +33,18 @@ static int		switchdir(char **cmds, char *dest)
 		return ((g_exitvalue = EXIT_SUCCESS));
 }
 
-/*
-** if (cmds[1][0] == '-' && cmds[1][1] == '/')
-**	return (ft_strjoin(getvar(envar, "OLDPWD"), cmds[1] + 1));
-*/
-
 static char		*getdest(char **cmds, t_envar *envar)
 {
-	char		*tmp;
-
 	if (cmds[1] == 0)
-		return (ft_strdup(getvar(envar, "HOME")));
+		return (finishgetdest(envar, "HOME", 0));
 	if (cmds[1][0] == '.' && cmds[1][1] == 0)
-		return (ft_strdup(getvar(envar, "PWD")));
+		return (finishgetdest(envar, "PWD", 0));
 	if (cmds[1][0] == '-' && cmds[1][1] == 0)
-	{
-		tmp = ft_strdup(getvar(envar, "OLDPWD"));
-		ft_putendl_fd(tmp, 1);
-		return (tmp);
-	}
+		return (finishgetdest(envar, "OLDPWD", 1));
 	if (cmds[1][0] == '~' && cmds[1][1] == 0)
-		return (ft_strdup(getvar(envar, "HOME")));
+		return (finishgetdest(envar, "HOME", 0));
 	if (cmds[1][0] == '~' && cmds[1][1] == '/')
-		return (ft_strjoin(getvar(envar, "HOME"), cmds[1] + 1));
+		return (ft_strjoin(finishgetdest(envar, "HOME", 0), cmds[1] + 1));
 	return (ft_strdup(cmds[1]));
 }
 

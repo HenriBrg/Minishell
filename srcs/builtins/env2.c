@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 17:57:36 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/06 19:06:57 by hberger          ###   ########.fr       */
+/*   Updated: 2020/05/02 15:27:25 by henri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,13 @@ void		printdeclaredvars(t_envar *envar)
 ** Autrement, on malloc puis on la positionne en fin de liste
 */
 
+void		pushnorminette(t_envar **new, char *name, char *value)
+{
+	(*new)->name = name;
+	(*new)->value = value;
+	(*new)->next = NULL;
+}
+
 void		pushbackenvar(char *name, char *value, t_envar *envar, int assigned)
 {
 	t_envar	*new;
@@ -74,6 +81,7 @@ void		pushbackenvar(char *name, char *value, t_envar *envar, int assigned)
 		{
 			free(current->value);
 			current->value = (value ? ft_strdup(value) : 0);
+			current->assigned = (value ? 1 : 0);
 			free(name);
 			return (free(value));
 		}
@@ -81,9 +89,7 @@ void		pushbackenvar(char *name, char *value, t_envar *envar, int assigned)
 	}
 	if (!(new = (t_envar *)malloc(sizeof(t_envar))))
 		return ;
-	new->name = name;
-	new->value = value;
-	new->next = NULL;
+	pushnorminette(&new, name, value);
 	new->assigned = assigned;
 	current = envar;
 	while (current->next)

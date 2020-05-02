@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:48:11 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/10 20:22:47 by hberger          ###   ########.fr       */
+/*   Updated: 2020/05/02 14:53:42 by henri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void			exportenvar(char **cmds, t_envar *envar)
 			g_exitvalue = EXIT_FAILURE;
 			return ;
 		}
-		else if (cmds[i][0])
+		else if (cmds[i][0] && ft_strcmp(cmds[i], "_"))
 		{
 			namevaluefilter(cmds[i], &name, &value);
 			if (name)
