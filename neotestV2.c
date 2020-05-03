@@ -21,9 +21,6 @@ int main() {
 }
  */
 
-
-
-
 /* Simple Command
 - Execute a simple command with an absolute path like /bin/ls or any
   other command without options
@@ -67,7 +64,6 @@ int main() {
 	7) exit 1A 2B
 	8) exit -1
 	9) exit -A
-	10) exit -1A -2B
 	11) exit 100000000000000000
 	11) exit -100000000000000000 */
 
@@ -96,15 +92,15 @@ Return value of a process
 
 	1) ;
 	2) ; ; ;
-	3) ;;;;; --> ERREUR A FIX
+	3) ;;;;;
 	4) ls ; pwd ; echo Hello
 	5) ls ; pwd ;
 	6) ; pwd ; echo Hello
 	7) grep a ; pwd puis CTRL C (vérifier que pwd s'execute quand même)
 	8) pwd;ls
-	9) pwd;;;ls --> ERREUR A FIX
-	10) ;;ls;; --> ERREUR A FIX
-	11) ;ls;pwd; --> ERREUR A FIX */
+	9) pwd;;;ls
+	10) ;;ls;;
+	11) ;ls;pwd; */
 
 /* Signals
 - Try ctrl-C in an empty prompt
@@ -211,7 +207,6 @@ Return value of a process
 	3) cd .
 	4) unset $HOME ; cd --> tricky celle là
 	5) cd ...
-	6) unset sur toutes les variables faut le gérer
 
 */
 
@@ -251,7 +246,6 @@ Return value of a process
 	1) awk
 	2) ls
 	3) ../../bin/ls
-	4) Lui montrer le code
 
 */
 
@@ -259,20 +253,63 @@ Return value of a process
 - Execute commands with simple quotes as argument
 - Try empty arguments
 - Try environment variables, whitespaces and semicolons in the simple quotes
+
+	1) '
+	1) ''
+	1) '''
+	1) ' ' ' ' ''
+
+	2) "
+	2) ""
+	2) """
+	2) " " ""
+
+	3) 'ls'
+	3) '/bin/ls'
+	3) 'l''s'
+
+	4) "ls"
+	4) "/bin/ls"
+	4) "l""s"
+
+	5) "echo" "$PATH"
+	6) ls ; "pwd" ; 'ech''o' "Hello" World
+	7) ls ; "pwd" ; 'ech''o' "$LESS" World $PAGER "$USER"
+
 */
 
 /* Redirection
 - Execute commands with redirections < and/or >
 - Repeat multiple times with different commands and arguments and sometimes change > with >>
 - Check if multiple of the same redirections fail
-*/
 
+	1) < --> Erreur car on affiche aucun message, par contre $? est bien différent de 0
+	2) >
+	3) ls <
+	4) < ls
+	5) ls > tmp
+	6) ls < tmp
+	7) echo "Makefile" > tmp
+	8) ls < tmp
+	9) cat tmp ; echo $PATH > tmp
+	10) cat tmp ; echo $PATH >> tmp
+
+*/
 
 /* Pipes
 - Execute commands with pipes like ‘cat file | grep bla | more’
 - Repeat multiple times with different commands and arguments
 - Try some failing commands like ‘ls filethatdoesntexist | grep bla | more’
 - Try to mix pipes and redirections.
+
+	1) cat file | grep bla | more
+	2) ls filethatdoesntexist | grep bla | more
+	3) ls | grep Makefile | rev
+	4) ls | grep Makefile | rev > output
+	5) ls | grep Makefile | tail
+	6) echo -al > tmp ; ls < tmp | grep Makefile | rev
+	7) export aa=-al ; echo $aa > tmp ; ls < tmp | grep Makefile | rev
+
 */
 
 /* Go Crazy
