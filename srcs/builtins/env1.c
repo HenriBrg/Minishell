@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 15:48:11 by hberger           #+#    #+#             */
-/*   Updated: 2020/05/02 14:53:42 by henri            ###   ########.fr       */
+/*   Updated: 2020/05/03 18:27:46 by henri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,19 +133,10 @@ static void		unsetenvar(char **cmds, t_envar *envar)
 
 void			builtinsenv(char **cmds, t_envar *envar)
 {
-	if (ft_strcmp(cmds[0], "env") == 0)
+	if (strcmpcasei(cmds[0], "env"))
 		printenv(envar);
-	else if (ft_strcmp(cmds[0], "export") == 0)
+	else if (strcmpcasei(cmds[0], "export"))
 		exportenvar(cmds, envar);
-	else if (ft_strcmp(cmds[0], "unset") == 0)
+	else if (strcmpcasei(cmds[0], "unset"))
 		unsetenvar(cmds, envar);
-	else if (ft_strcmp(cmds[0], "UNSET") == 0 || ft_strcmp(cmds[0], "ENV") == 0
-			|| ft_strcmp(cmds[0], "EXPORT") == 0)
-
-	{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(cmds[0], 2);
-			ft_putstr_fd(" command not found\n", 2);
-			g_exitvalue = 127;
-	}
 }
