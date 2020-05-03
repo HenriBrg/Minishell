@@ -65,7 +65,7 @@ void	builtinexit(char **cmds, int piped)
 	if (ft_strslen(cmds) >= 3)
 	{
 		ft_putstr_fd("exit: too many arguments\n", 2);
-		g_exitvalue = 2;
+		g_exitvalue = 1;
 		return ;
 	}
 	g_exitvalue = (int)ret;

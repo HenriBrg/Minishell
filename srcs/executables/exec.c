@@ -71,7 +71,7 @@ void			executablesnofork(char **cmds, t_envar *envar)
 	}
 	else if ((execpath = checkpath(cmds, &s, getvar(envar, "PATH"))) == 0)
 	{
-		g_exitvalue = EXIT_FAILURE;
+		g_exitvalue = 127;
 		ft_putstr_fd(cmds[0], 2);
 		return (ft_putendl_fd(": command not found", 2));
 	}

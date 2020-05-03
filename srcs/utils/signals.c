@@ -38,7 +38,7 @@ void	handlesigint(int signal)
 		else
 		{
 			ft_putstr_fd("\n------> ", 2);
-			g_exitvalue = EXIT_FAILURE;
+			g_exitvalue = 130;
 		}
 	}
 }
