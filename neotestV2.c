@@ -293,7 +293,10 @@ Return value of a process
 	8) ls < tmp
 	9) cat tmp ; echo $PATH > tmp
 	10) cat tmp ; echo $PATH >> tmp
-
+	11) <<<
+	12) >>>
+	13) < " " < ' '<
+	14) " " ' ' > < > ''
 */
 
 /* Pipes
