@@ -309,7 +309,8 @@ Return value of a process
 	5) ls | grep Makefile | tail
 	6) echo -al > tmp ; ls < tmp | grep Makefile | rev
 	7) export aa=-al ; echo $aa > tmp ; ls < tmp | grep Makefile | rev
-
+	8) ls | grep Makefile | rev > output ; cat output --> ERREUR le cat se fait pas dans bash ???
+	9) Pourquoi bash print rien ??? ls < tmp | grep Makefile avec -al dans tmp
 */
 
 /* Go Crazy
