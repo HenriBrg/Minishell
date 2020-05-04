@@ -60,7 +60,7 @@ void			executablesnofork(char **cmds, t_envar *envar)
 	{
 		if ((s.st_mode & S_IFREG) && (s.st_mode & S_IXUSR))
 			execpath = ft_strdup(cmds[0]);
-		else
+		else if ((g_exitvalue = 126))
 			return (ft_putendl_fd("minishell: Permission denied", 2));
 	}
 	else if ((ft_strstr(cmds[0], "/bin/") || ft_strstr(cmds[0], "/sbin/"))
