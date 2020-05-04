@@ -6,7 +6,7 @@
 /*   By: macasubo <macasubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 21:48:00 by macasubo          #+#    #+#             */
-/*   Updated: 2020/05/02 17:33:49 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/05/04 21:57:43 by macasubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static int		trim_quotes_antislash(char *s, int i, int state[3])
 {
 	if (s[i] == '\\')
 	{
+		if (i == (int)ft_strlen(s) - 1)
+			handle_error("error: multiline commands are not supported");
 		if (state[0] == 0 && state[1] == 0)
 		{
 			if (state[2] == 0)
@@ -141,7 +143,7 @@ char			*trim_quotes(char *s, t_envar *envar)
 							(s[i + 1] == '_' || ft_isalpha(s[i + 1]) ||
 							ft_isdigit(s[i + 1]) || s[i + 1] == '?'))
 							substitute_variable(&s, &i, &len, envar);
-	if (!(new = NULL) && (state[0] || state[1] || state[2]))
+	if (!(new = NULL) && (state[0] || state[1]))
 		handle_error("error: multiline commands are not supported");
 	new = trim_quotes_final(len, s);
 	return (new);
