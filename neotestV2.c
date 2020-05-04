@@ -96,7 +96,6 @@ Return value of a process
 	4) ls ; pwd ; echo Hello
 	5) ls ; pwd ;
 	6) ; pwd ; echo Hello
-	7) grep a ; pwd puis CTRL C (vérifier que pwd s'execute quand même)
 	8) pwd;ls
 	9) pwd;;;ls
 	10) ;;ls;;
@@ -321,3 +320,7 @@ Return value of a process
 - Try to execute a really really really long command with a ton of arguments
 - Have fun with that beautiful minishell and enjoy it
 */
+
+Erreur a fix si besoin : 
+ exit value sur : < " " < ' '<
+ erreur affichage sur command juste deux point $ :
