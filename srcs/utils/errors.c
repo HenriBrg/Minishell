@@ -26,19 +26,22 @@ int			checkborderssymbol(char **cmds)
 {
 	if (ft_strcmp(cmds[0], "|") == 0)
 	{
-		ft_putstr_fd("minishell: error near unexpected token `|'\n", 2);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
 		exit((g_exitvalue = 258));
 		ft_strsfree(cmds);
 	}
 	else if (ft_strcmp(cmds[0], ";") == 0)
 	{
-		ft_putstr_fd("minishell: error near unexpected token `;'\n", 2);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd("syntax error near unexpected token `;'\n", 2);
 		exit((g_exitvalue = 258));
 		ft_strsfree(cmds);
 	}
 	else if (ft_strcmp(cmds[0], "<") == 0 && cmds[1] == 0)
-	{
-		ft_putstr_fd("minishell: error near unexpected token `<'\n", 2);
+	{ 
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd("syntax error near unexpected token `<'\n", 2);
 		exit((g_exitvalue = 258));
 		ft_strsfree(cmds);
 	}
