@@ -37,8 +37,6 @@ int main() {
 
 	1) /bin/ls -a
 	2) /bin/ls -a ../
-	3) /usr/sbin/lsof Hello
-	4) /usr/bin/nm minishell */
 
 /* echo
 - Execute the echo command with or without arguments or options
