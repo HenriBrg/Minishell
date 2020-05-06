@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/22 15:15:08 by hberger           #+#    #+#             */
-/*   Updated: 2020/03/10 21:00:27 by hberger          ###   ########.fr       */
+/*   Updated: 2020/05/06 22:52:19 by henri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,9 @@ void	handlesigquit(int signal)
 	{
 		if (g_shellisrunning == 1)
 		{
-			ft_putstr(CLR_LINE);
-			ft_putstr(MVCURSOR_BEGL);
-			ft_putstr(CLR_LINE_LEFT);
-			ft_putstr_fd("^\\Quit: 3\n", 2);
+			ft_putstr_fd("Quit: 3\n", 2);
 			g_shellisrunning = 0;
 			g_exitvalue = 131;
-		}
-		else
-		{
-			ft_putstr(MVCURSOR_LEFT);
-			ft_putstr(MVCURSOR_LEFT);
-			ft_putstr(CLR_LINE_RIGHT);
 		}
 	}
 }

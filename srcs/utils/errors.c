@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:56:32 by hberger           #+#    #+#             */
-/*   Updated: 2020/05/03 18:48:39 by henri            ###   ########.fr       */
+/*   Updated: 2020/05/06 22:57:45 by henri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,26 @@ int			checkborderssymbol(char **cmds)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
 		exit((g_exitvalue = 258));
-		ft_strsfree(cmds);
 	}
 	else if (ft_strcmp(cmds[0], ";") == 0)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd("syntax error near unexpected token `;'\n", 2);
 		exit((g_exitvalue = 258));
-		ft_strsfree(cmds);
 	}
 	else if (ft_strcmp(cmds[0], "<") == 0 && cmds[1] == 0)
-	{ 
+	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd("syntax error near unexpected token `<'\n", 2);
 		exit((g_exitvalue = 258));
-		ft_strsfree(cmds);
 	}
 	return (0);
 }
 
 int			checkmaj(char **cmds)
 {
+	int		i;
+
 	if (ft_strcmp(cmds[0], "ENV") == 0 || ft_strcmp(cmds[0], "PWD") == 0 ||
 	ft_strcmp(cmds[0], "EXPORT") == 0 || ft_strcmp(cmds[0], "UNSET") == 0 ||
 	ft_strcmp(cmds[0], "ECHO") == 0 || ft_strcmp(cmds[0], "EXIT") == 0 ||
@@ -61,6 +60,14 @@ int			checkmaj(char **cmds)
 		g_exitvalue = 127;
 		return (1);
 	}
+	i = -1;
+	while (cmds && ++i < ft_strslen(cmds))
+		if (ft_strstr(cmds[0], "<;") || ft_strstr(cmds[0], ">;"))
+		{
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd("syntax error near unexpected token `;'\n", 2);
+			exit((g_exitvalue = 258));
+		}
 	return (0);
 }
 

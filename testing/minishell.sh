@@ -88,49 +88,35 @@ declare -a testOuput=(
 	"ls filethatdoesntexist | grep bla | more"
 	"ls .. | grep Makefile | rev"
 	"/bin/ls \"|\" /usr/bin/grep microshell"
-)
-function outputTest() {
+	# "pwd | cut -c7- | rev | tr e 42 | rev | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42 | tr e 42  | tr e 42 | tr e 42 | tr e 42  | tr e 42 | tr e 42 | tr e 42  | tr e 42 | tr e 42 | tr e 42  | tr e 42 | tr e 42 | tr e 42  | tr e 42 | tr e 42 | tr e 42  | tr e 42 | tr e 42 | tr e 42  | tr e 42 | tr e 42 | tr e 42  | tr e 42 | tr e 42 | tr e 42  | tr e 42 | tr e 42 | tr e 42  | tr e 42 | tr e 42 | tr e 42  | tr e 42 | tr e 42 | tr e 42  | tr e 42 | tr e 42 | tr e 42  | tr e 42 | tr e 42 | tr e 42  | tr e 42 | tr e 42 | tr e 42  | tr e 42 | tr e 42 | tr e 42  | tr e 42 | tr e 42 | tr e 42 "
+	"pwd | cut -c7- | rev | tail | echo \$PWD"
+	"unset LESS ; echo \$LESS"
+	# Impossible de tester en récupérant PWD car on exit aussitôt
+	# Donc on teste via un ls pour check si on est au bon endroit
+	# "cd - ; ls" # Impossible à tester ... étrange
 
-	.././minishell "$1" > minioutput 2>&1
-	bash -c	"$1" > bashoutput 2>&1
-
-	cmp -s minioutput bashoutput
-	if [ $? != 0 ]; then
-		echo "OUTPUT TEST : $1" " : ${RED}KO${NC}"
-		ERRORS=`expr $ERRORS + 1`
-		# diff minioutput bashoutput > diffoutput
-	else
-		echo "OUTPUT TEST : $1" " : ${GREEN}OK${NC}"
-	fi
-}
-
-# CD ><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>><><><><><><><><
-
-# Impossible de tester en récupérant PWD car on exit aussitôt
-# Donc on teste via un ls pour check si on est au bon endroit
-# "cd - ; ls" # Impossible à tester ... étrange
-
-declare -a testCD=(
 	"cd ; ls"
 	"cd . ; ls"
 	"cd .. ; ls"
+	# "cd - ; ls" # Etrange que ça ne passe pas les tests
 	"cd ~ ; ls"
 	"cd ~/ ; ls"
 	"cd .. ; pwd"
 	"cd .. ; pwd ; echo \$?"
 	"cd ; /bin/ls"
 	"cd ; ../../bin/ls"
-	# "cd .. ; pwd ; echo \$PWD" # KO
+
 )
-function cdTest() {
+function outputTest() {
 	.././minishell "$1" > minioutput 2>&1
 	bash -c	"$1" > bashoutput 2>&1
 	cmp -s minioutput bashoutput
 	if [ $? != 0 ]; then
-		echo "CD TEST : $1" " : ${RED}KO${NC}"
+		echo "OUTPUT TEST : $1" " : ${RED}KO${NC}"
 		ERRORS=`expr $ERRORS + 1`
+		diff minioutput bashoutput > diffoutput
 	else
-		echo "CD TEST : $1" " : ${GREEN}OK${NC}"
+		echo "OUTPUT TEST : $1" " : ${GREEN}OK${NC}"
 	fi
 }
 
@@ -174,7 +160,7 @@ function exitTest() {
 
 # PARSING EXIT VALUE ><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 
-declare -a testExitValParseAndInvalidCommands=(
+declare -a testExitVal=(
 	";"
 	";;;"
 	"<"
@@ -216,12 +202,17 @@ declare -a testExitValParseAndInvalidCommands=(
 	"|."
 	"< \" \" < ' '<"
 	"\" \" ' ' > < > ''"
+
+	"cat fddsqffgfhds"
+	"unset HOME ; cd"
+	"cd ; ../../bin/cdfg"
+	"cd ; ../../bin/ls"
+
 	"ls||pwd" # KO MAIS LE TEST NE DETECTE PAS ! Pourquoi ? Remet en cause les tests ...
 	"ls|;|pwd" # OK mais par exemple ici, il y a une différence d'exit value si on rajoute --posix
 	"ls filethatdoesntexist | grep bla | more"
 )
-
-function exitParseAndInvalidCommandTest() {
+function exitValTest() {
 
 	.././minishell "$1" > minioutput 2>&1
 	exitMini=$?
@@ -243,8 +234,12 @@ function exitParseAndInvalidCommandTest() {
 	fi
 }
 
-
 # TRICKY TESTS ><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>><><><
+
+declare -a trickyTest=(
+	"chmod 0 .././minishell ; .././minishell"
+	"mkdir tmp ; cd tmp ; rm -rf ../tmp ; cd .."
+)
 
 # HERE ARE THE TESTING LOOPS ><><><><><><><><><><><><><><><><><><><><><><><><><>
 
@@ -253,19 +248,28 @@ for t in "${testOuput[@]}"; do
 done
 
 echo
-for t in "${testCD[@]}"; do
-	cdTest "$t"
-done
-
-echo
 for t in "${testBuitinExit[@]}"; do
 	exitTest "$t"
 done
 
 echo
-for t in "${testExitValParseAndInvalidCommands[@]}"; do
-	exitParseAndInvalidCommandTest "$t"
+for t in "${testExitVal[@]}"; do
+	exitValTest "$t"
 done
 
 echo
 echo "Nombre d'erreurs : $ERRORS"
+
+rm minioutput bashoutput diffoutput \| \"\|\"
+
+# Current failing tests ><><><><><><><><><><><><><><><><><><><><><><><><><><><><
+
+# outputTest "export A B C ; echo \$A \$B \$C"
+# outputTest "export A= B= C= ; echo \$A \$B \$C"
+# outputTest "export A=XXX B=YYY C=ZZZ ; echo \$A \$B \$C"
+# outputTest "export LS=\"ls -la\" ; \$LS"
+
+# Tests manuels qui fail
+
+# L'exit value du signal SIGQUIT à 130 au lieu de 131 dans le cas suivant :
+# ./minishell / grep abc / pkill -SIGQUIT grep abc
