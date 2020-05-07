@@ -32,9 +32,9 @@ static int			monoprocess(t_command *tab, t_envar *envar)
 
 static void			shell(char *input, t_envar *envar)
 {
-	t_commands_list	*list;
-	t_commands_list	*tmp;
-	int				countpipe;
+	t_commands_list		*list;
+	t_commands_list		*tmp;
+	int			countpipe;
 
 	list = NULL;
 	if (onlyfdout(input) == 1)
@@ -57,35 +57,20 @@ static void			shell(char *input, t_envar *envar)
 	commands_lstclear(list);
 }
 
-int					main(int ac, char **av, char **env)
+int				main(int ac, char **av, char **env)
 {
-	int				ret;
+	int			ret;
 	char			*input;
 	t_envar			*envar;
 
 	(void)av;
 	envar = NULL;
 	input = NULL;
-
-	/* Ancien if - Le remettre avant de push */
-	// if (ac != 1 || (envar = lstenv(env)) == 0)
-	// 	return (-1);
-
-
+	if (ac != 1 || (envar = lstenv(env)) == 0)
+		return (-1);
 	siglisten();
 	g_shellisrunning = 0;
 	g_environ_strstab = env;
-
-	/* Special for testing */
-	if ((envar = lstenv(env)) == 0)
-		return (-1);
-	if (ac == 2) {
-		input = av[1];
-		g_shellisrunning = 1;
-		shell(input, envar);
-		exit(g_exitvalue);
-	}
-
 	while (42)
 	{
 		prompt(envar);

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Détails à connaitre pour coder en SHELL
 
 # -  Les guillemets importe : "$" est différent de $ car "$" prendra en compte
@@ -21,9 +23,7 @@ make -C .. VERBOSE=1
 # OUTPUT ><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>><><><><><><
 
 declare -a testOuput=(
-
 	# Commandes valides et basiques
-
 	"/bin/ls"
 	"/bin/echo -n \"Hello\""
 	"/bin/echo -n \" \$PATH \""
