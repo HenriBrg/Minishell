@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:56:32 by hberger           #+#    #+#             */
-/*   Updated: 2020/05/06 22:57:45 by henri            ###   ########.fr       */
+/*   Updated: 2020/05/09 12:45:44 by henri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int			checkmaj(char **cmds)
 	}
 	i = -1;
 	while (cmds && ++i < ft_strslen(cmds))
-		if (ft_strstr(cmds[0], "<;") || ft_strstr(cmds[0], ">;"))
+		if (ft_strstr(cmds[i], "<;") || ft_strstr(cmds[i], ">;"))
 		{
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd("syntax error near unexpected token `;'\n", 2);
@@ -92,8 +92,8 @@ int			onlyfdout(char *input)
 		ft_strsfree(cmds);
 		return (1);
 	}
-	else if ((ft_strcmp(cmds[0], ">") == 0 ||
-				ft_strcmp(cmds[0], ">>") == 0) && cmds[1] == 0 &&
+	else if ((ft_strstr(cmds[0], ">") ||
+				ft_strstr(cmds[0], "<")) && cmds[1] == 0 &&
 			write(2, "minishell: error near unexpected token `newline'\n", 50))
 		exit((g_exitvalue = 258));
 	ft_strsfree(cmds);

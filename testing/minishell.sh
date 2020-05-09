@@ -202,6 +202,14 @@ declare -a testExitVal=(
 	"|."
 	"< \" \" < ' '<"
 	"\" \" ' ' > < > ''"
+	"<"
+	">"
+	"> IMUSTEXIST"
+	"<<<<<<<<"
+	"<<<"
+	">>>"
+	">>> < ><<"
+
 
 	"cat fddsqffgfhds"
 	"unset HOME ; cd"

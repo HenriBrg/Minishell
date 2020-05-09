@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/05/09 12:32:03 by mahavishn        ###   ########.fr       */
+/*   Updated: 2020/05/09 12:41:44 by henri            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,24 @@ int					main(int ac, char **av, char **env)
 	(void)av;
 	envar = NULL;
 	input = NULL;
-	if (ac != 1 || (envar = lstenv(env)) == 0)
-		return (-1);
+	// if (ac != 1 || (envar = lstenv(env)) == 0)
+	// 	return (-1);
+		
 	siglisten();
 	g_shellisrunning = 0;
 	g_environ_strstab = env;
+
+	if ((envar = lstenv(env)) == 0)
+	 		return (-1);
+	 if (ac == 2)
+	 {
+	 		input = av[1];
+	 		g_shellisrunning = 1;
+	 		shell(input, envar);
+	 		exit(g_exitvalue);
+	 }
+
+
 	while (42)
 	{
 		prompt(envar);
