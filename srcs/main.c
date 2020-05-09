@@ -66,24 +66,11 @@ int					main(int ac, char **av, char **env)
 	(void)av;
 	envar = NULL;
 	input = NULL;
-	// if (ac != 1 || (envar = lstenv(env)) == 0)
-	// 	return (-1);
-		
+	if (ac != 1 || (envar = lstenv(env)) == 0)
+		return (-1);
 	siglisten();
 	g_shellisrunning = 0;
 	g_environ_strstab = env;
-
-	if ((envar = lstenv(env)) == 0)
-	 		return (-1);
-	 if (ac == 2)
-	 {
-	 		input = av[1];
-	 		g_shellisrunning = 1;
-	 		shell(input, envar);
-	 		exit(g_exitvalue);
-	 }
-
-
 	while (42)
 	{
 		prompt(envar);

@@ -228,7 +228,7 @@ function exitValTest() {
 	exitBash=$?
 
 	# Needed because --posix change returned value and I ignore the behavior on Ubuntu so I accept the two behaviors (posix and non-posix)
-	bash -c --posix	"$1" > bashoutput 2>&1
+	bash -c --posix 	"$1" > bashoutput 2>&1
 	exitBashPosix=$?
 
 	# Attention : le then/else est inversé car "-eq" retourne true à priori
