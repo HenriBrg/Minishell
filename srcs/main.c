@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 16:55:23 by hberger           #+#    #+#             */
-/*   Updated: 2020/05/06 21:54:43 by henri            ###   ########.fr       */
+/*   Updated: 2020/05/09 12:32:03 by mahavishn        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ static int			monoprocess(t_command *tab, t_envar *envar)
 
 static void			shell(char *input, t_envar *envar)
 {
-	t_commands_list		*list;
-	t_commands_list		*tmp;
-	int			countpipe;
+	t_commands_list	*list;
+	t_commands_list	*tmp;
+	int				countpipe;
 
 	list = NULL;
 	if (onlyfdout(input) == 1)
@@ -57,9 +57,9 @@ static void			shell(char *input, t_envar *envar)
 	commands_lstclear(list);
 }
 
-int				main(int ac, char **av, char **env)
+int					main(int ac, char **av, char **env)
 {
-	int			ret;
+	int				ret;
 	char			*input;
 	t_envar			*envar;
 
