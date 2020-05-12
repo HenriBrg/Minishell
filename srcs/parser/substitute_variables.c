@@ -6,12 +6,11 @@
 /*   By: macasubo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 01:54:40 by macasubo          #+#    #+#             */
-/*   Updated: 2020/05/01 15:36:17 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/05/12 18:54:05 by mahavishn        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-#include <stdio.h>
 
 static char		*substitute_variable_bis(char **s, int *i, t_envsubvar *env)
 {
@@ -20,10 +19,8 @@ static char		*substitute_variable_bis(char **s, int *i, t_envsubvar *env)
 	var_name = NULL;
 	(*s)[*i] = 0;
 	(*i)++;
-	while ((*s)[*i + env->len_var_name] && (*s)[*i + env->len_var_name] != '\''
-			&& (*s)[*i + env->len_var_name] != '\"' && (*s)[*i +
-			env->len_var_name] != '\\' && (*s)[*i + env->len_var_name] != '$'
-			&& (*s)[*i + env->len_var_name] != ' ')
+	while ((*s)[*i + env->len_var_name]
+		&& !substitution_end_characters((*s)[*i + env->len_var_name]))
 		(env->len_var_name)++;
 	if ((*s)[*i] != '?')
 		var_name = ft_strsub(*s, *i, env->len_var_name);

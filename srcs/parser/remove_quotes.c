@@ -6,7 +6,7 @@
 /*   By: macasubo <macasubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 21:48:00 by macasubo          #+#    #+#             */
-/*   Updated: 2020/05/04 21:57:43 by macasubo         ###   ########.fr       */
+/*   Updated: 2020/05/11 19:49:33 by mahavishn        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static int		trim_quotes_antislash(char *s, int i, int state[3])
 {
+	if (state[2] > 0)
+		state[2] = (state[2] == 1) ? 2 : 0;
 	if (s[i] == '\\')
 	{
 		if (i == (int)ft_strlen(s) - 1)

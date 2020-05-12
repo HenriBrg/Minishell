@@ -6,7 +6,7 @@
 /*   By: hberger <hberger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 18:07:34 by hberger           #+#    #+#             */
-/*   Updated: 2020/05/02 17:44:06 by henri            ###   ########.fr       */
+/*   Updated: 2020/05/12 18:43:51 by mahavishn        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void						addback(t_strlist **list, char *str, int n,
 char						*trim_quotes(char *s, t_envar *envar);
 void						substitute_variable(char **s, int *i, int *len,
 	t_envar *envar);
+int							substitution_end_characters(char c);
 void						purify(t_commands_list *list, t_envar *envar);
 
 /*
