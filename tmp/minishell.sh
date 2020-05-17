@@ -40,7 +40,6 @@
 	"echo /s/a/l/u/t////"
 	"echo \$PATH:abc"
 	"echo \$PATH.abc"
-	"echo \$PATH?abc"
 	"echo \$PATH\ abc"
 	"echo \$PATH\\abc"
 	"echo \$PATH+abc"
@@ -269,7 +268,10 @@
  # outputTest "export A=XXX B=YYY C=ZZZ ; echo \$A \$B \$C"
  # outputTest "export LS=\"ls -la\" ; \$LS"
  # ">>> < ><<"
-
+ # "echo \$PATH?abc"
+ # export #
+ # export $aze
+ # echo $"A"
 
  # Tests manuels qui fail
 
