@@ -48,7 +48,7 @@
  touch bashoutput
  touch minioutput
  touch diffoutput
- make -C VERBOSE=1
+ make VERBOSE=1
 
  # OUTPUT ><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>><><><><><><
 
@@ -284,4 +284,4 @@
  echo
  echo "Nombre d'erreurs : $ERRORS"
 
- rm minioutput bashoutput diffoutput rm
+ rm minioutput bashoutput diffoutput
